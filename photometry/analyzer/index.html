@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><title>Seestar Photometry Analyzer · Seabrooke.Astronomy</title>
 <style>
 /* Base layout and controls; coordinated theme overrides follow. */
-:root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#e4ecfa;background:#080f20;font-synthesis:none}
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#e4ecfa;background:#080f20;font-synthesis:none}
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at 80% 0,#142e50,transparent 55%)}
 main{max-width:1440px;margin:auto;padding:34px 28px}
@@ -118,7 +118,7 @@ th,td{border-color:var(--border)}
 <p style="margin:0 0 18px;font-size:13px"><a href="../" style="color:var(--accent)">← Project overview</a></p><header><div class="brand">✧ &nbsp; SEABROOKE.ASTRONOMY</div><div class="badge">BROWSER-LOCAL · NO UPLOADS</div></header>
 <h1>Seestar Photometry Analyzer</h1><p class="intro">Explore stellar brightness measurements directly in your browser.</p>
 <!-- Import controls: parsing is staged before any existing session is replaced. -->
-<section class="panel"><div id="drop" class="drop"><strong>Bring your observations into focus</strong><p>Drop Seestar photometry CSV files here, or select files from your device.</p><label style="margin:0 12px 12px 0">Import mode <select id="importMode"><option value="replace" selected>Replace session</option><option value="append">Add to session</option></select></label><label class="filebutton" for="files">Select CSV files</label><input id="files" class="hidden" type="file" multiple accept=".csv,text/csv"><button id="clear" class="secondary">Clear session</button><p style="margin-top:18px"><button id="sample" class="secondary">Download simulated eclipse CSV</button></p><p>Try a fictional star: six hours of simulated observations, with a 0.65 mag eclipse-shaped dip and recovery.<br>Download the CSV, then select it above. Educational simulation · not real observations.</p></div><p class="privacy">Your observation files remain on your device. All calculations are performed locally in your browser.</p><div id="status" class="status" role="status" aria-live="polite">Ready for Seestar S50 / S50 Pro observations.</div></section>
+<section class="panel"><div id="drop" class="drop"><strong>Bring your observations into focus</strong><p>Drop Seestar photometry CSV files here, or select files from your device.</p><label style="margin:0 12px 12px 0">Import mode <select id="importMode"><option value="replace" selected>Replace session</option><option value="append">Add to session</option></select></label><button id="chooseFiles" type="button">Select CSV files</button><input id="files" class="hidden" type="file" multiple accept=".csv,text/csv"><button id="clear" class="secondary">Clear session</button><p style="margin-top:18px"><button id="sample" class="secondary">Download simulated eclipse CSV</button></p><p>Try a fictional star: six hours of simulated observations, with a 0.65 mag eclipse-shaped dip and recovery.<br>Download the CSV, then select it above. Educational simulation · not real observations.</p></div><p class="privacy">Your observation files remain on your device. All calculations are performed locally in your browser.</p><div id="status" class="status" role="status" aria-live="polite">Ready for Seestar S50 / S50 Pro observations.</div></section>
 <!-- Analysis controls: dataset selection, binning, chart layers, and quality flags. -->
 <section class="panel"><div class="toolbar"><label>Target <select id="target" aria-label="Target"><option>No observations loaded</option></select></label><label>Time bins <select id="bin"><option>1</option><option>2</option><option selected>5</option><option>10</option><option>15</option></select> min</label><label><input id="points" type="checkbox" checked>Measurements</label><label><input id="median" type="checkbox" checked>Median line</label><label><input id="errors" type="checkbox">Error bars</label><label><input id="events" type="checkbox" checked>Movement markers</label><label><input id="variability" type="checkbox" checked>Highlight possible variability</label><label>Theme <select id="theme" aria-label="Color theme"><option value="starlight">Starlight</option><option value="midnight">Midnight Nebula</option><option value="mars">Mars Watch · red light</option><option value="horizon">Event Horizon · high contrast</option><option value="aurora">Aurora Borealis</option></select></label></div><div class="toolbar"><label>Minimum SNR <input id="snr" type="number" min="0" step="1" placeholder="None"></label><label>Maximum σ mag <input id="err" type="number" min="0" step="0.01" placeholder="None"></label><label><input id="hide" type="checkbox">Hide flagged measurements</label><button id="reset" class="secondary">Reset zoom</button><span id="remaining" class="status">0 measurements</span></div></section>
 <!-- Summary describes all valid timed observations, not just filtered ones. -->
@@ -498,10 +498,10 @@ function chart(canvas, rows, options = {
   }
   let X = v => L+(v-xr[0])/(xr[1]-xr[0])*pw, Y = v => inverted?T+(v-yr[0])/(yr[1]-yr[0])*ph:T+ph-(v-yr[0])/(yr[1]-yr[0])*ph;
   ctx.fillStyle = ink;
-  ctx.font = '600 '+(w<500?14:18)+'px Segoe UI';
+  ctx.font = '600 '+(w<500?14:18)+'px system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif';
   let title = kind==='main'?$('target').value+' · stellar light curve':kind==='x'?'Sensor X versus time':kind==='y'?'Sensor Y versus time':'Magnitude versus sensor X';
   ctx.fillText(title, L, 28);
-  ctx.font = '11px Segoe UI';
+  ctx.font = '11px system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif';
   ctx.fillText('Seabrooke.Astronomy'+(kind==='main'?'  ·  '+$('bin').value+'-minute clock bins  ·  '+kept.length+' measurements':''), L, 47);
   if(kind==='main') {
     let lx = L;
@@ -514,7 +514,7 @@ function chart(canvas, rows, options = {
     }
   }
   ctx.lineWidth = 1;
-  ctx.font = '11px Segoe UI';
+  ctx.font = '11px system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif';
   let anchor = all[0], clockAt = t => anchor?anchor.display+t-anchor.t:t;
   for(let i = 0;i<=5;i++) {
     let yy = T+ph*i/5, v = inverted?yr[0]+(yr[1]-yr[0])*i/5:yr[1]-(yr[1]-yr[0])*i/5;
@@ -609,10 +609,12 @@ function chart(canvas, rows, options = {
     ctx.strokeStyle = theme.line;
     ctx.fillStyle = theme.line;
     ctx.lineWidth = 2.6;
+    // Cadence is invariant within a redraw; avoid sorting once per bin.
+    const gapLimit = Math.max(60000, 3*median(rows.slice(1).map((r, i) => r.t-rows[i].t).filter(v => v>0)));
     let prev = null;
     for(let b of binned) {
       let x = X(b.t), y = Y(b.median);
-      if(prev&&b.start-prev.start==+$('bin').value*60000&&b.first-prev.last<=Math.max(60000, 3*median(rows.slice(1).map((r, i) => r.t-rows[i].t).filter(v => v>0)))) {
+      if(prev&&b.start-prev.start==+$('bin').value*60000&&b.first-prev.last<=gapLimit) {
         ctx.beginPath();
         ctx.moveTo(X(prev.t), Y(prev.median));
         ctx.lineTo(x, y);
@@ -739,7 +741,9 @@ $('chart').addEventListener('pointermove', e => {
 for(let event of['pointerup', 'pointercancel', 'lostpointercapture'])$('chart').addEventListener(event, e => {
   pointers.delete(e.pointerId);
   drag = null;
-  pinch = null
+  pinch = null;
+  // Resume panning with the remaining finger after a pinch.
+  if(pointers.size===1&&plot)drag = {...pointers.values().next().value, view:getView()}
 } );
 $('chart').addEventListener('pointerleave', () => $('tip').style.display = 'none');
 $('chart').addEventListener('dblclick', () => {
@@ -759,8 +763,11 @@ function download(blob, name) {
   a.download = name;
   document.body.append(a);
   a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 30000)
+  // Keep both link and URL alive for deferred browser download handling.
+  setTimeout(() => {
+    a.remove();
+    URL.revokeObjectURL(url)
+  }, 30000)
 }
 /**
  * Sanitize the selected target into a download filename stem; never use raw target text as a path.
@@ -823,12 +830,14 @@ $('csv').onclick = () => download(new Blob([processedCSV()], {
 // Report construction escapes user-derived values and embeds the offscreen PNG.
 $('report').onclick = () => {
   let settings = 'Variability shading: '+$('variability').checked+'; Theme: '+currentTheme().name+'; Bin size: '+$('bin').value+' min; minimum SNR: '+($('snr').value||'none')+'; maximum uncertainty: '+($('err').value||'none')+' mag; hide quality-flagged: '+$('hide').checked+'; movement threshold: '+$('threshold').value+' px; points: '+$('points').checked+'; medians: '+$('median').checked+'; errors: '+$('errors').checked+'; movement markers: '+$('events').checked+'. '+kept.length+' / '+all.length+' retained.';
-  let html = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>'+esc($('target').value)+' · Photometry Report</title><style>body{font:14px Segoe UI,Arial;color:#18304b;max-width:1100px;margin:35px auto;padding:20px}h1{font-size:28px}img{width:100%}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{border:1px solid #cbd6e2;padding:10px}.stat small,.stat span{display:block;margin:5px 0}.stat small{color:#587087}table{width:100%;border-collapse:collapse;font-size:11px}th,td{padding:7px;border-bottom:1px solid #ccd6e0;text-align:right}th:first-child,td:first-child{text-align:left}button{padding:10px}@media print{button{display:none}body{margin:0}tr,.stat{break-inside:avoid}thead{display:table-header-group}}</style><body><button onclick="window.print()">Print / Save as PDF</button><p>SEABROOKE.ASTRONOMY</p><h1>'+esc($('target').value)+' · Observation report</h1><div class="stats">'+$('stats').innerHTML+'</div><h2>Analysis settings</h2><p>'+esc(settings)+'</p><p>JD establishes chronology when available. Recorded local-clock timestamps are preserved; bins align to clock boundaries. Duration measures first to last exposure start. The chart preserves the exported viewport. Sample SD is undefined for a single measurement.</p><img alt="Stellar light curve" src="'+image().toDataURL('image/png')+'"><p>'+esc($('warning').textContent)+'</p><h2>Possible variability</h2><p>'+esc(variabilityText())+'</p><h2>Tracking diagnostics</h2><p>'+esc($('movementDetail').textContent)+'</p><p>Possible movement events do not prove a telescope slew or invalidate measurements. Observed brightness range is not a confirmed physical variability amplitude. No eclipse classification is inferred.</p><h2>Time-binned numerical results</h2><table>'+$('bins').parentElement.innerHTML+'</table><h2>Import log</h2><pre style="white-space:pre-wrap">'+esc(importLog.join('\n'))+'</pre><p>All calculations performed locally in the browser. Original files are not modified.</p></body></html>';
+  let html = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>'+esc($('target').value)+' · Photometry Report</title><style>body{font:14px system-ui,-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:#18304b;max-width:1100px;margin:35px auto;padding:20px}h1{font-size:28px}img{width:100%}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{border:1px solid #cbd6e2;padding:10px}.stat small,.stat span{display:block;margin:5px 0}.stat small{color:#587087}table{width:100%;border-collapse:collapse;font-size:11px}th,td{padding:7px;border-bottom:1px solid #ccd6e0;text-align:right}th:first-child,td:first-child{text-align:left}button{padding:10px}@media print{button{display:none}body{margin:0}tr,.stat{break-inside:avoid}thead{display:table-header-group}}</style><body><button onclick="window.print()">Print / Save as PDF</button><p>SEABROOKE.ASTRONOMY</p><h1>'+esc($('target').value)+' · Observation report</h1><div class="stats">'+$('stats').innerHTML+'</div><h2>Analysis settings</h2><p>'+esc(settings)+'</p><p>JD establishes chronology when available. Recorded local-clock timestamps are preserved; bins align to clock boundaries. Duration measures first to last exposure start. The chart preserves the exported viewport. Sample SD is undefined for a single measurement.</p><img alt="Stellar light curve" src="'+image().toDataURL('image/png')+'"><p>'+esc($('warning').textContent)+'</p><h2>Possible variability</h2><p>'+esc(variabilityText())+'</p><h2>Tracking diagnostics</h2><p>'+esc($('movementDetail').textContent)+'</p><p>Possible movement events do not prove a telescope slew or invalidate measurements. Observed brightness range is not a confirmed physical variability amplitude. No eclipse classification is inferred.</p><h2>Time-binned numerical results</h2><table>'+$('bins').parentElement.innerHTML+'</table><h2>Import log</h2><pre style="white-space:pre-wrap">'+esc(importLog.join('\n'))+'</pre><p>All calculations performed locally in the browser. Original files are not modified.</p></body></html>';
   download(new Blob([html], {
     type:'text/html;charset=utf-8'
   } ), slug()+'_report.html')
 } ;
 // 7. UI bindings: imports and analysis controls recompute; themes/details/resize redraw.
+// Native keyboard activation; open the picker directly within the user gesture.
+$('chooseFiles').onclick = () => $('files').click();
 $('files').onchange = e => importFiles(e.target.files);
 for(let type of['dragover', 'dragenter'])$('drop').addEventListener(type, e => {
   e.preventDefault();
