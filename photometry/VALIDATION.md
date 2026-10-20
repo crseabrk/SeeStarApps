@@ -1,5 +1,17 @@
 # Validation results
 
+## Native Safari follow-up — 2026-10-20
+
+Tested the recovered compatibility changes using Safari 27.0.1 on macOS 27.0.1 through the local Safari WebDriver after the owner enabled remote automation.
+
+- Opened the modified standalone HTML using a file URL and imported the bundled CSV through the browser file input using WebDriver: 1,081 observations, zero rejected rows, 73 five-minute bins, two exploratory variability intervals, and correct midnight crossing.
+- The published HTTPS Windows-authored baseline and modified local file produced identical arrays of bin timestamps, counts, and medians for all 73 bins.
+- Exercised all five themes, diagnostic chart rendering, error bars, quality filtering/recovery, and invalid replacement preserving the prior observations. Visually inspected desktop Starlight/Aurora chart screenshots, the narrow 430-pixel layout, and the offline report.
+- Dispatched wheel events and activated the reset handler in Safari; viewport values remained finite. WebDriver native element clicks did not reliably activate the reset control, while DOM activation worked. Native physical mouse/trackpad and touch interaction remain unverified; do not classify the driver behavior as a confirmed application bug.
+- Activated export handlers in Safari and verified actual downloaded files: a 3200 × 1700 PNG, CSV containing 73 result rows, and a standalone HTML report whose embedded PNG loaded when opened offline.
+- File input assignment was automated; the Finder picker UI, drag/drop from Finder, iCloud-only files, download permission dialogs, print preview/PDF pagination, iOS touch gestures, older Safari releases, and other Mac browsers were not tested. Private RT And/SS And inputs were unavailable and were not rerun.
+- The three public Node suites also pass on this Mac; timezone variants passed in the preceding local review. Scientific formulas and export schemas were not changed. Changes and validation were produced with OpenAI Codex assistance.
+
 ## Documentation audit — 2026-10-20
 
 Runtime comments/formatting preserved all 9,688 executable JavaScript tokens. Public smoke/analysis regressions passed, and the new optional real-data test was rerun successfully against the owner's original local RT And and SS And files. Those files remain outside this repository. Public checks are documented in [../tests/README.md](../tests/README.md); the implementation is mapped in [ARCHITECTURE.md](ARCHITECTURE.md).
