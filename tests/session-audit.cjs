@@ -1,0 +1,23 @@
+const assert=require('node:assert/strict');
+const {createHarness}=require('./harness.cjs');
+const {api,element}=createHarness();
+const header='Name,Mag(obs),EXP start(JD),RA,DEC,X Axis,Y Axis,SNR';
+const row='Target,8.5,2461333.4,10,20,100,200,50';
+const log=api.decodeCSV(header+'\n'+row,'log.csv').records;
+const frame=api.decodeCSV(header+'\n'+row.replace('Target','')+'\n,9,2461333.4,11,21,101,201,30','frame.csv',true);
+assert.equal(frame.records.length,2);assert.equal(frame.unnamed,2);
+assert.equal(api.decodeCSV(header+'\n'+row.replace('Target',''),'frame.csv').invalid,0);
+let a=api.newAudit(log,'Target');api.auditFrame(a,frame,'frame.csv');
+let r=api.finishAudit(a,{});assert.equal(r.matched,1);assert.equal(r.unnamedMatches,1);assert.equal(r.conflicts,0);assert.equal(r.ambiguous,0);
+api.auditFrame(a,frame,'copy.csv');assert.equal(api.finishAudit(a,{}).ambiguous,1);
+a=api.newAudit(log,'Target');api.auditFrame(a,api.decodeCSV(header+'\n'+row.replace('8.5','8.6'),'changed.csv',true),'changed.csv');assert.equal(api.finishAudit(a,{}).conflicts,1);
+a=api.newAudit([...log,...log],'Target');api.auditFrame(a,frame,'frame.csv');assert.equal(api.finishAudit(a,{}).ambiguous,2);
+a=api.newAudit([{...log[0],ra:NaN}],'Target');api.auditFrame(a,frame,'frame.csv');assert.equal(api.finishAudit(a,{}).unmatched,1);
+(async()=>{
+ await api.scanSession([{name:'frame.csv',text:async()=>header+'\n'+row},{name:'image.fits',text:()=>{throw Error('must never read pixels');}}]);
+ assert.match(element('scanResult').textContent,/1 FITS/);
+ const prior=element('scanResult').textContent;
+ await api.scanSession([{name:'bad.csv',text:async()=> 'broken'}]);assert.equal(element('scanResult').textContent,prior);
+ await api.scanSession([{name:'cancel.csv',text:async()=>{element('cancelScan').onclick();return header+'\n'+row;}}]);assert.equal(element('scanResult').textContent,prior);assert.match(element('scanProgress').textContent,/cancelled/);
+ console.log('PASS: unnamed rows, exact identity, conflicts, duplicate ambiguity, missing coordinates, inventory, failed/cancelled scan preservation, no image reads');
+})().catch(e=>{console.error(e);process.exitCode=1;});

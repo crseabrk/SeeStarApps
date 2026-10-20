@@ -1,56 +1,25 @@
-# Validation results
+# Validation and limits
 
-## Native Safari follow-up — 2026-10-20
+## Public regression checks
 
-Tested the recovered compatibility changes using Safari 27.0.1 on macOS 27.0.1 through the local Safari WebDriver after the owner enabled remote automation.
+Run `node tests/run-all.cjs` from the repository root. Nine suites pass: smoke, analysis, browser-compat, session-audit, folder-access, star-tracks, gallery, catalogue and folder-memory. They execute the embedded runtime in a simulated DOM/canvas; they do not establish native browser permissions, storage persistence, layout, gestures or downloads.
 
-- Opened the modified standalone HTML using a file URL and imported the bundled CSV through the browser file input using WebDriver: 1,081 observations, zero rejected rows, 73 five-minute bins, two exploratory variability intervals, and correct midnight crossing.
-- The published HTTPS Windows-authored baseline and modified local file produced identical arrays of bin timestamps, counts, and medians for all 73 bins.
-- Exercised all five themes, diagnostic chart rendering, error bars, quality filtering/recovery, and invalid replacement preserving the prior observations. Visually inspected desktop Starlight/Aurora chart screenshots, the narrow 430-pixel layout, and the offline report.
-- Dispatched wheel events and activated the reset handler in Safari; viewport values remained finite. WebDriver native element clicks did not reliably activate the reset control, while DOM activation worked. Native physical mouse/trackpad and touch interaction remain unverified; do not classify the driver behavior as a confirmed application bug.
-- Activated export handlers in Safari and verified actual downloaded files: a 3200 × 1700 PNG, CSV containing 73 result rows, and a standalone HTML report whose embedded PNG loaded when opened offline.
-- File input assignment was automated; the Finder picker UI, drag/drop from Finder, iCloud-only files, download permission dialogs, print preview/PDF pagination, iOS touch gestures, older Safari releases, and other Mac browsers were not tested. Private RT And/SS And inputs were unavailable and were not rerun.
-- The three public Node suites also pass on this Mac; timezone variants passed in the preceding local review. Scientific formulas and export schemas were not changed. Changes and validation were produced with OpenAI Codex assistance.
+Synthetic fixtures cover chronology/missing values/binning, import/reset/append state, named-target separation, tracking/variability false-positive cases, explicit picker/download plumbing, audit duplicate/conflict handling, star-association ambiguity/RA wrap/poles, gallery gaps/ranking/outliers, binary catalogue decoding and remembered-folder access logic.
 
-## Documentation audit — 2026-10-20
+## Targeted native observations
 
-Runtime comments/formatting preserved all 9,688 executable JavaScript tokens. Public smoke/analysis regressions passed, and the new optional real-data test was rerun successfully against the owner's original local RT And and SS And files. Those files remain outside this repository. Public checks are documented in [../tests/README.md](../tests/README.md); the implementation is mapped in [ARCHITECTURE.md](ARCHITECTURE.md).
+Earlier Safari 27.0.1/macOS 27.0.1 testing covered the prior runtime's synthetic import, chart/filter behavior, actual CSV/PNG/HTML downloads and offline report. Local and hosted morning-baseline synthetic bin results agreed. A fresh hosted interaction check of the subsequent compatibility release was unavailable; matching served bytes established source delivery, not a new native test.
 
-## Live deployment checks — 2026-10-20
+The owner subsequently reported successful normal-Chrome folder scanning and supplied screenshots of gallery/chart/local-catalogue lookup and SIMBAD navigation. Exact browser version was not supplied. Codex embedded-browser directory selection returned AbortError on confirmation; ordinary file selection is the fallback.
 
-After GitHub Pages deployment, the HTTPS analyzer successfully imported all 1,081 synthetic observations and displayed the inverted-magnitude chart, candidate shading, and screening summary. Hub → project → analyzer and both return links were checked after the collection move. This supersedes the earlier inability to inspect a local-file page for those specific actions. It does not establish full gesture, cross-browser, mobile, export-dialog, print-rendering, or accessibility verification.
+Chrome reload/restart folder persistence, hosted new workflows, full native export/input/print verification, other Mac browsers, Windows and iOS/iPadOS remain pending. Earlier Safari results do not cover these new workflows. Follow tests/ENVIRONMENT-HANDOFF.md before declaring platform support complete.
 
-## Earlier development checks
+## Owner-held checks
 
-Synthetic eclipse demo: deterministic generation and import passed for 1,081 observations across six hours, with zero invalid rows. Confirmed 10-second exposures, a 20-second cadence, midnight crossing, approximately 0.65 mag depth, no >30-pixel tracking event, and variability candidates in both fading and brightening directions. The bundled CSV is generated by the same embedded function used by the download button.
+Additional owner-held observation and local-catalogue checks ran locally, including an independent binary decoder comparison. Input-specific measurements, coordinates, counts and derived statistics are retained privately. No raw inputs or catalogue records are included in this release. Historical numerical reference results previously documented publicly remain in Git history; this current report keeps private-input details out of the new publication.
 
-Variability update: default five-minute screening flags RT And's eight-bin brightening sequence (0.43056 mag) and returns no candidate for sparse SS And data. Synthetic checks passed for a sustained trend, constant data, subthreshold changes, isolated outlier, insufficient bins, interrupted sequence, large uncertainty, and positional-event overlap. Existing import, binning, theme, and export checks also passed. No probability or future-event prediction is calculated.
+## Scientific limits
 
-Theme update: all five chart palettes passed simulated-canvas drawing checks. Primary text/panel, secondary text/panel, button text/background, and chart labels/background pairs meet at least 4.5:1 calculated contrast. Event Horizon chart labels exceed 7:1; it uses opaque larger cyan points and yellow medians. Theme switching preserves data and viewport. These checks do not constitute a full accessibility audit; live visual verification remains limited as described below.
+Field associations are provisional and may fragment tracks or misassociate detections. Track counts are not unique physical-star counts. Review priority is an exploratory heuristic, not a calibrated probability, eclipse detector, classification or forecast. Catalogue proximity is a candidate association and does not confirm identity; proper-motion corrections and measurement-coordinate epoch are unverified. Binned magnitudes, exposure metadata and comparison-star behavior require independent assessment before scientific use.
 
-Tested against both supplied Seestar files using the actual parser, time reconstruction, binning, and movement functions extracted from `index.html`.
-
-| Dataset | Imported | Invalid rows | Exposure | Recorded start | Recorded end |
-|---|---:|---:|---:|---|---|
-| RT And | 1,243 | 0 | 2 s | 2026-10-19 23:45:36 | 2026-10-20 02:02:06 |
-| SS And | 7 | 0 | 60 s | 2026-10-19 23:36:00 | 2026-10-19 23:42:18 |
-
-Required RT And five-minute checks passed:
-
-| Bin start | Measurements | Median magnitude |
-|---|---:|---:|
-| 2026-10-19 23:45 | 40 | 8.7609725 |
-| 2026-10-20 00:20 | 46 | 8.3304125 |
-
-SS And five-minute results:
-
-| Bin start | Measurements | Median magnitude |
-|---|---:|---:|
-| 2026-10-19 23:35 | 4 | 8.956542 |
-| 2026-10-19 23:40 | 3 | 9.042080 |
-
-RT And medians show brightening from 8.7609725 to 8.3304125 by 00:20, followed by fading. No eclipse interpretation is applied. Neither file triggered a movement event at the default 30-pixel threshold.
-
-Additional automated checks passed: UTF-8 BOM; quoted comma and multiline escaped values; malformed quote rejection; missing magnitude/time exclusion; midnight crossing; multiple targets; retaining both `Is Variable` values; invalid calendar date rejection; singleton sample SD; repeated identical-file import suppression. Tests exercised the full script with a simulated DOM/canvas and both real file imports, including filtering and exports.
-
-Verification limit: the browser automation tool rejected opening a `file:` URL under its protocol security policy. Consequently live browser visual layout, gestures, native download dialogs, and print rendering were not visually verified. No server or workaround was introduced. The self-contained file is ready to open manually in a browser; this limitation is separate from the successful real-data calculation checks.
+See SESSION-PREVIEW.md for methods, limits and the next handoff. OpenAI Codex assisted development; these checks are not independent scientific validation.

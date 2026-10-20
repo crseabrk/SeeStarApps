@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-10-20 — Session scans, field gallery and optional catalogue lookup
+
+Owner-authorized integration of the locally reviewed upgrades (previews 1–8). Added read-only sequential session auditing and exact target-log reconciliation; provisional coordinate tracks with scan-local IDs; searchable/filterable on-demand curves and a miniature SVG gallery with tile sizes/scales/review sorting; explicit local ASTAP .1476 candidate lookup and SIMBAD links; remembered directory handles in browser IndexedDB with explicit reopening/forgetting.
+
+Nine runtime regression suites passed, plus owner-held session and D80 checks. Owner reported normal-Chrome success and supplied chart/gallery/lookup screenshots. Track fragmentation, scientific interpretation and cross-session IDs remain limited; Chrome restart persistence, hosted workflow verification and other native browsers remain pending. See photometry/README.md, VALIDATION.md and tests/ENVIRONMENT-HANDOFF.md. No private inputs are committed. Substantial OpenAI Codex assistance.
+
+Earlier entries labelled local/unpublished below preserve development chronology and are superseded by this integration entry.
+
+## Local preview — session evidence (unpublished)
+
+- Preview 3 adds immediate folder-read status, empty-result diagnostics and cancellable/time-limited filesystem reads after an owner-reported silent failure. Native cause remains under investigation.
+
+- Replaced the misleading folder-upload input with feature-detected read-only directory access; unsupported browsers use multiple-CSV selection. Added folder-access regression tests.
+
+- Added sequential, cancellable read-only CSV folder audit and file-selection fallback, exact target-log reconciliation, ambiguity/conflict reporting and provenance JSON. Unnamed rows are distinguished from invalid values; no extra light-curve points are added.
+- Added synthetic regression checks and verified the complete owner-held session locally; see `photometry/SESSION-PREVIEW.md` for counts, limits and outstanding native-browser checks. Substantial OpenAI Codex assistance.
+
 ## 2026-10-20 — Photometry audience and scope
 
 - Recorded the accessible session-analysis promise, intended audience, scientific limits and specialist-tool handoff in `photometry/PRODUCT-SCOPE.md`.
@@ -71,7 +88,34 @@ Sources: [README initialization](https://github.com/crseabrk/SeeStarApps/commit/
 
 ### Validation
 
-- RT And: 1,243 valid rows. Five-minute reference bins: 23:45 → 40 rows, median 8.7609725; 00:20 → 46 rows, median 8.3304125.
-- SS And: seven valid rows, 60-second exposures.
+- Owner-held reference CSV checks passed; input-specific counts and magnitudes are retained privately.
 - Additional development checks used synthetic fixtures and a simulated DOM/canvas. Original real observation files are not redistributed; see [validation record](photometry/VALIDATION.md).
 - Initial `file:` browser automation was blocked. Later HTTPS deployment received the targeted live-browser check recorded above.
+
+## Local preview 4 — coordinate tracks (unpublished)
+
+- Added opt-in provisional coordinate associations (enabled initially), searchable/filterable star-track selector, on-demand plotting, return to original log and catalogue snapshots. Fixed scan-local IDs; no cross-session identity claim.
+- Conservative one-to-one matching excludes ambiguity, skips duplicate exposures and limits retained observations. Full-folder results show substantial unresolved ambiguity; this is not a validated unique-star census or eclipse detector.
+- Added synthetic association regressions and real-session checks; native preview-4 verification pending. Substantial OpenAI Codex assistance.
+
+## Local preview 5 — light-curve gallery (unpublished)
+
+- Added a contact sheet of actual binned curves with four tile sizes, shared/individual scales, search/count filters and click-through to the main chart.
+- Cache curve summaries and SVGs. Offer review-priority, observation-count and robust-range ordering with explicit heuristic limits; no event probabilities.
+- Seven regression suites pass. Native browser visual/performance checks remain pending. OpenAI Codex assisted.
+
+## Local preview 6 — explicit local catalogue lookup (unpublished)
+
+- Added ASTAP .1476 folder/file selection and click-only nearby-candidate lookup, using bounded reads of relevant cells. No ASTAP installation is required; database files are sufficient.
+- Added a click-only SIMBAD link for the selected sky position. No background online queries, automatic catalogue identification or track renaming.
+- Eight regression suites pass; actual D80 lookup agrees with an independent calculation. Native UI checks and other database variants remain pending. OpenAI Codex assisted.
+
+## Local preview 7 — identifier links (unpublished)
+
+- Label the selected-position SIMBAD link clearly and add per-candidate identifier lookup links after local catalogue search. Explicit clicks only; no automatic identification or remote queries. Catalogue/link regression passed; native navigation pending.
+
+## Local preview 8 — remembered folder selections (unpublished)
+
+- Save session/catalogue directory handles in browser IndexedDB, with explicit Reopen controls and Forget action. Use separate picker IDs for each workflow.
+- Restore handles without reading files or requesting access automatically; report unavailable storage without breaking normal folder selection. No cookies or observation copies.
+- Nine simulated-DOM suites passed; native Chrome persistence across reload/restart remains pending. OpenAI Codex assisted.

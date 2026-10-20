@@ -114,11 +114,16 @@ th,td{border-color:var(--border)}
 :root[data-theme="horizon"] .stat b{font-weight:700}
 :root[data-theme="horizon"] .panel,:root[data-theme="horizon"] input,:root[data-theme="horizon"] select{border-width:2px}
 
+.curve-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--tile-size,260px)),1fr));gap:12px}.curve-tile{background:var(--surface);color:var(--text);border:1px solid var(--border);padding:10px;text-align:left;min-width:0}.curve-tile svg{width:100%;height:auto;display:block;background:var(--chart,#fff)}.curve-tile small{display:block;overflow-wrap:anywhere;margin-top:6px}.curve-tile:focus-visible{outline:3px solid var(--accent)}
 </style></head><body><main>
 <p style="margin:0 0 18px;font-size:13px"><a href="../" style="color:var(--accent)">← Project overview</a></p><header><div class="brand">✧ &nbsp; SEABROOKE.ASTRONOMY</div><div class="badge">BROWSER-LOCAL · NO UPLOADS</div></header>
 <h1>Seestar Photometry Analyzer</h1><p class="intro">Explore stellar brightness measurements directly in your browser.</p>
 <!-- Import controls: parsing is staged before any existing session is replaced. -->
 <section class="panel"><div id="drop" class="drop"><strong>Bring your observations into focus</strong><p>Drop Seestar photometry CSV files here, or select files from your device.</p><label style="margin:0 12px 12px 0">Import mode <select id="importMode"><option value="replace" selected>Replace session</option><option value="append">Add to session</option></select></label><button id="chooseFiles" type="button">Select CSV files</button><input id="files" class="hidden" type="file" multiple accept=".csv,text/csv"><button id="clear" class="secondary">Clear session</button><p style="margin-top:18px"><button id="sample" class="secondary">Download simulated eclipse CSV</button></p><p>Try a fictional star: six hours of simulated observations, with a 0.65 mag eclipse-shaped dip and recovery.<br>Download the CSV, then select it above. Educational simulation · not real observations.</p></div><p class="privacy">Your observation files remain on your device. All calculations are performed locally in your browser.</p><div id="status" class="status" role="status" aria-live="polite">Ready for Seestar S50 / S50 Pro observations.</div></section>
+<section class="panel"><h2>Session evidence <small>· experimental field analysis</small></h2><p>First load a dedicated target log above and select its target below, then scan its session folder to check the supporting measurements. You can also scan without a log for a file and measurement inventory.</p><div class="toolbar"><label><input id="buildTracks" type="checkbox" checked>Build provisional star tracks</label><button id="chooseFolder">Read session folder</button><button id="reopenSession" class="secondary" disabled>Reopen remembered session folder</button><button id="chooseFrames" class="secondary">Select frame CSVs instead</button><input id="frames" class="hidden" type="file" multiple accept=".csv,text/csv"><button id="cancelScan" class="secondary" disabled>Cancel scan</button><button id="exportAudit" class="secondary" disabled>Export audit JSON</button></div><p id="folderHelp" class="status"></p><p class="privacy">Reads one CSV at a time. Originals are never changed or copied. FITS and JPEG files are counted only; image data is not loaded. Copy a completed observing session locally with Finder or Explorer first.</p><p id="scanProgress" class="status" role="status" aria-live="polite">No folder scanned.</p><div id="scanResult" class="status" style="white-space:pre-line"></div><hr><h3>Field stars · provisional associations</h3><p id="trackStatus" class="status">Scan a session folder to build coordinate-based tracks.</p><div class="toolbar"><label>Find ID, name or coordinates <input id="trackSearch" type="search"></label><label>Minimum observations <input id="trackMin" type="number" value="20" min="1" step="1"></label><label>Star <select id="trackSelect"></select></label><button id="plotTrack" disabled>Plot selected star</button><button id="returnLog" class="secondary">Return to target log</button><button id="exportTracks" class="secondary" disabled>Export star catalogue</button></div><p>Positions within 3 arcseconds of a running centre can join a track only when the match is unambiguous in that exposure. Nearby competing detections are left unassigned. IDs stay fixed within this scan; new scans rebuild them. Coordinate labels are not catalogue identifications. A track can still split or contain a mistaken match. No eclipse or physical variability is confirmed.</p></section>
+<section class="panel"><h2>Light-curve gallery</h2><div class="toolbar"><label>Tile size <select id="tileSize"><option value="180">Small</option><option value="260" selected>Medium</option><option value="380">Large</option><option value="520">Extra large</option></select></label><label>Scale <select id="galleryScale"><option value="shared">Shared magnitude-change scale</option><option value="auto">Auto-scale each curve</option></select></label><label>Sort <select id="gallerySort"><option value="priority">Review priority</option><option value="coverage">Observation count</option><option value="range">Binned brightness range</option></select></label></div><p class="status">Uses the star search and minimum-observation filters above. Each thumbnail shows unfiltered 5-minute medians, centred on the star's median, over the same session timeline. Fainter is lower. Gaps over 15 minutes are disconnected. Click a curve to inspect it.</p><p class="status">Review priority is robust binned range relative to scatter, reduced for sparse coverage. It is not an eclipse probability or a matching-quality score. Track fragments and instrumental effects can rank highly. Auto-scale can exaggerate small changes.</p><p id="galleryStatus" class="status" role="status"></p><div id="curveGallery" class="curve-gallery"></div></section>
+<section class="panel"><h2>Catalogue lookup · on request</h2><div class="toolbar"><button id="chooseCatalogue">Select ASTAP database folder</button><button id="reopenCatalogue" class="secondary" disabled>Reopen remembered database folder</button><button id="chooseCatalogueFiles" class="secondary">Select database files instead</button><input id="catalogueFiles" class="hidden" type="file" multiple accept=".1476"><label>Database <select id="catalogueSet"></select></label><button id="localLookup" disabled>Look up plotted star locally</button><a id="simbadLookup" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="hidden">SIMBAD: find identifier ↗</a></div><p class="status">First plot a field star, or load and select a target log. Local lookup reads only nearby ASTAP .1476 cells, within 10 arcseconds. No ASTAP application is needed. These compact catalogues provide positions and magnitudes, without star names. SIMBAD opens an external service only when you click its link, sharing the position and search radius.</p><p id="catalogueStatus" class="status" role="status">No local database selected.</p><pre id="catalogueResult" class="status" style="white-space:pre-wrap"></pre><div id="candidateLinks" class="status"></div></section>
+<section class="panel"><div class="toolbar"><strong>Remember folders on this browser</strong><button id="forgetFolders" class="secondary">Forget remembered folders</button></div><p id="folderMemoryStatus" class="status" role="status">Checking saved folder selections…</p><p class="privacy">Stores folder access handles in this browser, not observation contents. Nothing is read automatically on reopening the app. Use a Reopen button to start; the browser may request read permission again. Remembered folders may be unavailable in private browsing, after clearing browser data, or if the drive is disconnected.</p></section>
 <!-- Analysis controls: dataset selection, binning, chart layers, and quality flags. -->
 <section class="panel"><div class="toolbar"><label>Target <select id="target" aria-label="Target"><option>No observations loaded</option></select></label><label>Time bins <select id="bin"><option>1</option><option>2</option><option selected>5</option><option>10</option><option>15</option></select> min</label><label><input id="points" type="checkbox" checked>Measurements</label><label><input id="median" type="checkbox" checked>Median line</label><label><input id="errors" type="checkbox">Error bars</label><label><input id="events" type="checkbox" checked>Movement markers</label><label><input id="variability" type="checkbox" checked>Highlight possible variability</label><label>Theme <select id="theme" aria-label="Color theme"><option value="starlight">Starlight</option><option value="midnight">Midnight Nebula</option><option value="mars">Mars Watch · red light</option><option value="horizon">Event Horizon · high contrast</option><option value="aurora">Aurora Borealis</option></select></label></div><div class="toolbar"><label>Minimum SNR <input id="snr" type="number" min="0" step="1" placeholder="None"></label><label>Maximum σ mag <input id="err" type="number" min="0" step="0.01" placeholder="None"></label><label><input id="hide" type="checkbox">Hide flagged measurements</label><button id="reset" class="secondary">Reset zoom</button><span id="remaining" class="status">0 measurements</span></div></section>
 <!-- Summary describes all valid timed observations, not just filtered ones. -->
@@ -217,27 +222,28 @@ function parseCSV(text) {
   return rows
 }
 /**
- * Validate Seestar headers and return {records, invalid, total}. Optional missing numerics stay NaN. Reject only absent target, magnitude, or usable start time; Is Variable never filters a row.
+ * Validate Seestar headers and return {records, invalid, unnamed, total}. Optional missing numerics stay NaN. Reject only missing magnitude or usable start time; count unnamed rows separately. includeUnnamed is for session audits; Is Variable never filters a row.
  */
-function decodeCSV(text, source) {
+function decodeCSV(text, source, includeUnnamed = false) {
   let rows = parseCSV(text), headers = (rows.shift()||[]).map(s => s.trim()), required = ['Name', 'Mag(obs)'];
   for(let h of required)if(!headers.includes(h))throw Error('Missing column: '+h);
   if(!headers.some(h => ['EXP start', 'EXP start(JD)', 'EXP start(MJD)'].includes(h)))throw Error('Missing observation time columns');
-  let records = [], invalid = 0;
+  let records = [], invalid = 0, unnamed = 0;
   rows.forEach((r, i) => {
     let o = Object.fromEntries(headers.map((h, j) => [h, r[j]??''])), jd = num(o['EXP start(JD)']), mjd = num(o['EXP start(MJD)']);
     if(!finite(jd)&&finite(mjd))jd = mjd+2400000.5;
     let local = clock(o['EXP start']), mag = num(o['Mag(obs)']);
-    if(!o.Name.trim()||!finite(mag)||(!finite(local)&&!finite(jd))) {
+    if(!finite(mag)||(!finite(local)&&!finite(jd))) {
       invalid++;
       return
     }
+    if(!o.Name.trim()) { unnamed++; if(!includeUnnamed)return; }
     records.push( {
-      name:o.Name.trim(), local, jd, mag, err:num(o['Mag(err)']), snr:num(o.SNR), x:num(o['X Axis']), y:num(o['Y Axis']), exp:/^\s*\d+(\.\d+)?\s*s?\s*$/i.test(o.EXP)?parseFloat(o.EXP):NaN, refs:num(o['Valid Reference Stars']), source, row:i+2
+      original:o, ra:num(o.RA), dec:num(o.DEC), name:o.Name.trim(), local, jd, mag, err:num(o['Mag(err)']), snr:num(o.SNR), x:num(o['X Axis']), y:num(o['Y Axis']), exp:/^\s*\d+(\.\d+)?\s*s?\s*$/i.test(o.EXP)?parseFloat(o.EXP):NaN, refs:num(o['Valid Reference Stars']), source, row:i+2
     } )
   } );
   return {
-    records, invalid, total:rows.length
+    records, invalid, unnamed, total:rows.length
   }
 }
 /**
@@ -347,6 +353,7 @@ let raw = [], loaded = new Set, all = [], kept = [], binned = [], motion = {
  * Return raw records for exactly the selected trimmed target name (case-sensitive). Never combine different targets for analysis.
  */
 function selected() {
+  if(plottedTrack)return plottedTrack.rows.map(r=>({...r,name:plottedTrack.label}));
   return raw.filter(r => r.name===$('target').value)
 }
 /**
@@ -354,6 +361,11 @@ function selected() {
  */
 function resetSession() {
   raw = [];
+  plottedTrack=null; fieldTracks=null; renderTracks();
+  sessionAudit = null;
+  $('scanResult').textContent = '';
+  $('scanProgress').textContent = 'No current audit. Scan a folder to check this session.';
+  $('exportAudit').disabled = true;
   loaded.clear();
   importLog = [];
   view = null;
@@ -396,7 +408,7 @@ async function importFiles(files) {
           } );
           seen.add(key)
         }
-        messages.push(f.name+': '+result.records.length+' usable rows; '+result.invalid+' invalid/untimed rows excluded'+(result.invalid?' (missing target, numeric magnitude, or time)':''))
+        messages.push(f.name+': '+result.records.length+' usable rows; '+result.invalid+' invalid magnitude/time rows excluded; '+result.unnamed+' unnamed field rows (use Session evidence scan)')
       } catch(e) {
         messages.push(f.name+': '+e.message)
       }
@@ -405,7 +417,12 @@ async function importFiles(files) {
       $('status').textContent = messages.join('\n')+'\nExisting session unchanged.';
       return
     }
+    restoreLog();
     if(replace)resetSession();
+    sessionAudit = null;
+    $('scanResult').textContent = '';
+  $('scanProgress').textContent = 'No current audit. Scan a folder to check this session.';
+    $('exportAudit').disabled = true;
     for(let entry of pending) {
       raw.push(...entry.records);
       loaded.add(entry.key)
@@ -422,6 +439,460 @@ async function importFiles(files) {
     $('files').value = ''
   }
 }
+// Session audit owns a bounded snapshot; scanning never changes the light curve.
+let sessionAudit = null, cancelScan = false, fieldTracks = null, plottedTrack = null;
+// Spatial buckets on the unit sphere avoid RA wrap and polar singularities.
+const TRACK_RADIUS=3/206264.806247;
+function skyVector(ra,dec) {
+  const a=ra*Math.PI/180,d=dec*Math.PI/180;
+  return [Math.cos(d)*Math.cos(a),Math.cos(d)*Math.sin(a),Math.sin(d)];
+}
+function skyKey(v){return v.map(x=>Math.floor(x/TRACK_RADIUS)).join(',');}
+function skyNeighbours(v,grid){
+  const k=v.map(x=>Math.floor(x/TRACK_RADIUS)),out=[];
+  for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)for(let z=-1;z<=1;z++)
+    for(const t of grid.get([k[0]+x,k[1]+y,k[2]+z].join(','))||[])
+      if(Math.hypot(...v.map((n,i)=>n-t.v[i]))<=TRACK_RADIUS)out.push(t);
+  return out;
+}
+function newTracks(){return {id:'SCAN-'+Date.now().toString(36),tracks:[],grid:new Map(),times:new Set(),assigned:0,ambiguous:0,invalid:0,skipped:0,limited:false};}
+function trackFrame(state,records,source){
+  const times=new Set(records.map(r=>r.jd));
+  // Target logs are not frame catalogues. Repeated exposure files never add points.
+  if(times.size!==1||!finite(records[0]?.jd)||state.times.has(records[0].jd)){state.skipped++;return;}
+  if(state.assigned+records.length>1500000){state.limited=true;return;}
+  state.times.add(records[0].jd);
+  const points=[],local=new Map(),claims=new Map();
+  for(const r of records){
+    if(!finite(r.ra)||!finite(r.dec)||r.ra<0||r.ra>=360||Math.abs(r.dec)>90){state.invalid++;continue;}
+    const p={r,v:skyVector(r.ra,r.dec)};p.matches=skyNeighbours(p.v,state.grid);points.push(p);
+    const k=skyKey(p.v);if(!local.has(k))local.set(k,new Set());local.get(k).add(p);
+    for(const t of p.matches)claims.set(t,(claims.get(t)||0)+1);
+  }
+  for(const p of points){
+    if(p.matches.length>1||skyNeighbours(p.v,local).length>1||(p.matches.length===1&&claims.get(p.matches[0])!==1)){state.ambiguous++;continue;}
+    let t=p.matches[0];
+    if(!t){
+      const id=state.id+'-'+String(state.tracks.length+1).padStart(6,'0');
+      t={id,label:id+' · '+p.r.ra.toFixed(5)+' '+(p.r.dec>=0?'+':'')+p.r.dec.toFixed(5),v:p.v.slice(),rows:[],names:new Set()};
+      state.tracks.push(t);
+    } else state.grid.get(skyKey(t.v)).delete(t);
+    const n=t.rows.length;
+    t.v=t.v.map((x,i)=>(x*n+p.v[i])/(n+1));const norm=Math.hypot(...t.v);t.v=t.v.map(x=>x/norm);
+    const k=skyKey(t.v);if(!state.grid.has(k))state.grid.set(k,new Set());state.grid.get(k).add(t);
+    const {original,...r}=p.r;t.rows.push({...r,source});if(r.name)t.names.add(r.name);state.assigned++;
+  }
+}
+function renderTracks(){
+  const q=$('trackSearch').value.toLowerCase(),min=Math.max(1,Number($('trackMin').value)||20);
+  const list=(fieldTracks?.tracks||[]).filter(t=>t.rows.length>=min&&(t.label+' '+[...t.names].join(' ')).toLowerCase().includes(q)).sort((a,b)=>b.rows.length-a.rows.length);
+  $('trackSelect').innerHTML=list.slice(0,500).map(t=>'<option value="'+esc(t.id)+'">'+esc(t.label+' · '+[...t.names].join('/')+' · '+t.rows.length+' observations')+'</option>').join('');
+  $('trackSelect').value=list[0]?.id||'';
+  $('plotTrack').disabled=!list.length;$('exportTracks').disabled=!fieldTracks;
+  renderGallery(list);
+  $('trackStatus').textContent=fieldTracks?fieldTracks.tracks.length+' provisional tracks; '+fieldTracks.assigned.toLocaleString()+' assigned measurements; '+fieldTracks.ambiguous+' ambiguous rows unassigned; '+fieldTracks.invalid+' invalid coordinates; '+fieldTracks.skipped+' non-frame/duplicate-exposure files skipped. '+list.length+' meet this filter (first 500 shown).'+(fieldTracks.limited?' PARTIAL: 1.5 million measurement limit reached.':''):'No field tracks loaded.';
+}
+function curveSummary(track){
+  if(track.curveCache)return track.curveCache;
+  const rows=track.rows.map(r=>({...r,t:finite(r.jd)?(r.jd-2440587.5)*DAY:r.local,display:finite(r.jd)?(r.jd-2440587.5)*DAY:r.local})).filter(r=>finite(r.t));
+  const bins=binData(rows,5),values=bins.map(b=>b.median).sort((a,b)=>a-b);
+  const quant=p=>values.length?values[Math.floor((values.length-1)*p)]:NaN;
+  const centre=quant(.5),range=values.length>=5?quant(.9)-quant(.1):0;
+  const scatter=median(bins.map(b=>b.sd).filter(finite));
+  const qualified=bins.filter(b=>b.n>=3).length;
+  const score=qualified>=5?range/Math.max(.02,finite(scatter)?scatter:.02)*Math.min(1,qualified/12):0;
+  return track.curveCache={bins,centre,range,score,qualified,span:values.length?Math.max(Math.abs(values[0]-centre),Math.abs(values.at(-1)-centre)):.05};
+}
+function curveSVG(c,x0,x1,span){
+  const x=t=>10+280*(t-x0)/Math.max(1,x1-x0),y=m=>70+55*(m-c.centre)/span;
+  let path='',previous=null;
+  for(const b of c.bins){path+=(previous!==null&&b.t-previous<=900000?'L':'M')+x(b.t).toFixed(2)+','+y(b.median).toFixed(2)+' ';previous=b.t;}
+  return '<svg viewBox="0 0 300 140" role="img" aria-label="Binned light curve, fainter downward"><path d="M10 70H290" stroke="#c5ccd6" fill="none"/><path d="'+path+'" fill="none" stroke="#1868af" stroke-width="2"/>'+c.bins.map(b=>'<circle cx="'+x(b.t).toFixed(2)+'" cy="'+y(b.median).toFixed(2)+'" r="1.6" fill="#1868af"/>').join('')+'</svg>';
+}
+function renderGallery(list){
+  if(!fieldTracks||!list.length){$('curveGallery').innerHTML='';$('galleryStatus').textContent='No tracks meet the current filters.';return;}
+  // Cache numerical curves once per scan. Static SVGs avoid thousands of interactive canvases.
+  let x0=Infinity,x1=-Infinity,shared=.05;
+  for(const t of fieldTracks.tracks){const c=curveSummary(t);for(const b of c.bins){x0=Math.min(x0,b.t);x1=Math.max(x1,b.t);}shared=Math.max(shared,c.span);}
+  const sort=$('gallerySort').value;
+  const ordered=list.slice().sort((a,b)=>sort==='coverage'?b.rows.length-a.rows.length:sort==='range'?curveSummary(b).range-curveSummary(a).range:curveSummary(b).score-curveSummary(a).score);
+  const auto=$('galleryScale').value==='auto';
+  $('curveGallery').innerHTML=ordered.map(t=>{
+    const c=curveSummary(t),span=auto?Math.max(.05,c.span):shared;
+    const key=[x0,x1,span].join('/');
+    if(c.svgKey!==key){c.svg=curveSVG(c,x0,x1,span);c.svgKey=key;}
+    return '<button type="button" class="curve-tile" data-track="'+esc(t.id)+'" aria-label="Inspect '+esc(t.label)+'">'+c.svg+'<small>'+esc([...t.names].join('/')||t.label)+'</small><small>'+t.rows.length+' observations · '+c.bins.length+' bins · ±'+span.toFixed(2)+' mag</small><small>'+(c.qualified<5?'Sparse: not ranked':'Robust range '+c.range.toFixed(3)+' mag · review score '+c.score.toFixed(1))+'</small></button>';
+  }).join('');
+  $('galleryStatus').textContent=ordered.length+' miniature curves · '+(auto?'individual scales':'shared scale ±'+shared.toFixed(2)+' mag')+' · provisional associations';
+}
+function plotFieldTrack(id){
+  if(busy)return;
+  plottedTrack=fieldTracks?.tracks.find(t=>t.id===id);
+  if(!plottedTrack)return;
+  $('target').innerHTML='<option>'+esc(plottedTrack.label)+'</option>';$('target').value=plottedTrack.label;
+  view=null;update();
+}
+function restoreLog(){
+  plottedTrack=null;
+  const names=[...new Set(raw.map(r=>r.name))].sort();
+  $('target').innerHTML=names.map(n=>'<option>'+esc(n)+'</option>').join('');$('target').value=names[0]||'';
+  view=null;update();
+}
+// ASTAP Appendix 3: .1476 cells, 110-byte description, 5/6-byte records.
+// Catalogue entries carry no astronomical designation. A file/record label is provenance only.
+let localCatalogue=new Map();
+const CELL_COUNTS=[1,3,9,15,21,27,33,38,43,48,52,56,60,63,65,67,68,69,69,68,67,65,63,60,56,52,48,43,38,33,27,21,15,9,3,1];
+function catalogueCells(ra,dec,radius=10){
+  const rad=radius/3600,step=180/35,out=[];
+  for(let i=0;i<36;i++){
+    const lo=i===0?-90:(i-18)*step,hi=i===35?90:(i-17)*step;
+    if(dec+rad<lo||dec-rad>hi)continue;
+    const n=CELL_COUNTS[i],half=Math.abs(dec)+rad>=90?180:Math.asin(Math.min(1,Math.sin(rad*Math.PI/180)/Math.cos(dec*Math.PI/180)))*180/Math.PI;
+    for(let j=0;j<n;j++){
+      const mid=(j+.5)*360/n,delta=Math.abs(((ra-mid+540)%360)-180);
+      if(delta<=180/n+half)out.push(String(i+1).padStart(2,'0')+String(j+1).padStart(2,'0'));
+    }
+  }
+  return out;
+}
+function catalogueHeader(buffer){
+  const b=new Uint8Array(buffer);if(b.length!==110)throw Error('Truncated catalogue header');
+  const text=Array.from(b.slice(0,109),n=>String.fromCharCode(n)).join('').trim();
+  if(!/GAIA|TYCHO/i.test(text)||![5,6].includes(b[109]))throw Error('Unsupported catalogue header or record size');
+  return {text,size:b[109]};
+}
+function decodeCatalogueChunk(buffer,state,visit){
+  const b=new Uint8Array(buffer),size=state.size;
+  if(b.length%size)throw Error('Truncated catalogue records');
+  for(let i=0;i<b.length;i+=size){
+    state.record++;
+    const raWord=b[i]+256*b[i+1]+65536*b[i+2];
+    if(raWord===16777215){state.decHigh=b[i+3]-128;state.mag=(b[i+4]-16)/10;continue;}
+    if(state.decHigh===undefined)throw Error('Missing catalogue section header');
+    const ra=raWord*360/16777215,dec=(b[i+3]+256*b[i+4]+65536*state.decHigh)*90/8388607;
+    if(!finite(dec)||Math.abs(dec)>90)throw Error('Invalid catalogue declination');
+    visit({ra,dec,mag:state.mag,record:state.record,colour:size===6?(b[i+5]>127?b[i+5]-256:b[i+5])/10:null});
+  }
+}
+function lookupPosition(){
+  if(plottedTrack)return {ra:(Math.atan2(plottedTrack.v[1],plottedTrack.v[0])*180/Math.PI+360)%360,dec:Math.asin(plottedTrack.v[2])*180/Math.PI};
+  const rows=raw.filter(r=>r.name===$('target').value&&finite(r.ra)&&finite(r.dec));
+  if(!rows.length)return null;
+  // Mean unit direction avoids the RA=0 boundary. Association itself is unchanged.
+  const sum=[0,0,0];for(const r of rows){const v=skyVector(r.ra,r.dec);v.forEach((x,i)=>sum[i]+=x);}
+  const norm=Math.hypot(...sum);if(!norm)return null;
+  return {ra:(Math.atan2(sum[1],sum[0])*180/Math.PI+360)%360,dec:Math.asin(sum[2]/norm)*180/Math.PI};
+}
+function simbadURL(ra,dec,radius=10){
+  if(!finite(ra)||!finite(dec)||ra<0||ra>=360||Math.abs(dec)>90)return '';
+  const coord=ra.toFixed(7)+'d '+(dec>=0?'+':'')+dec.toFixed(7)+'d';
+  return 'https://simbad.cds.unistra.fr/simbad/sim-coo?Coord='+encodeURIComponent(coord)+'&Radius='+radius+'&Radius.unit=arcsec';
+}
+function refreshLookup(){
+  const position=lookupPosition();$('localLookup').disabled=!position||!localCatalogue.size;
+  $('simbadLookup').classList.toggle('hidden',!position);
+  if(position){
+    $('simbadLookup').href=simbadURL(position.ra,position.dec);
+  } else $('simbadLookup').removeAttribute?.('href');
+  $('catalogueResult').textContent='';
+  $('candidateLinks').innerHTML='';
+}
+function attachCatalogue(files){
+  const staged=new Map();
+  for(const f of files){
+    const match=f.name.match(/^([a-z][a-z0-9]*)_(\d{4})\.1476$/i);if(!match)continue;
+    const family=match[1].toLowerCase(),cell=match[2],ring=Number(cell.slice(0,2)),index=Number(cell.slice(2));
+    if(ring<1||ring>36||index<1||index>CELL_COUNTS[ring-1])continue;
+    if(!staged.has(family))staged.set(family,new Map());
+    if(staged.get(family).has(cell))throw Error('Duplicate database cell '+family+'_'+cell+'; choose one database copy');
+    staged.get(family).set(cell,f);
+  }
+  if(!staged.size)throw Error('No supported named .1476 cells found; select extracted database files, not an installer or ZIP');
+  localCatalogue=staged;
+  $('catalogueSet').innerHTML=[...staged].map(([name,files])=>'<option>'+esc(name)+'</option>').join('');
+  $('catalogueSet').value=[...staged.keys()][0];
+  $('catalogueStatus').textContent=[...staged].map(([name,files])=>name+': '+files.size+' cells').join(' · ')+'. Ready. No catalogue contents searched yet.';
+  refreshLookup();
+}
+let rememberedFolders={session:null,catalogue:null};
+function folderStore(action,key,value){
+  return new Promise((resolve,reject)=>{
+    if(!window.indexedDB){reject(Error('This browser does not offer persistent folder storage'));return;}
+    let db,settled=false;
+    const finish=(error,result)=>{if(settled)return;settled=true;clearTimeout(timer);db?.close();error?reject(error):resolve(result);};
+    const timer=setTimeout(()=>finish(Error('Browser folder storage timed out')),4000);
+    let open;
+    try{open=window.indexedDB.open('seestar-folder-preferences',1);}catch(e){finish(e);return;}
+    open.onupgradeneeded=()=>{if(!open.result.objectStoreNames.contains('folders'))open.result.createObjectStore('folders');};
+    open.onerror=()=>finish(open.error||Error('Folder storage unavailable'));
+    open.onsuccess=()=>{
+      db=open.result;if(settled){db.close();return;}
+      try{
+        const tx=db.transaction('folders',action==='get'?'readonly':'readwrite'),store=tx.objectStore('folders');
+        let request=action==='get'?store.get(key):action==='clear'?store.clear():store.put(value,key),result;
+        request.onsuccess=()=>{result=request.result;};
+        tx.oncomplete=()=>finish(null,result);
+        tx.onerror=()=>finish(tx.error||Error('Folder preference could not be saved'));
+        tx.onabort=()=>finish(tx.error||Error('Folder storage transaction aborted'));
+      }catch(e){finish(e);}
+    };
+  });
+}
+function showRememberedFolders(){
+  $('reopenSession').disabled=!rememberedFolders.session;
+  $('reopenCatalogue').disabled=!rememberedFolders.catalogue;
+  if(rememberedFolders.session)$('reopenSession').textContent='Reopen '+rememberedFolders.session.name;
+  if(rememberedFolders.catalogue)$('reopenCatalogue').textContent='Reopen database '+rememberedFolders.catalogue.name;
+}
+async function rememberFolder(kind,handle){
+  try{
+    await folderStore('put',kind,handle);
+    rememberedFolders[kind]=handle;showRememberedFolders();
+    $('folderMemoryStatus').textContent='Folder selection saved in this browser. Reopen it explicitly next time.';
+  }catch(e){$('folderMemoryStatus').textContent='Folder works for this visit, but could not be remembered: '+e.message;}
+}
+async function loadRememberedFolders(){
+  try{
+    const [session,catalogue]=await Promise.all([folderStore('get','session'),folderStore('get','catalogue')]);
+    for(const [kind,handle] of [['session',session],['catalogue',catalogue]])
+      if(handle?.kind==='directory'&&typeof handle.requestPermission==='function')rememberedFolders[kind]=handle;
+    showRememberedFolders();
+    $('folderMemoryStatus').textContent=rememberedFolders.session||rememberedFolders.catalogue?'Saved folders available. Reopen a folder when ready; no observation files have been read.':'Folder selections will be remembered here when you choose them.';
+  }catch(e){$('folderMemoryStatus').textContent='Folder selections cannot be remembered here: '+e.message;}
+}
+async function selectedFolder(saved,id){
+  if(!saved)return window.showDirectoryPicker({mode:'read',id});
+  // Called directly from the Reopen gesture; permissions are never requested at startup.
+  const permission=await saved.requestPermission({mode:'read'});
+  if(permission!=='granted')throw Error('Read permission was not granted. Choose the folder again or use ordinary file selection');
+  return saved;
+}
+async function forgetRememberedFolders(){
+  try{
+    await folderStore('clear');rememberedFolders={session:null,catalogue:null};showRememberedFolders();
+    $('folderMemoryStatus').textContent='Remembered folders removed from this app. Loaded results remain available. Browser permissions can be removed in browser settings.';
+  }catch(e){$('folderMemoryStatus').textContent='Could not forget folder preferences: '+e.message;}
+}
+async function chooseLocalCatalogue(saved=null){
+  if(busy)return;
+  busy=true;cancelScan=false;
+  try {
+    const root=await selectedFolder(saved,'seestar-catalogue'),queue=[root],files=[];
+    await rememberFolder('catalogue',root);
+    $('cancelScan').disabled=false;
+    for(let i=0;i<queue.length;i++){
+      const iterator=queue[i].values()[Symbol.asyncIterator]();
+      while(true){
+        const next=await folderRead(iterator.next());if(next.done)break;
+        const h=next.value;if(cancelScan)throw Error('Database selection cancelled');
+        if(files.length+queue.length>=10000)throw Error('Database folder exceeds 10,000 entries');
+        if(h.kind==='directory')queue.push(h);
+        else files.push({name:h.name,getFile:()=>h.getFile()});
+      }
+      $('catalogueStatus').textContent='Listing database folder: '+files.length+' files…';
+      await new Promise(resolve=>setTimeout(resolve,0));
+    }
+    attachCatalogue(files);
+  } catch(e){$('catalogueStatus').textContent='Database selection failed: '+e.message+'. Previous selection retained. Use Select database files instead if needed.';}
+  finally{busy=false;$('cancelScan').disabled=true;}
+}
+async function lookupLocalCatalogue(){
+  if(busy)return;
+  const position=lookupPosition(),family=$('catalogueSet').value,catalogue=localCatalogue.get(family);
+  if(!position||!catalogue)return;
+  busy=true;cancelScan=false;$('cancelScan').disabled=false;
+  const cells=catalogueCells(position.ra,position.dec),missing=[],matches=[],headers=new Set(),query=skyVector(position.ra,position.dec);
+  let count=0;
+  try {
+    for(const cell of cells){
+      const entry=catalogue.get(cell);if(!entry){missing.push(family+'_'+cell);continue;}
+      const file=await folderRead(entry.getFile());
+      const header=catalogueHeader(await folderRead(file.slice(0,110).arrayBuffer()));headers.add(header.text);
+      if((file.size-110)%header.size)throw Error('Truncated cell '+entry.name);
+      const state={size:header.size,record:0};
+      const chunk=header.size*100000;
+      for(let offset=110;offset<file.size;offset+=chunk){
+        $('catalogueStatus').textContent='Reading '+entry.name+' · '+Math.round(100*offset/file.size)+'%';
+        const buffer=await folderRead(file.slice(offset,Math.min(file.size,offset+chunk)).arrayBuffer());
+        decodeCatalogueChunk(buffer,state,star=>{
+          count++;const v=skyVector(star.ra,star.dec),separation=2*Math.asin(Math.min(1,Math.hypot(...v.map((x,i)=>x-query[i]))/2))*206264.806247;
+          if(separation<=10){matches.push({...star,separation,file:entry.name});matches.sort((a,b)=>a.separation-b.separation);if(matches.length>100)matches.pop();}
+        });
+        await new Promise(resolve=>setTimeout(resolve,0));if(cancelScan)throw Error('Lookup cancelled');
+      }
+    }
+    $('catalogueStatus').textContent='Local lookup finished · '+count.toLocaleString()+' entries inspected · '+(missing.length?'INCOMPLETE: missing '+missing.join(', '):'all required cells present');
+    $('catalogueResult').textContent=[
+      'Position '+position.ra.toFixed(7)+' '+position.dec.toFixed(7)+' degrees · radius 10 arcsec',
+      ...headers,
+      'Catalogue epoch/frame and measured coordinate epoch may differ; proper motion is not corrected.',
+      matches.length?'Nearby candidates (up to 100; proximity is not identification):':'No candidates found in the available cells. This does not establish a new object.',
+      ...matches.map(star=>star.separation.toFixed(2)+' arcsec · RA '+star.ra.toFixed(7)+' DEC '+star.dec.toFixed(7)+' · catalogue mag '+star.mag.toFixed(1)+' · '+star.file+' record '+star.record),
+      'Compact database records carry no object names. File/record references are local provenance only.'
+    ].join('\n');
+    $('candidateLinks').innerHTML=matches.length?'<p>Open a candidate position to find and copy its SIMBAD identifier. Multiple results may need inspection.</p>'+matches.map((star,i)=>'<p><a target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" href="'+esc(simbadURL(star.ra,star.dec,5))+'">Candidate '+(i+1)+': SIMBAD identifier lookup ↗</a> · '+star.separation.toFixed(2)+'″ from plotted position · 5″ search around catalogue position</p>').join(''):'';
+  } catch(e){$('candidateLinks').innerHTML='';$('catalogueStatus').textContent='Local lookup stopped: '+e.message;$('catalogueResult').textContent='No complete result accepted.';}
+  finally{busy=false;$('cancelScan').disabled=true;}
+}
+function observationKey(r) {
+  // Identity of ONE exported observation, not a permanent star identifier.
+  return [r.jd,r.ra,r.dec,r.x,r.y].every(finite)?JSON.stringify([r.jd,r.ra,r.dec,r.x,r.y]):null;
+}
+function newAudit(targetRows, targetName) {
+  const anchors = new Map();
+  const entries = targetRows.map(r => ({source:r.source,row:r.row,key:observationKey(r),matches:0,unnamed:0,conflicts:0,examples:[],original:r.original}));
+  for(const e of entries)if(e.key) {
+    if(!anchors.has(e.key))anchors.set(e.key,[]);
+    anchors.get(e.key).push(e);
+  }
+  return {target:targetName||null,anchors,entries,files:0,rows:0,valid:0,unnamed:0,invalid:0,failed:0,errors:[]};
+}
+function auditFrame(a, decoded, source) {
+  a.files++; a.rows+=decoded.total; a.valid+=decoded.records.length;
+  a.unnamed+=decoded.unnamed; a.invalid+=decoded.invalid;
+  for(const r of decoded.records) {
+    const candidates = a.anchors.get(observationKey(r));
+    if(!candidates)continue;
+    for(const e of candidates) {
+      e.matches++; if(!r.name)e.unnamed++;
+      const fields = [...new Set([...Object.keys(e.original||{}),...Object.keys(r.original||{})])];
+      const differences = fields.filter(k => (e.original?.[k]??'') !== (r.original?.[k]??'') && !(k==='Name'&&!r.name));
+      if(differences.length)e.conflicts++;
+      if(e.examples.length<3)e.examples.push({source,row:r.row,differences,unnamed:!r.name});
+    }
+  }
+}
+function finishAudit(a, inventory) {
+  const entries = a.entries.map(({original,...e})=>e);
+  return {schema:'seestar-session-audit-preview-1',target:a.target,inventory,
+    csvFilesRead:a.files,totalRows:a.rows,validRows:a.valid,unnamedRows:a.unnamed,invalidRows:a.invalid,
+    failedFiles:a.failed,errors:a.errors,complete:a.failed===0,
+    targetRows:entries.length,matched:entries.filter(e=>e.matches>0).length,
+    unmatched:entries.filter(e=>!e.matches).length,
+    ambiguous:entries.filter(e=>e.matches>1||(e.key&&a.anchors.get(e.key).length>1)).length,
+    conflicts:entries.filter(e=>e.conflicts>0).length,
+    unnamedMatches:entries.filter(e=>e.unnamed>0).length,observations:entries,
+    method:'Exact numeric start JD + RA + DEC + sensor X/Y. Blank frame Name is allowed. All other exported fields compared as text. No fuzzy association, independent photometry, or eclipse confirmation. Repeated matching rows remain ambiguous; they never add light-curve points.'};
+}
+// Bound native filesystem waits; abandoning a read never writes to the source.
+function folderRead(operation) {
+  return new Promise((resolve,reject)=>{
+    const started=Date.now();
+    const timer=setInterval(()=>{
+      if(cancelScan||Date.now()-started>15000) {
+        clearInterval(timer);
+        reject(Error(cancelScan?'Folder read cancelled':'Browser folder read timed out; use Select frame CSVs instead'));
+      }
+    },100);
+    Promise.resolve(operation).then(value=>{clearInterval(timer);resolve(value);},error=>{clearInterval(timer);reject(error);});
+  });
+}
+async function chooseSessionFolder(saved=null) {
+  if(busy){$('scanProgress').textContent='Another read is running. Cancel it before selecting a folder.';return;}
+  busy=true; cancelScan=false;
+  let files=[], ready=false;
+  try {
+    // Must run directly from a user gesture. No upload-input fallback.
+    $('scanProgress').textContent='Waiting for folder selection…';
+    const root=await selectedFolder(saved,'seestar-session');
+    await rememberFolder('session',root);
+    $('scanProgress').textContent='Folder selected: '+root.name+'. Listing files…';
+    $('cancelScan').disabled=false;
+    const queue=[{handle:root,path:root.name}];
+    for(let i=0;i<queue.length;i++) {
+      const iterator=queue[i].handle.values()[Symbol.asyncIterator]();
+      while(true) {
+        const next=await folderRead(iterator.next());
+        if(next.done)break;
+        const handle=next.value;
+        if(cancelScan)break;
+        const path=queue[i].path+'/'+handle.name;
+        if(files.length+queue.length>=100000)throw Error('Folder exceeds preview limit of 100,000 entries');
+        if(handle.kind==='directory')queue.push({handle,path});
+        else files.push({name:handle.name,webkitRelativePath:path,text:async()=>{
+          const file=await folderRead(handle.getFile());
+          if(file.size>16*1024*1024)throw Error('CSV exceeds preview limit of 16 MiB');
+          return folderRead(file.text());
+        }});
+        if((files.length+queue.length)%100===0) {
+          $('scanProgress').textContent='Listing local folder: '+files.length+' files found…';
+          await new Promise(resolve=>setTimeout(resolve,0));
+        }
+      }
+      if(cancelScan)break;
+    }
+    ready=!cancelScan;
+    if(cancelScan)$('scanProgress').textContent='Folder read cancelled. Previous audit and light curve unchanged.';
+  } catch(e) {
+    $('scanProgress').textContent=e.name==='AbortError'
+      ? 'Folder selection cancelled. Previous audit unchanged.'
+      : 'Folder access unavailable: '+e.message+'. Select frame CSVs instead. Previous audit unchanged.';
+  } finally {
+    busy=false; $('cancelScan').disabled=true;
+  }
+  if(ready&&!files.length)$('scanProgress').textContent='The browser returned no files for this folder. Previous audit unchanged. Select frame CSVs instead.';
+  else if(ready)await scanSession(files);
+}
+async function scanSession(files) {
+  if(busy||!files.length)return;
+  busy=true; cancelScan=false; $('cancelScan').disabled=false;
+  const targetRows=raw.filter(r=>r.name===$('target').value), a=newAudit(targetRows,$('target').value&&targetRows.length?$('target').value:null);
+  const tracks=$('buildTracks').checked?newTracks():null;
+  const inventory={csv:0,fits:0,jpeg:0,other:0}, csv=[];
+  for(const f of files) {
+    const ext=f.name.split('.').pop().toLowerCase();
+    if(ext==='csv'){inventory.csv++;csv.push(f);}
+    else if(['fit','fits','fts'].includes(ext))inventory.fits++;
+    else if(['jpg','jpeg'].includes(ext))inventory.jpeg++;
+    else inventory.other++;
+  }
+  csv.sort((a,b)=>((a.name.match(/(\d{8}-\d{6})/)||[])[1]||a.name).localeCompare((b.name.match(/(\d{8}-\d{6})/)||[])[1]||b.name)||(a.webkitRelativePath||a.name).localeCompare(b.webkitRelativePath||b.name));
+  try {
+    for(let i=0;i<csv.length;i++) {
+      if(cancelScan)break;
+      const f=csv[i];
+      $('scanProgress').textContent='Reading CSV '+(i+1)+' of '+csv.length+' · '+f.name;
+      // Yield between bounded files so Cancel and progress can respond.
+      await new Promise(resolve=>setTimeout(resolve,0));
+      if(cancelScan)break;
+      try {
+        if(f.size>16*1024*1024)throw Error('CSV exceeds preview limit of 16 MiB');
+        const text=await f.text();
+        if(cancelScan)break;
+        const result=decodeCSV(text,f.name,true);
+        auditFrame(a,result,f.webkitRelativePath||f.name);
+        if(tracks)trackFrame(tracks,result.records,f.webkitRelativePath||f.name);
+      } catch(e) {
+        a.failed++;
+        if(a.errors.length<20)a.errors.push({source:f.name,error:e.message});
+      }
+    }
+    if(cancelScan) {
+      $('scanProgress').textContent='Scan cancelled. Previous audit and light curve unchanged. No partial audit accepted.';
+      return;
+    }
+    if(!csv.length||!a.files) {
+      $('scanProgress').textContent='No readable CSV files. '+(a.errors[0]?a.errors[0].error+'. ':'')+'Previous audit and light curve unchanged.';
+      return;
+    }
+    restoreLog(); fieldTracks=tracks; renderTracks();
+    sessionAudit=finishAudit(a,inventory);
+    const r=sessionAudit;
+    $('scanProgress').textContent=(r.complete?'Scan complete.':'Partial scan: '+r.failedFiles+' files could not be read.')+' Light curve unchanged.';
+    $('scanResult').textContent=[
+      inventory.csv+' CSV · '+inventory.fits+' FITS · '+inventory.jpeg+' JPEG · '+inventory.other+' other files',
+      r.validRows.toLocaleString()+' valid measurements · '+r.unnamedRows.toLocaleString()+' unnamed · '+r.invalidRows+' invalid magnitude/time rows',
+      r.target?'Target snapshot: '+r.target+' · '+r.targetRows+' log rows':'Inventory only. Load a target log and rescan to reconcile its observations.',
+      r.target?r.matched+' log rows have exact frame matches · '+r.unmatched+' unmatched · '+r.ambiguous+' ambiguous · '+r.conflicts+' with field differences':'',
+      r.target?r.unnamedMatches+' matched log rows also appear without a name in the frame CSVs. These are the same observations, not extra measurements.':'',
+      tracks?'Provisional coordinate tracks are available below. Ambiguous measurements are not assigned.':'Star tracking was disabled; field rows were counted only.',
+      ...r.errors.map(e=>e.source+': '+e.error)
+    ].filter(Boolean).join('\n');
+    $('exportAudit').disabled=false;
+  } finally {
+    busy=false; $('cancelScan').disabled=true; $('frames').value='';
+  }
+}
 /**
  * Read optional quality thresholds. Missing required quality values flag a row, but only the Hide control excludes it from kept; raw is never mutated.
  */
@@ -432,6 +903,7 @@ function flagged(r) {
  * Recompute selected timeline -> retained subset -> bins/annotations, then update DOM and charts. Summary/tracking detection use all; plots/bins/exports use kept.
  */
 function update() {
+  refreshLookup();
   all = timeline(selected());
   kept = all.filter(r => !$('hide').checked||!flagged(r));
   binned = binData(kept, +$('bin').value);
@@ -453,6 +925,7 @@ function update() {
   $('movement').textContent = c.length+' positions · '+motion.events.length+' possible movement events';
   $('movementDetail').textContent = c.length?'X range '+fmt(Math.max(...x)-Math.min(...x), 2)+' px · Y range '+fmt(Math.max(...y)-Math.min(...y), 2)+' px · net displacement '+fmt(Math.hypot(c.at(-1).x-c[0].x, c.at(-1).y-c[0].y), 2)+' px · maximum step '+fmt(steps.length?Math.max(...steps):0, 2)+' px. Events use successive available coordinates; missing coordinates can span unobserved movement. Brightness coincidence: five measurements before/after, median shift > max(0.05 mag, 3 × median uncertainty).'+(motion.events.length?' Event times: '+motion.events.map(e => stamp(e.display)+' ('+fmt(e.distance, 1)+' px)').join('; '):''):'No paired sensor coordinates available.';
   drawAll()
+  if(plottedTrack)$('warning').textContent+=' Provisional 3-arcsecond coordinate association; possible splits or mistaken matches. This is not a confirmed catalogue identity or eclipse.';
 }
 /**
  * Build escaped observation-summary HTML from all valid timed magnitudes for the target, independent of optional quality filtering. Duration uses first-to-last start, not summed exposure.
@@ -463,7 +936,7 @@ function renderStats() {
     return
   }
   let mags = all.map(r => r.mag), snrs = all.map(r => r.snr).filter(finite), errs = all.map(r => r.err).filter(x => finite(x)&&x>=0), unique = k => [...new Set(all.map(r => r[k]).filter(finite))].sort((a, b) => a-b), ex = unique('exp'), refs = unique('refs'), start = all[0], end = all.at(-1);
-  let values = [['Target', start.name, 'Recorded target name'], ['Observation date', stamp(start.display).slice(0, 10), stamp(end.display).slice(0, 10)], ['Start → end', stamp(start.display).slice(11)+' → '+stamp(end.display).slice(11), 'Recorded clock · exposure starts'], ['Duration', fmt((end.t-start.t)/60000, 2)+' min', 'First to last exposure start'], ['Measurements', all.length, 'Valid, timed magnitudes'], ['Exposure', ex.length===1?fmt(ex[0], 1)+' s':ex.length?fmt(ex[0], 1)+'–'+fmt(ex.at(-1), 1)+' s':'—', ex.length>1?'Mixed exposure durations':'Reported exposure'], ['Median magnitude', fmt(median(mags)), 'All valid observations'], ['Brightest / faintest', fmt(Math.min(...mags), 4)+' / '+fmt(Math.max(...mags), 4), 'Smaller magnitude is brighter'], ['Observed range', fmt(Math.max(...mags)-Math.min(...mags), 4)+' mag', 'Not a confirmed variability amplitude'], ['SNR mean / median', fmt(mean(snrs), 2)+' / '+fmt(median(snrs), 2), snrs.length+' reported values'], ['Median uncertainty', fmt(median(errs), 5)+' mag', errs.length+' nonnegative values'], ['Reference stars', refs.length===1?refs[0]:refs.length?refs[0]+'–'+refs.at(-1):'—', 'Reported count, not independently verified']];
+  let values = [['Target', start.name, plottedTrack?'Provisional scan ID and coordinate label':'Recorded target name'], ['Observation date', stamp(start.display).slice(0, 10), stamp(end.display).slice(0, 10)], ['Start → end', stamp(start.display).slice(11)+' → '+stamp(end.display).slice(11), 'Recorded clock · exposure starts'], ['Duration', fmt((end.t-start.t)/60000, 2)+' min', 'First to last exposure start'], ['Measurements', all.length, 'Valid, timed magnitudes'], ['Exposure', ex.length===1?fmt(ex[0], 1)+' s':ex.length?fmt(ex[0], 1)+'–'+fmt(ex.at(-1), 1)+' s':'—', ex.length>1?'Mixed exposure durations':'Reported exposure'], ['Median magnitude', fmt(median(mags)), 'All valid observations'], ['Brightest / faintest', fmt(Math.min(...mags), 4)+' / '+fmt(Math.max(...mags), 4), 'Smaller magnitude is brighter'], ['Observed range', fmt(Math.max(...mags)-Math.min(...mags), 4)+' mag', 'Not a confirmed variability amplitude'], ['SNR mean / median', fmt(mean(snrs), 2)+' / '+fmt(median(snrs), 2), snrs.length+' reported values'], ['Median uncertainty', fmt(median(errs), 5)+' mag', errs.length+' nonnegative values'], ['Reference stars', refs.length===1?refs[0]:refs.length?refs[0]+'–'+refs.at(-1):'—', 'Reported count, not independently verified']];
   $('stats').innerHTML = values.map(([a, b, c]) => '<div class="stat"><small>'+esc(a)+'</small><b>'+esc(b)+'</b><span>'+esc(c)+'</span></div>').join('')
 }
 /**
@@ -838,6 +1311,44 @@ $('report').onclick = () => {
 // 7. UI bindings: imports and analysis controls recompute; themes/details/resize redraw.
 // Native keyboard activation; open the picker directly within the user gesture.
 $('chooseFiles').onclick = () => $('files').click();
+$('chooseCatalogue').disabled=typeof window.showDirectoryPicker!=='function';
+$('chooseCatalogue').onclick=()=>chooseLocalCatalogue();
+$('reopenCatalogue').onclick=()=>chooseLocalCatalogue(rememberedFolders.catalogue);
+$('reopenSession').onclick=()=>chooseSessionFolder(rememberedFolders.session);
+$('forgetFolders').onclick=forgetRememberedFolders;
+loadRememberedFolders();
+$('chooseCatalogueFiles').onclick=()=>$('catalogueFiles').click();
+$('catalogueFiles').onchange=e=>{
+  if(busy)return;
+  try{attachCatalogue(Array.from(e.target.files,f=>({name:f.name,getFile:async()=>f})));}
+  catch(error){$('catalogueStatus').textContent=error.message+'. Previous database retained.';}
+  finally{$('catalogueFiles').value='';}
+};
+$('localLookup').onclick=lookupLocalCatalogue;
+$('catalogueSet').onchange=refreshLookup;
+$('trackSearch').oninput=renderTracks;$('trackMin').onchange=renderTracks;
+$('plotTrack').onclick=()=>plotFieldTrack($('trackSelect').value);
+$('tileSize').onchange=()=>{$('curveGallery').style.setProperty('--tile-size',$('tileSize').value+'px');};
+$('galleryScale').onchange=renderTracks;$('gallerySort').onchange=renderTracks;
+$('curveGallery').onclick=e=>{
+  const tile=e.target.closest('button[data-track]');if(!tile)return;
+  plotFieldTrack(tile.dataset.track);$('mainbox').scrollIntoView({behavior:'smooth',block:'center'});
+};
+$('returnLog').onclick=()=>{if(!busy)restoreLog();};
+$('exportTracks').onclick=()=>{
+  if(!fieldTracks)return;
+  const catalogue={schema:'seestar-provisional-tracks-1',scan:fieldTracks.id,radiusArcsec:3,limited:fieldTracks.limited,warning:'Provisional associations; IDs are fixed only within this scan. Catalogue is a snapshot, not a resumable session.',tracks:fieldTracks.tracks.map(t=>({id:t.id,label:t.label,names:[...t.names],observations:t.rows.length,ra:(Math.atan2(t.v[1],t.v[0])*180/Math.PI+360)%360,dec:Math.asin(t.v[2])*180/Math.PI,firstSource:t.rows[0].source,firstRow:t.rows[0].row}))};
+  download(new Blob([JSON.stringify(catalogue,null,2)],{type:'application/json'}),'seestar-star-catalogue.json');
+};
+$('chooseFolder').disabled = typeof window.showDirectoryPicker !== 'function';
+$('folderHelp').textContent = $('chooseFolder').disabled
+  ? 'This browser does not offer read-only folder access. Select frame CSVs instead; folder upload is not used.'
+  : 'Folder access asks for read permission only. Browser permission wording is controlled by your browser. Nothing is uploaded.';
+$('chooseFolder').onclick = ()=>chooseSessionFolder();
+$('chooseFrames').onclick = () => $('frames').click();
+$('frames').onchange = e => scanSession(e.target.files);
+$('cancelScan').onclick = () => { cancelScan=true; };
+$('exportAudit').onclick = () => { if(sessionAudit)download(new Blob([JSON.stringify(sessionAudit,null,2)],{type:'application/json'}),'seestar-session-audit.json'); };
 $('files').onchange = e => importFiles(e.target.files);
 for(let type of['dragover', 'dragenter'])$('drop').addEventListener(type, e => {
   e.preventDefault();
@@ -867,6 +1378,6 @@ $('tracking').addEventListener('toggle', drawAll);
 new ResizeObserver(() => drawAll()).observe($('mainbox'));
 // Development/test seam exposing pure helpers; not a versioned external API.
 window.Seestar = {
-  syntheticEclipseCSV, detectVariability, parseCSV, decodeCSV, timeline, binData, movements, median, mean, clock, stamp
+  folderStore, selectedFolder, rememberFolder, loadRememberedFolders, forgetRememberedFolders, simbadURL, catalogueCells, catalogueHeader, decodeCatalogueChunk, attachCatalogue, lookupLocalCatalogue, curveSummary, curveSVG, plotFieldTrack, newTracks, trackFrame, skyVector, observationKey, newAudit, auditFrame, finishAudit, scanSession, syntheticEclipseCSV, detectVariability, parseCSV, decodeCSV, timeline, binData, movements, median, mean, clock, stamp
 } ;
 </script></body></html>

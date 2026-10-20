@@ -10,7 +10,7 @@ Branded **Seabrooke.Astronomy**.
 
 For Seestar owners, clubs and educators seeking accessible photometry without paid analysis software. The analyzer explores existing measurements and prepares useful evidence for dedicated measurement tools; it does not confirm eclipses, guarantee discovery, or automatically produce calibrated scientific magnitudes. An explained inconclusive result is valid.
 
-Read [audience, scope and development boundaries](PRODUCT-SCOPE.md). Targeted session diagnostics and a general field scan are planned; the current app imports named-target logs and does not yet associate unnamed field stars or reconcile overlapping target/frame observations.
+Read [audience, scope and development boundaries](PRODUCT-SCOPE.md). The app supports named-target logs, exact target/frame reconciliation, and an experimental field scan with provisional coordinate tracks and a miniature-curve gallery. General scanning can fragment tracks or leave measurements unassigned; it is an exploration aid. Cross-session identities, independent image photometry and calibrated discovery assessment remain future work.
 
 [Repository](https://github.com/crseabrk/SeeStarApps) · [Project website](https://crseabrk.github.io/SeeStarApps/photometry/) · [Open analyzer](https://crseabrk.github.io/SeeStarApps/photometry/analyzer/) · [Contributing](../CONTRIBUTING.md) · [MIT license](../LICENSE)
 
@@ -21,6 +21,20 @@ The collection lives at `/SeeStarApps/`, this project overview at `/SeeStarApps/
 ## AI development disclosure
 
 This project was developed with substantial **OpenAI Codex** assistance under the direction of **Chris Seabrooke / Seabrooke.Astronomy**. Codex generated and revised the application code, analysis heuristics, themes, synthetic data generator, tests, and documentation. Chris supplied requirements, real test observations, feedback, and publication direction. See [AI-DISCLOSURE.md](../AI-DISCLOSURE.md) for the scope of AI involvement and verification limits. Automated checks do not constitute independent scientific validation.
+
+## Session folders, field stars and lookup
+
+1. For targeted analysis, load the dedicated target CSV and select its target. Then use **Read session folder**, or **Select frame CSVs instead** where directory access is unavailable. Scanning without a log gives an inventory and, with tracking enabled, field-star curves.
+2. The audit counts CSV/FITS/JPEG files and field rows, and reconciles exact log identities without adding duplicate light-curve points. Blank names are counted separately from invalid magnitude/time rows. FITS and JPEG contents are not read.
+3. **Build provisional star tracks** associates coordinates within 3 arcseconds only for unambiguous one-to-one matches per exposure. Search a track or filter by observation count, then choose **Plot selected star**. **Return to target log** restores the imported target data. IDs and coordinate labels are fixed within this scan; another scan rebuilds them. Track fragments are not a census of unique stars.
+4. Browse the **Light-curve gallery**. Choose Small/Medium/Large/Extra large tiles, shared or individual scales, and review-priority/count/range sorting. Click a tile to open the full chart. Thumbnails use unfiltered 5-minute medians, a shared session timeline and median-centred magnitudes; sparse bins and track fragments can mislead. Review priority is a heuristic, not a probability. Main-chart bin/filter settings do not change thumbnails.
+5. For optional offline candidate lookup, choose an extracted ASTAP .1476 database folder or individual database files, then click **Look up plotted star locally**. No ASTAP application is required. Actual D80 support was checked; other variants require verification. Position/magnitude entries lack object names. Missing cells are reported; epoch/proper motion differences are not corrected.
+6. Click **SIMBAD: find identifier** or a local candidate's SIMBAD link to open a coordinate search externally. Only an explicit click contacts that service. Inspect possible matches before copying a name; no automatic identification or renaming is performed.
+7. Session and catalogue directory handles are remembered in this browser when storage is available. **Reopen** explicitly requests read access and starts the workflow; no files are read automatically on startup. **Forget remembered folders** clears these preferences without changing files or loaded results. This uses IndexedDB, not cookies. A hosted URL has different storage from the downloaded HTML; permission renewal and browser restrictions may apply.
+
+Source files are read-only. Copy a completed session locally with Finder/Explorer first. Scans show progress and can be cancelled; cancellation retains previous accepted results. Individual file failures are labelled partial. Limits: 16 MiB per CSV, 100,000 session entries, 1.5 million retained track observations; reaching the tracking limit is explicitly partial. Field tracking and gallery caching use browser memory and can be demanding on large sessions. The local catalogue reader uses bounded chunks of nearby cells. Refresh clears observations/results, while saved directory handles can remain.
+
+Use normal desktop Chrome for the folder workflow demonstrated by the owner. The Codex embedded browser returned a cancelled/denied folder selection; ordinary file selection is the fallback. Safari/Firefox/mobile folder and persistence behavior has not been established. The older Safari chart/export checks do not cover these new features. See [validation](VALIDATION.md), [environment handoff](../tests/ENVIRONMENT-HANDOFF.md), and the [development record](SESSION-PREVIEW.md).
 
 ## Using the analyzer
 
@@ -37,7 +51,7 @@ The summary panel describes all valid, timed magnitudes for the selected target,
 
 ## Safari and macOS
 
-Use a current Safari release (15.4 or later is the API baseline, not a claim of testing every version), or current Chrome/Firefox/Edge. The app uses JavaScript, not Java; no Java installation is needed. Open the HTML directly in Safari or use the hosted analyzer. Files are read only after selection or drop; no directory access, Windows paths, File System Access API, or web server is required. Recorded clocks are parsed explicitly, independent of Mac regional date formatting and timezone.
+Use a current Safari release (15.4 or later is the API baseline, not a claim of testing every version), or current Chrome/Firefox/Edge. The app uses JavaScript, not Java; no Java installation is needed. Open the HTML directly in Safari or use the hosted analyzer. Standard CSV import needs no directory access or web server. Optional folder/reopen workflows use feature-detected read-only File System Access APIs; ordinary file selection remains available. Recorded clocks are parsed explicitly, independent of Mac regional date formatting and timezone.
 
 Use **Select CSV files** for Finder or iCloud Drive files; ensure cloud-only files have downloaded if selection/drop cannot read them. The picker intentionally filters to `.csv` files. Imports are held in memory: save exports before closing or refreshing the page. Safari may request permission to download from the site; exports go to its configured download location. Open the downloaded HTML report in a browser, then choose Print / Save as PDF. Actual CSV/PNG/HTML downloads and offline report opening were verified in Safari 27.0.1 on macOS. Finder/iCloud dialogs and print output remain unverified; see `VALIDATION.md`.
 
@@ -45,7 +59,7 @@ Charts use system fonts and cap display scaling at 2× for Retina screens. Track
 
 ## Time handling and data validation
 
-The parser supports BOM, quoted commas, escaped quotes, quoted newlines, CRLF/LF/CR, and missing fields. Required columns are `Name`, `Mag(obs)`, and at least one start-time column. Rows without a target, finite magnitude, or usable time are excluded with a count in the import log. Invalid optional values remain missing; negative measurement uncertainties are not drawn as error bars.
+The parser supports BOM, quoted commas, escaped quotes, quoted newlines, CRLF/LF/CR, and missing fields. Required columns are `Name`, `Mag(obs)`, and at least one start-time column. Rows without finite magnitude or usable time are excluded with a count. Standard log import counts and skips unnamed rows; the session scanner accepts them for inventory and provisional tracking. Invalid optional values remain missing; negative measurement uncertainties are not drawn as error bars.
 
 `YYYY.MM.DD HH:MM:SS` is parsed into a timezone-neutral clock representation. Browser timezone conversion is never used for recorded local times. JD (or MJD + 2400000.5) sets chronological order and relative elapsed time when available. A paired recorded-time/JD anchor places JD values on the recorded-clock axis. Without JD, recorded clock times provide the timeline. Missing local timestamps are reconstructed using the anchor; if none exists they are shown as UTC, with a warning. Clock/JD disagreement above two seconds produces a warning. Binning uses recorded local times where available. This does not infer a timezone, resolve daylight-saving ambiguity, or calculate barycentric corrections. Keep files in a consistent recorded clock convention.
 
@@ -57,7 +71,7 @@ The observed magnitude range is not a confirmed astrophysical amplitude. A posit
 
 **Highlight possible variability** lightly shades candidate sustained brightening/fading intervals. Screening uses retained data and the selected bin size: at least three consecutive bins with three observations per bin, strictly same-direction median changes, and endpoint change exceeding max(0.05 mag, 3 × median reported uncertainty, 3 × median within-bin sample SD). Gaps use the same continuity rule as the median curve. Missing uncertainty is noted. Overlap with a detected positional movement is reported. Shading spans observed measurements in candidate bins; displayed summary times are bin boundaries, not fitted event times. PNG and report exports carry the shading, and the report includes the screening summary.
 
-This is an exploratory heuristic, not a calibrated significance test, astrophysical classification, or forecast. It may miss real variability and may flag instrumental trends. Changing filters/bin size changes results. On RT And, default five-minute analysis flags the eight-bin brightening sequence (about 0.43056 mag); SS And has insufficient consecutive bins. A non-detection does not establish constancy.
+This is an exploratory heuristic, not a calibrated significance test, astrophysical classification, or forecast. It may miss real variability and may flag instrumental trends. Changing filters/bin size changes results. A non-detection does not establish constancy.
 
 - **PNG:** 3200 × 1700 pixels, current zoom and layer settings, title, axes, legend, and branding.
 - **Processed CSV:** all retained bins for the selected target (not cropped to the zoom viewport), including target, bin start, N, median, mean, sample SD, and mean SNR. UTF-8 BOM and quoted fields aid spreadsheet import.

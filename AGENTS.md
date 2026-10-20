@@ -6,7 +6,7 @@ These repository-wide instructions supplement the human user's request. Read `RE
 
 - Root `index.html` is the project directory. Each project belongs in its own top-level folder.
 - Photometry overview: `photometry/index.html`; tool: `photometry/analyzer/index.html`.
-- Keep the photometry tool self-contained, browser-local, and usable from a local file. No runtime CDN, telemetry, file upload, API key, server, database, build system, or installation requirement.
+- Keep the photometry tool self-contained, browser-local, and usable from a local file. No runtime CDN, telemetry, observation upload, API key, server, required database, build system, or installation requirement. Optional user-selected local catalogue files and browser-stored directory handles are allowed; external SIMBAD navigation must remain explicit-click only.
 - Do not replace the collection homepage with one app. For new apps, add a directory, project card, project count, and README table row; keep navigation reciprocal.
 
 ## Scientific invariants

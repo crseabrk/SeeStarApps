@@ -1,0 +1,21 @@
+const assert=require('node:assert/strict');
+const {api,context,element}=require('./harness.cjs').createHarness();
+const vm=require('node:vm');
+const row=(ra,dec,jd=1)=>({ra,dec,jd,name:'',mag:9,source:'s',row:2});
+let s=api.newTracks();api.trackFrame(s,[row(10,20),row(11,20)],'a');
+const id=s.tracks[0].id;
+api.trackFrame(s,[row(10.0002,20,2),row(11.0002,20,2)],'b');
+assert.equal(s.tracks.length,2);assert.equal(s.tracks[0].rows.length,2);assert.equal(s.tracks[0].id,id);
+api.trackFrame(s,[row(10.0002,20,2)],'copy');assert.equal(s.skipped,1);
+api.trackFrame(s,[row(10,20,3),row(10.0001,20,3)],'crowded');assert.equal(s.ambiguous,2);assert.equal(s.tracks[0].rows.length,2);
+s=api.newTracks();api.trackFrame(s,[row(359.9999,0)],'a');api.trackFrame(s,[row(0.0001,0,2)],'b');assert.equal(s.tracks.length,1);
+s=api.newTracks();api.trackFrame(s,[row(12,90)],'a');api.trackFrame(s,[row(250,90,2)],'b');assert.equal(s.tracks.length,1);
+s=api.newTracks();api.trackFrame(s,[row(NaN,20)],'a');assert.equal(s.invalid,1);
+s=api.newTracks();api.trackFrame(s,[row(10,20),row(10,20,2)],'log');assert.equal(s.skipped,1);
+console.log('PASS: separate tracks, drift, fixed IDs, duplicate exposure rejection, crowded ambiguity, RA wrap, poles, invalid positions, log rejection');
+
+vm.runInContext("fieldTracks=newTracks();trackFrame(fieldTracks,[{ra:10,dec:20,jd:2461333,mag:9,local:NaN,name:'',source:'frame.csv',row:2}], 'frame.csv');",context);
+element('trackMin').value='1';element('trackMin').onchange();element('plotTrack').onclick();
+assert.equal(vm.runInContext('all.length',context),1);assert.match(element('warning').textContent,/Provisional/);
+element('returnLog').onclick();assert.equal(vm.runInContext('all.length',context),0);
+console.log('PASS: select track, plot through existing analysis, association warning, return to original log');

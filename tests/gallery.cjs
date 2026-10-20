@@ -1,0 +1,20 @@
+const assert=require('node:assert/strict');
+const {api,context,element}=require('./harness.cjs').createHarness();
+const vm=require('node:vm');
+function track(shape){return {v:api.skyVector(10,20),rows:Array.from({length:120},(_,i)=>({jd:2461333+i/2880,mag:shape(i),local:NaN,snr:40,source:'frame.csv',row:i+2})),names:new Set(),id:'fixture',label:'fixture'};}
+const flat=track(()=>10),dip=track(i=>i>=40&&i<80?10.5:10),spike=track(i=>i===50?13:10);
+assert.equal(api.curveSummary(flat).score,0);
+assert.ok(api.curveSummary(dip).score>0);
+assert.equal(api.curveSummary(spike).score,0);
+assert.equal(api.curveSummary(flat),api.curveSummary(flat));
+const c=api.curveSummary(dip),svg=api.curveSVG(c,c.bins[0].t,c.bins.at(-1).t,.5);
+assert.ok(!/NaN|Infinity/.test(svg));assert.match(svg,/<svg/);
+const gaps={centre:10,bins:[{t:0,median:10},{t:1800000,median:10.1}]};
+assert.match(api.curveSVG(gaps,0,1800000,.2),/M10.00,70.00 M290.00/);
+context.fixture=dip;
+vm.runInContext('fieldTracks={tracks:[fixture],assigned:120,ambiguous:0,invalid:0,skipped:0};',context);
+element('trackMin').value='1';element('trackMin').onchange();
+assert.match(element('curveGallery').innerHTML,/data-track="fixture"/);
+element('curveGallery').onclick({target:{closest:()=>null}});
+api.plotFieldTrack('fixture');assert.equal(vm.runInContext('all.length',context),120);
+console.log('PASS: flat/dip/outlier ranking, cached summaries, finite SVG, broken gaps, gallery rendering and track selection');
