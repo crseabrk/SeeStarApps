@@ -4,7 +4,7 @@ Fork this repository, make changes on a branch, and open a pull request describi
 
 ## Keep the application standalone
 
-Open `index.html` directly to develop. Keep HTML, CSS, and JavaScript self-contained. Do not introduce runtime CDNs, uploads, API keys, servers, databases, analytics, or required build steps. Keep all observation processing in browser memory.
+Open `analyzer/index.html` directly to develop. Keep HTML, CSS, and JavaScript self-contained. Do not introduce runtime CDNs, uploads, API keys, servers, databases, analytics, or required build steps. Keep all observation processing in browser memory.
 
 Preserve recorded clock timestamps, JD chronology, target separation, uncertainty handling, and the inverted magnitude axis. Never silently filter observations using `Is Variable`. Keep synthetic examples and heuristic variability warnings clearly labeled.
 

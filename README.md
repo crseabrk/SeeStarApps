@@ -2,11 +2,11 @@
 
 Branded **Seabrooke.Astronomy**.
 
-[Repository](https://github.com/crseabrk/SeeStarApps) · [GitHub Pages](https://crseabrk.github.io/SeeStarApps/) · [Contributing](CONTRIBUTING.md) · [MIT license](LICENSE)
+[Repository](https://github.com/crseabrk/SeeStarApps) · [Project website](https://crseabrk.github.io/SeeStarApps/) · [Open analyzer](https://crseabrk.github.io/SeeStarApps/analyzer/) · [Contributing](CONTRIBUTING.md) · [MIT license](LICENSE)
 
-The Pages address becomes available after GitHub Pages is enabled for the `main` branch root. Fork this repository to adapt the app; retain the MIT copyright and license notice.
+GitHub Pages serves the project overview at `/SeeStarApps/` and the interactive tool at `/SeeStarApps/analyzer/`. Fork this repository to adapt the app; retain the MIT copyright and license notice.
 
- Open `index.html` directly in a modern browser, then select or drop Seestar CSV files. No installation, server, internet connection, account, API key, library, or build step is required. The only essential application file is `index.html`.
+ Open `analyzer/index.html` directly in a modern browser, then select or drop Seestar CSV files. No installation, server, internet connection, account, API key, library, or build step is required. The only essential application file is `analyzer/index.html`.
 
 ## AI development disclosure
 
@@ -14,7 +14,7 @@ This project was developed with substantial **OpenAI Codex** assistance under th
 
 ## Using the analyzer
 
-For a worked example, use **Download simulated eclipse CSV** on the page, then import the downloaded file. The downloadable release package also includes `SIM_Eclipse_Demo.csv`; the repository app generates the same data from its download button. It shows a fictional six-hour sequence with a complete 0.65 mag dip and recovery across midnight. See `SAMPLE-DATA.md` for the simulation parameters and expected results. The generator is embedded in `index.html`; hosting the CSV separately is optional.
+For a worked example, use **Download simulated eclipse CSV** on the page, then import the downloaded file. The downloadable release package also includes `SIM_Eclipse_Demo.csv`; the repository app generates the same data from its download button. It shows a fictional six-hour sequence with a complete 0.65 mag dip and recovery across midnight. See `SAMPLE-DATA.md` for the simulation parameters and expected results. The generator is embedded in `analyzer/index.html`; hosting the CSV separately is optional.
 
 - Import one or several UTF-8 CSVs. The default **Replace session** mode replaces the current observations and resets quality filters, bin size, movement threshold, chart layers, and zoom. Select **Add to session** to combine files from different sessions; matching target names combine and different targets stay separate. Multiple files selected together form one import batch. An import with no usable rows leaves the existing session intact. An identical file with the same filename is skipped on repeated import. Clear session removes imported data from browser memory. Refreshing the page also clears it.
 - Select a target before analysis. Targets are grouped by the exact trimmed `Name`; different names never share a curve. Files for the same target combine. Overlapping observations from differently named files are retained intentionally; they are not silently deduplicated.
@@ -47,11 +47,11 @@ This is an exploratory heuristic, not a calibrated significance test, astrophysi
 
 ## Publish on ordinary static hosting
 
-Upload `index.html` to your hosting account's public web directory, or a subfolder such as `/photometry/`. Visit that folder's URL. HTTPS is recommended for normal public hosting but the application also runs from a local file. No special server configuration is required. Publish only the app files; observation CSVs are not required or bundled.
+Upload the repository's root `index.html`, `eclipse-preview.svg`, sample CSV, and `analyzer/` folder to your public web directory. The root is the project overview; `analyzer/` contains the standalone application. For an analyzer-only installation, upload `analyzer/index.html` to the desired directory. HTTPS is recommended for normal public hosting but the application also runs from a local file. No special server configuration is required. Publish only the app files; observation CSVs are not required or bundled.
 
 ### GitHub Pages
 
-1. Create a repository and upload `index.html` at its root (optionally add this README).
+1. Create a repository and upload `analyzer/index.html` at its root (optionally add this README).
 2. In repository Settings → Pages, select deployment from a branch and the root directory of that branch, then save.
 3. Once deployment finishes, open the Pages URL shown by GitHub. A project repository commonly uses `https://crseabrk.github.io/SeeStarApps/`.
 
@@ -60,11 +60,11 @@ Upload `index.html` to your hosting account's public web directory, or a subfold
 Host the application first, then add this in a Blogger post's HTML editor, substituting your URL:
 
 ```html
-<iframe src="https://crseabrk.github.io/SeeStarApps/"
+<iframe src="https://crseabrk.github.io/SeeStarApps/analyzer/"
   title="Seestar Photometry Analyzer"
   style="width:100%;height:1200px;border:0;border-radius:12px"
   loading="lazy"></iframe>
-<p><a href="https://crseabrk.github.io/SeeStarApps/" target="_blank" rel="noopener">Open analyzer in a full window</a></p>
+<p><a href="https://crseabrk.github.io/SeeStarApps/analyzer/" target="_blank" rel="noopener">Open analyzer in a full window</a></p>
 ```
 
 Your hosting provider must permit framing. Avoid an iframe sandbox unless configured to allow scripts and downloads. A full-window link is useful on mobile.

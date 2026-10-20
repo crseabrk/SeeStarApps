@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const html=fs.readFileSync('index.html','utf8'),elements=new Map();
+const html=fs.readFileSync('analyzer/index.html','utf8'),elements=new Map();
 function el(id){if(!elements.has(id))elements.set(id,{value:({bin:'5',threshold:'30'})[id]||'',checked:['points','median','events'].includes(id),style:{},classList:{toggle(){},add(){},remove(){}},addEventListener(){},innerHTML:'',textContent:'',getBoundingClientRect(){return {width:1000,height:480}},getContext(){return new Proxy({},{get:(o,k)=>()=>{}})},parentElement:{innerHTML:''}});return elements.get(id)}
 const context={document:{getElementById:el},window:{},ResizeObserver:class{observe(){}},console,devicePixelRatio:1,setTimeout,Blob};vm.createContext(context);vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);const s=context.window.Seestar;
 
