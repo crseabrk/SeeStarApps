@@ -8,6 +8,10 @@ The Pages address becomes available after GitHub Pages is enabled for the `main`
 
  Open `index.html` directly in a modern browser, then select or drop Seestar CSV files. No installation, server, internet connection, account, API key, library, or build step is required. The only essential application file is `index.html`.
 
+## AI development disclosure
+
+This project was developed with substantial **OpenAI Codex** assistance under the direction of **Chris Seabrooke / Seabrooke.Astronomy**. Codex generated and revised the application code, analysis heuristics, themes, synthetic data generator, tests, and documentation. Chris supplied requirements, real test observations, feedback, and publication direction. See [AI-DISCLOSURE.md](AI-DISCLOSURE.md) for the scope of AI involvement and verification limits. Automated checks do not constitute independent scientific validation.
+
 ## Using the analyzer
 
 For a worked example, use **Download simulated eclipse CSV** on the page, then import the downloaded file. The downloadable release package also includes `SIM_Eclipse_Demo.csv`; the repository app generates the same data from its download button. It shows a fictional six-hour sequence with a complete 0.65 mag dip and recovery across midnight. See `SAMPLE-DATA.md` for the simulation parameters and expected results. The generator is embedded in `index.html`; hosting the CSV separately is optional.
