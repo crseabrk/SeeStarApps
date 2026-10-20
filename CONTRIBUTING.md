@@ -4,7 +4,7 @@ Fork this repository, make changes on a branch, and open a pull request describi
 
 ## Keep the application standalone
 
-Open `analyzer/index.html` directly to develop. Keep HTML, CSS, and JavaScript self-contained. Do not introduce runtime CDNs, uploads, API keys, servers, databases, analytics, or required build steps. Keep all observation processing in browser memory.
+Open `photometry/analyzer/index.html` directly to develop. Keep HTML, CSS, and JavaScript self-contained. Do not introduce runtime CDNs, uploads, API keys, servers, databases, analytics, or required build steps. Keep all observation processing in browser memory.
 
 Preserve recorded clock timestamps, JD chronology, target separation, uncertainty handling, and the inverted magnitude axis. Never silently filter observations using `Is Variable`. Keep synthetic examples and heuristic variability warnings clearly labeled.
 
@@ -17,3 +17,7 @@ Do not commit personal observation files unless their owners explicitly authoriz
 ## AI transparency
 
 The original implementation was generated and revised with OpenAI Codex under Chris Seabrooke’s direction; see [AI-DISCLOSURE.md](AI-DISCLOSURE.md). Please disclose material AI assistance in pull requests, review generated code, and state the checks actually performed.
+
+## Adding another app
+
+Create a top-level folder with a short descriptive name (for example, `photometry/`). Keep its overview in `index.html`, its standalone tool in `analyzer/index.html` or another clearly named subfolder, and its examples and documentation alongside it. Add a card to the collection root `index.html`, update the root README project table and project count, and verify links in both directions. Do not overwrite another project. Clearly disclose material AI assistance and scientific limitations. Keep the collection static and avoid introducing runtime services.
