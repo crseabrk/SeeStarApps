@@ -1,0 +1,30 @@
+# Cross-environment handoff for Windows, Mac, and cloud Codex
+
+Updated 2026-10-20. Applies to the Safari/macOS compatibility change accompanying this file, based on morning commit `3aebd17`. After pulling, record `git rev-parse HEAD` with any new results. Do not assume tests of earlier code cover later changes.
+
+## Note to Windows Codex
+
+The owner requires all supported environments to be tested. If you cannot perform a check yourself, leave precise instructions here for the appropriate Codex session and tell the owner to continue there. Do not equate passing JavaScript tests with passing native browser, file-dialog, gesture, or printing checks. Read `AGENTS.md` and `photometry/VALIDATION.md` before continuing.
+
+The cloud compatibility edits were recovered on the Mac. They add system fonts, a keyboard-operable file-picker button, pinch-to-pan resumption, delayed download-link cleanup, and one cadence calculation per redraw. Scientific formulas and export schemas are unchanged.
+
+## Current coverage
+
+| Environment | Status for this change | Remaining work |
+|---|---|---|
+| macOS 27.0.1 / Safari 27.0.1 | Local HTML and HTTPS morning baseline imported 1,081 synthetic rows with identical 73 bin counts/medians; themes, filtering, actual downloads, offline report, and selected desktop/narrow screenshots checked | Native mouse/trackpad, keyboard picker/Finder drop, iCloud, permission dialogs, print/PDF pagination. WebDriver native reset clicks were unreliable; DOM activation worked. Diagnose manually rather than declaring an app defect. Recheck published changed version after deployment. |
+| macOS / Chrome and Firefox | Not tested | Full browser checklist below |
+| Windows / Edge or Chrome, plus Firefox | Morning development results exist; recovered compatibility changes not tested natively on Windows | Pull this change and run full checklist, especially new fonts and file-picker button |
+| iOS/iPadOS / Safari | Not tested; pinch transition only covered by simulated DOM regression | Files selection, real touch pinch → one finger → pan, downloads/report, narrow layout; test hosted HTTPS and document local HTML restrictions |
+| Cloud / Linux | Historical Node checks passed; WebKit download blocked | Useful for regression tests only; cannot certify native Mac/Windows dialogs |
+
+## Reproducible checks for the next session
+
+1. Pull the latest repository without discarding local work; record commit, OS, browser version, and date. Run `node tests/smoke.cjs`, `node tests/analysis.cjs`, and `node tests/browser-compat.cjs` from repository root.
+2. Open `photometry/analyzer/index.html` locally and the hosted analyzer at https://crseabrk.github.io/SeeStarApps/photometry/analyzer/. Import `photometry/SIM_Eclipse_Demo.csv`. Expect 1,081 retained rows, zero invalid rows, 73 default five-minute bins, two exploratory candidate intervals, and the recorded span 2026-10-19 21:00 through 2026-10-20 03:00.
+3. Follow every manual check in `tests/README.md`: replacement/append/duplicates/invalid import, target separation, filters, layers, all themes, diagnostics, zoom/pan/reset, keyboard focus, and responsive layout. On touch hardware check pinch, lift one finger, then pan without a jump.
+4. Select the CSV through the native picker using keyboard and mouse; drop from Finder/Explorer. On Mac try an owner-selected iCloud file only after it is downloaded. Keep private observations out of commits.
+5. Download PNG, processed CSV, and report. Confirm PNG dimensions 3200 × 1700 and 73 CSV data rows at default settings. Open the HTML report offline, inspect its embedded chart, and test Print / Save as PDF for clipping and pagination.
+6. Verify hub → project → analyzer and return links. Record results here and in `photometry/VALIDATION.md`, with exact revision and unresolved failures. If another platform is inaccessible, tell the owner which device/session to use and preserve its pending checklist.
+
+No private RT And/SS And files were rerun in the Mac follow-up. Use synthetic data unless the owner supplies the original files; never claim private-data validation without those inputs.
