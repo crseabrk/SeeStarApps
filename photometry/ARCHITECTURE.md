@@ -1,5 +1,7 @@
 # Photometry implementation guide
 
+Read [product scope and expectations](PRODUCT-SCOPE.md) before designing changes. Planned folder scanning and star associations are described there; the data flow below documents the current implementation, not those future capabilities.
+
 ## Start here
 
 The editable runtime source is **`analyzer/index.html`**, relative to this folder. HTML, CSS, palettes, data processing, canvas rendering, input handlers, and export code are all embedded deliberately so the tool can open as a local file. There is no generated runtime bundle, package manifest, backend, hidden service, or separate build output. Do not edit old paths from the changelog.

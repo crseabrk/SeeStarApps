@@ -46,3 +46,7 @@ The owner requires coverage across the supported environments, regardless of whe
 - If you cannot test an environment yourself, leave actionable instructions for another Codex session in `tests/ENVIRONMENT-HANDOFF.md`: the revision to use, required environment, commands, manual steps, expected results, and remaining failures or unknowns. Preserve existing results and identify what needs retesting after new changes.
 - Tell the owner explicitly which environment is needed and ask them to continue in that environment (for example, Windows Codex on the PC or local Mac Codex). Do not stop with an unexplained test limitation or suggest cloud testing proves native OS behavior.
 - A user-authorized publication may proceed with disclosed outstanding checks; publication does not turn those checks into passes. Keep the handoff and validation record current as work progresses.
+
+## Photometry product promise
+
+For photometry changes, read `photometry/PRODUCT-SCOPE.md` and preserve its audience, scientific limits and browser-only/read-only boundaries. The promise is to explore Seestar measurements, assess consistency and identify observations worth investigating further. Keep planned capabilities distinct from shipped behaviour. Every substantive change must explain its user need, evidence limits, provenance/source safety and actual validation. No complete eclipse detection, discovery confirmation or automatic calibrated-magnitude claims. Do not reinterpret this scope document as an instruction to implement its roadmap immediately.
