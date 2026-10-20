@@ -30,9 +30,19 @@ These repository-wide instructions supplement the human user's request. Read `RE
 
 ## Verification and publication
 
-- From repository root run `node tests/smoke.cjs` and `node tests/analysis.cjs`. Node is a developer tool only.
+- From repository root run `node tests/smoke.cjs` and `node tests/analysis.cjs`, plus `node tests/browser-compat.cjs`. Node is a developer tool only.
 - If real CSVs are supplied, use `node tests/real-data.cjs <RT-file> <SS-file>`; do not upload those inputs.
 - Follow the manual checks in `tests/README.md` when relevant. A simulated canvas does not verify visual output, gestures, native downloads, or print rendering.
 - GitHub Pages serves `main` at repository root. Use the user's authorized publication scope; a request to review code alone does not authorize deployment.
 - Inspect current remote head and preserve unrelated work. Do not force-push. Wait for Pages deployment success before claiming a published change is live.
 - Report what was tested and what was not. Documentation makes the code easier to review; it does not guarantee scientific correctness or accessibility compliance.
+
+## Cross-environment testing and Codex handoffs
+
+The owner requires coverage across the supported environments, regardless of where a change is developed. This applies to Windows Codex, Mac Codex, and cloud sessions alike.
+
+- Maintain an explicit matrix in `tests/ENVIRONMENT-HANDOFF.md`: Windows (Edge/Chrome and Firefox), macOS (Safari and Chrome/Firefox), and iOS/iPadOS Safari for the advertised touch controls. Check both standalone local HTML where supported and hosted HTTPS. Record actual OS/browser versions, revision, actions, results, and limitations. A Node test or Linux WebKit run does not establish native Windows, macOS Safari, or iOS compatibility.
+- Before declaring cross-platform compatibility complete, test every supported environment affected by the change. Do not silently mark an unavailable environment as passed or treat another platform's results as a substitute.
+- If you cannot test an environment yourself, leave actionable instructions for another Codex session in `tests/ENVIRONMENT-HANDOFF.md`: the revision to use, required environment, commands, manual steps, expected results, and remaining failures or unknowns. Preserve existing results and identify what needs retesting after new changes.
+- Tell the owner explicitly which environment is needed and ask them to continue in that environment (for example, Windows Codex on the PC or local Mac Codex). Do not stop with an unexplained test limitation or suggest cloud testing proves native OS behavior.
+- A user-authorized publication may proceed with disclosed outstanding checks; publication does not turn those checks into passes. Keep the handoff and validation record current as work progresses.
