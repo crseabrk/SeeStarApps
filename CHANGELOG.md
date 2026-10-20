@@ -2,6 +2,17 @@
 
 This is a human-readable history of SeeStarApps. Dates are calendar dates in Europe/Berlin. Git commits are the authoritative source history; entries below do not invent version tags or separate commits for development that was published together. Future changes should add a dated entry describing behavior, validation, and any URL/schema changes.
 
+## 2026-10-20 — Safari/macOS compatibility review
+
+- Added an owner-required cross-environment test matrix and persistent Codex handoff instructions. Unavailable platform checks must be documented and the owner directed to the appropriate device/session.
+
+- Use system font fallbacks in the page, canvas charts, and exported reports so macOS does not depend on Segoe UI.
+- Replace the hidden file input's label with a native keyboard-operable button, opening the picker directly from the user gesture.
+- Resume one-finger panning when a second finger leaves a pinch; retain download links with their Blob URLs until delayed cleanup.
+- Calculate the unchanged median-line cadence/gap threshold once per redraw instead of once per bin, reducing repeated sorting during trackpad interaction. Scientific formulas, gap criteria, and export schemas remain unchanged.
+- Added `tests/browser-compat.cjs` for picker activation, pinch-to-pan/cancellation, and download lifecycle. Smoke, analysis, and compatibility checks passed; analysis also passed under America/Los_Angeles and smoke under Europe/Berlin.
+- Recovered the cloud edits on macOS and completed native Safari 27.0.1 checks for local/HTTPS import equivalence, rendering, filtering and real CSV/PNG/HTML downloads. All 73 synthetic-data bin counts and medians match the morning baseline. See `photometry/VALIDATION.md` for exact coverage, native input automation limits, and untested Finder/iCloud/print/touch behavior. OpenAI Codex assisted; private observation checks were not rerun.
+
 ## 2026-10-20 — Maintainer documentation
 
 ### Added
