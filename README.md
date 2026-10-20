@@ -4,6 +4,8 @@ An open-source collection of Seestar astronomy tools by **Seabrooke.Astronomy**.
 
 [Browse projects](https://crseabrk.github.io/SeeStarApps/) · [Contribute](CONTRIBUTING.md) · [MIT license](LICENSE) · [AI disclosure](AI-DISCLOSURE.md)
 
+For maintainers: [Changelog](CHANGELOG.md) · [Architecture and algorithms](photometry/ARCHITECTURE.md) · [Tests and verification limits](tests/README.md) · [AI editing instructions](AGENTS.md).
+
 ## Projects
 
 | Project | Overview | Tool | Documentation |

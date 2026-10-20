@@ -1,8 +1,21 @@
-const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const html=fs.readFileSync('photometry/analyzer/index.html','utf8'),elements=new Map();
-function el(id){if(!elements.has(id))elements.set(id,{value:({bin:'5',threshold:'30'})[id]||'',checked:['points','median','events'].includes(id),style:{},classList:{toggle(){},add(){},remove(){}},addEventListener(){},innerHTML:'',textContent:'',getBoundingClientRect(){return {width:1000,height:480}},getContext(){return new Proxy({},{get:(o,k)=>()=>{}})},parentElement:{innerHTML:''}});return elements.get(id)}
-const context={document:{getElementById:el},window:{},ResizeObserver:class{observe(){}},console,devicePixelRatio:1,setTimeout,Blob};vm.createContext(context);vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1],context);const s=context.window.Seestar;
+/** Public baseline regressions against the actual application functions. */
+const assert = require('assert');
+const {createHarness} = require('./harness.cjs');
+const {api} = createHarness();
+const csv = api.syntheticEclipseCSV();
+const decoded = api.decodeCSV(csv,'synthetic.csv');
+const rows = api.timeline(decoded.records);
+const bins = api.binData(rows,5);
 
-const csv=s.syntheticEclipseCSV(),decoded=s.decodeCSV(csv,'synthetic.csv'),rows=s.timeline(decoded.records),bins=s.binData(rows,5);
-assert.equal(decoded.invalid,0);assert.equal(rows.length,1081);assert.equal(s.stamp(rows[0].display),'2026-10-19 21:00:00');assert.equal(s.stamp(rows.at(-1).display),'2026-10-20 03:00:00');assert.equal(s.movements(rows,30).events.length,0);
-assert(s.detectVariability(rows,bins,5).some(e=>e.change>.4));assert(s.detectVariability(rows,bins,5).some(e=>e.change<-.4));assert.equal(s.parseCSV('\ufeffName,Value\r\n"A, B","quoted ""value"""')[1][1],'quoted "value"');assert(Number.isNaN(s.clock('2026.02.30 12:00:00')));assert(Number.isNaN(s.binData(rows.slice(0,1),5)[0].sd));console.log('PASS: synthetic CSV, schema, midnight timeline, binning, variability, tracking, quoted CSV, invalid date, singleton SD');
+assert.equal(csv,api.syntheticEclipseCSV());
+assert.equal(decoded.invalid,0);
+assert.equal(rows.length,1081);
+assert.equal(api.stamp(rows[0].display),'2026-10-19 21:00:00');
+assert.equal(api.stamp(rows.at(-1).display),'2026-10-20 03:00:00');
+assert.equal(api.movements(rows,30).events.length,0);
+assert(api.detectVariability(rows,bins,5).some(event=>event.change>.4));
+assert(api.detectVariability(rows,bins,5).some(event=>event.change<-.4));
+assert.equal(api.parseCSV('\ufeffName,Value\r\n"A, B","quoted ""value"""')[1][1],'quoted "value"');
+assert(Number.isNaN(api.clock('2026.02.30 12:00:00')));
+assert(Number.isNaN(api.binData(rows.slice(0,1),5)[0].sd));
+console.log('PASS: synthetic CSV, schema, midnight timeline, binning, variability, tracking, quoted CSV, invalid date, singleton SD');

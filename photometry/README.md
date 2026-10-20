@@ -1,5 +1,7 @@
 # Seestar Photometry Analyzer
 
+Maintainers: [Architecture and data model](ARCHITECTURE.md) · [Changelog](../CHANGELOG.md) · [Developer tests](../tests/README.md) · [AI editing instructions](../AGENTS.md).
+
 Branded **Seabrooke.Astronomy**.
 
 [Repository](https://github.com/crseabrk/SeeStarApps) · [Project website](https://crseabrk.github.io/SeeStarApps/photometry/) · [Open analyzer](https://crseabrk.github.io/SeeStarApps/photometry/analyzer/) · [Contributing](../CONTRIBUTING.md) · [MIT license](../LICENSE)
