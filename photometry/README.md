@@ -27,6 +27,14 @@ For a worked example, use **Download simulated eclipse CSV** on the page, then i
 
 The summary panel describes all valid, timed magnitudes for the selected target, while the result table and exports use retained observations. Duration means first-to-last exposure start; it is not summed exposure time. Sample SD uses N−1 and is undefined for singleton bins (shown as a dash; blank in CSV). Missing SNR is omitted from its averages. Reported reference-star counts are summarized as a count or range.
 
+## Safari and macOS
+
+Use a current Safari release (15.4 or later is the API baseline, not a claim of testing every version), or current Chrome/Firefox/Edge. The app uses JavaScript, not Java; no Java installation is needed. Open the HTML directly in Safari or use the hosted analyzer. Files are read only after selection or drop; no directory access, Windows paths, File System Access API, or web server is required. Recorded clocks are parsed explicitly, independent of Mac regional date formatting and timezone.
+
+Use **Select CSV files** for Finder or iCloud Drive files; ensure cloud-only files have downloaded if selection/drop cannot read them. The picker intentionally filters to `.csv` files. Imports are held in memory: save exports before closing or refreshing the page. Safari may request permission to download from the site; exports go to its configured download location. Open the downloaded HTML report in a browser, then choose Print / Save as PDF. Actual CSV/PNG/HTML downloads and offline report opening were verified in Safari 27.0.1 on macOS. Finder/iCloud dialogs and print output remain unverified; see `VALIDATION.md`.
+
+Charts use system fonts and cap display scaling at 2× for Retina screens. Trackpad scrolling zooms over the chart; drag pans. Touch pinch supports returning to one-finger panning. The 3200 × 1700 PNG export is independent of screen density. See the developer verification notes for tested behavior and limits.
+
 ## Time handling and data validation
 
 The parser supports BOM, quoted commas, escaped quotes, quoted newlines, CRLF/LF/CR, and missing fields. Required columns are `Name`, `Mag(obs)`, and at least one start-time column. Rows without a target, finite magnitude, or usable time are excluded with a count in the import log. Invalid optional values remain missing; negative measurement uncertainties are not drawn as error bars.
