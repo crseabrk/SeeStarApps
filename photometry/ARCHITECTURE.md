@@ -34,7 +34,7 @@ File selection / drop
   → PNG(current viewport), CSV(all retained bins), HTML report
 ```
 
-No fetch/XHR, upload, storage API, or external chart library is used. Refresh clears the session. Browser downloads use Blob URLs; the application revokes them after a delay.
+No fetch/XHR, upload, storage API, or external chart library is used. Refresh clears the session. Browser downloads use Blob URLs; the application removes the temporary download link and revokes its Blob URL together after 30 seconds. The native file-picker button invokes the hidden input directly within the user gesture.
 
 ## Data model and state
 
@@ -101,7 +101,7 @@ Runs require at least three consecutive bins, each with ≥3 observations, stric
 
 ### Presentation and export
 
-Magnitude increases downward. X/Y diagnostics use ordinary numeric axes. Optional error bars require finite nonnegative uncertainty. Flagged points stay visible unless hide is enabled. The summary always describes `all`; bins/plots/exports use `kept`. CSV exports all retained bins; PNG preserves zoom/layers/theme at 3200 × 1700; report embeds that PNG plus full results/settings/warnings. Theme changes do not recompute scientific data.
+Magnitude increases downward. X/Y diagnostics use ordinary numeric axes. Optional error bars require finite nonnegative uncertainty. Flagged points stay visible unless hide is enabled. The summary always describes `all`; bins/plots/exports use `kept`. CSV exports all retained bins; PNG preserves zoom/layers/theme at 3200 × 1700; report embeds that PNG plus full results/settings/warnings. Theme changes do not recompute scientific data. Median-line rendering computes its cadence/gap threshold once per redraw; the continuity rule is unchanged. Canvas fonts use system fallbacks for macOS. See the user guide and developer tests for Safari API requirements and verification limits.
 
 ## Review boundaries and known limitations
 
