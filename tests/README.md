@@ -1,10 +1,13 @@
 # Developer verification
 
+See [cross-environment coverage and Codex handoffs](ENVIRONMENT-HANDOFF.md) before declaring platform compatibility complete.
+
 Run from the repository root with a modern Node.js installation:
 
 ```text
 node tests/smoke.cjs
 node tests/analysis.cjs
+node tests/browser-compat.cjs
 ```
 
 No npm packages or install/build commands are needed. Node is only used for development checks. The browser app does not depend on it.
@@ -38,3 +41,9 @@ Record which browsers/devices and actions were actually checked. The initial HTT
 ## Source-only changes
 
 For documentation/comment/formatting changes, compare executable script tokens to the parent revision, run the automated checks, and avoid changing algorithms in the same patch. Static navigation-only changes need link checks; they do not require inventing new numerical tests. Any unresolved limitation belongs in the final change description and validation record.
+
+## Safari/macOS review — 2026-10-20
+
+`browser-compat.cjs` checks native-button picker delegation, pinch-to-one-finger panning/cancellation, and delayed link/Blob URL cleanup in the simulated DOM. It does not test WebKit, OS file permissions, or actual downloads. Public smoke/analysis/compatibility checks passed. Additional timezone runs: `TZ=America/Los_Angeles node tests/analysis.cjs` and `TZ=Europe/Berlin node tests/smoke.cjs` passed.
+
+The cloud environment could not download WebKit. The edits were recovered on macOS and all three suites passed. The gesture regression now checks finite viewport coordinates and expected pan distance. Native Safari 27.0.1 testing subsequently succeeded after the owner enabled remote automation; see [the validation record](../photometry/VALIDATION.md) for the precise coverage and limitations. Downloads were verified on disk, and local-file bin results match the deployed morning baseline. Physical input, Finder/iCloud dialogs, printing, and iOS remain manual checks. Safari 15.4 is the API baseline because the application uses `Array.prototype.at`; it is not a claim of tested support for that release.
