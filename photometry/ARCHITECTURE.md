@@ -1,6 +1,6 @@
 # Photometry implementation guide
 
-Read [product scope and expectations](PRODUCT-SCOPE.md) before designing changes. Planned folder scanning and star associations are described there; the data flow below documents the current implementation, not those future capabilities.
+Read [product scope and expectations](PRODUCT-SCOPE.md) before designing changes. The original named-log pipeline and the added session/field workflows are documented below; detailed algorithms and limitations for the added features are in SESSION-PREVIEW.md.
 
 ## Start here
 
@@ -36,7 +36,17 @@ File selection / drop
   → PNG(current viewport), CSV(all retained bins), HTML report
 ```
 
-No fetch/XHR, upload, storage API, or external chart library is used. Refresh clears the session. Browser downloads use Blob URLs; the application removes the temporary download link and revokes its Blob URL together after 30 seconds. The native file-picker button invokes the hidden input directly within the user gesture.
+No fetch/XHR, observation upload or external chart library is used. Optional IndexedDB stores selected directory handles only. User-clicked SIMBAD links navigate externally. Refresh clears observation/analysis state; remembered handles can survive. Browser downloads use Blob URLs; the application removes the temporary download link and revokes its Blob URL together after 30 seconds. The native file-picker button invokes the hidden input directly within the user gesture.
+
+## Session and field workflows
+
+`scanSession` stages an inventory/audit plus optional `fieldTracks`; accepted results replace previous scan state only after completion. `decodeCSV(..., true)` includes unnamed valid rows and keeps original field values for audit comparisons. `observationKey` identifies one exported observation using JD/RA/DEC/X/Y; it is not a permanent star identifier. Audit matches do not add points to the log.
+
+`newTracks`/`trackFrame` use unit-sphere spatial buckets and 3-arcsecond, one-to-one, unique-candidate association. Ambiguous rows stay unassigned; new tracks start where no candidate exists. One exposure JD per frame is required; duplicate JDs and multi-exposure logs are skipped for tracking. Names do not influence matching. `plottedTrack` temporarily changes `selected()` to return copied track rows; `restoreLog()` returns to imported `raw`. Original raw records are retained. `renderTracks` filters the list; `curveSummary` caches 5-minute JD-based thumbnail bins and exploratory scores; `renderGallery` caches static SVGs and exposes every filtered track, while the dropdown shows the first 500.
+
+`attachCatalogue` stores filenames/file handles only. Explicit `lookupLocalCatalogue` chooses .1476 cells around the current position, validates/decode headers and bounded record chunks, and reports candidates/missing coverage. `refreshLookup` updates click-only SIMBAD anchors without network requests. `folderStore` stores directory handles in IndexedDB; startup restores handles only, and `selectedFolder` requests read permission on explicit reopening. No source writes, automatic online lookup or executable launch.
+
+See [development/algorithm record](SESSION-PREVIEW.md) for limits, heuristic ranking formula, coordinate epochs, persistence boundaries and actual verification. Those notes preserve the prototype chronology; current user-facing instructions are in README.md.
 
 ## Data model and state
 
@@ -108,7 +118,7 @@ Magnitude increases downward. X/Y diagnostics use ordinary numeric axes. Optiona
 ## Review boundaries and known limitations
 
 - Large sessions are drawn/recomputed on the main thread. No worker, decimation, indexed hover search, or large-file benchmark exists. Array spread in extents can hit engine limits for very large datasets; do not claim unlimited capacity.
-- Duplicate suppression is whole-file/filename based. Overlapping observations in different files are retained intentionally.
+- Standard named-log duplicate suppression is whole-file/filename based, retaining overlaps across differently named files. Session audit reports exact overlaps; the tracker skips repeated exposure JDs. It never silently adds audit counterparts to a log.
 - CSV targets used in exports are quoted/HTML-escaped, but spreadsheet formula-prefix neutralization is not implemented. Review untrusted CSV content before opening exported text in spreadsheet software.
 - Canvas is labeled but is not an accessible data-grid replacement; the numeric table helps. Theme contrast checks are not a full accessibility audit. Pinch/pan and print/download behavior still need broader device/browser checks.
 - Canvas labels approximate a recorded-clock axis from the first observation; inconsistent recorded clock offsets are warned about, not reconciled.

@@ -1,0 +1,27 @@
+const assert=require('node:assert/strict'),fs=require('fs');
+const {createHarness}=require('./harness.cjs');
+const {context,element}=createHarness();
+assert.equal(element('chooseFolder').disabled,true);
+assert.ok(!fs.readFileSync('photometry/analyzer/index.html','utf8').includes('webkitdirectory'));
+let reads=0;
+const csv={name:'frame.csv',kind:'file',getFile:async()=>{reads++;return {size:120,text:async()=> 'Name,Mag(obs),EXP start(JD)\n,8,2461333.4'};}};
+const image={name:'image.fits',kind:'file',getFile:()=>{throw Error('must not read image');}};
+context.window.showDirectoryPicker=async options=>{assert.equal(options.mode,'read');return {name:'session',async *values(){yield image;yield {kind:'directory',name:'sub',async *values(){yield csv;}};}};};
+(async()=>{
+ await element('chooseFolder').onclick();
+ assert.equal(reads,1);assert.match(element('scanResult').textContent,/1 FITS/);assert.match(element('scanResult').textContent,/1 unnamed/);
+ const prior=element('scanResult').textContent;
+ context.window.showDirectoryPicker=async()=>{throw Object.assign(Error('cancel'),{name:'AbortError'});};
+ await element('chooseFolder').onclick();assert.equal(element('scanResult').textContent,prior);
+ context.window.showDirectoryPicker=async()=>{throw Object.assign(Error('denied'),{name:'SecurityError'});};
+ await element('chooseFolder').onclick();assert.equal(element('scanResult').textContent,prior);assert.match(element('scanProgress').textContent,/Select frame CSVs/);
+ context.window.showDirectoryPicker=async()=>({name:'empty',async *values(){}});
+ await element('chooseFolder').onclick();assert.match(element('scanProgress').textContent,/returned no files/);assert.equal(element('scanResult').textContent,prior);
+ context.window.showDirectoryPicker=async()=>({name:'stalled',values(){return {[Symbol.asyncIterator](){return this;},next(){return new Promise(()=>{});}};}});
+ const pending=element('chooseFolder').onclick();
+ await new Promise(r=>setTimeout(r,20));
+ assert.match(element('scanProgress').textContent,/Listing files/);
+ element('cancelScan').onclick();await pending;
+ assert.match(element('scanProgress').textContent,/cancelled/);assert.equal(element('scanResult').textContent,prior);
+ console.log('PASS: read-only folder API, recursive listing, lazy CSV reads, no image reads/upload input, unavailable/cancelled/denied access');
+})().catch(e=>{console.error(e);process.exitCode=1;});

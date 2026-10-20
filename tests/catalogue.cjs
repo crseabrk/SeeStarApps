@@ -1,0 +1,34 @@
+const assert=require('node:assert/strict'),vm=require('node:vm');
+const {api,context,element}=require('./harness.cjs').createHarness();
+const ab=bytes=>Uint8Array.from(bytes).buffer;
+const header=new Uint8Array(110);header.set(Buffer.from('GAIA DR3, test. Epoch=2025'));header[109]=5;
+assert.equal(api.catalogueHeader(header.buffer).size,5);
+assert.throws(()=>api.catalogueHeader(ab([0,1])));
+const values=[];
+api.decodeCatalogueChunk(ab([255,255,255,104,6,195,6,72,215,57]),{size:5,record:0},v=>values.push(v));
+assert.ok(Math.abs(values[0].ra-101.287149)<.00001);assert.ok(Math.abs(values[0].dec+16.7161401)<.000001);assert.equal(values[0].mag,-1);
+assert.throws(()=>api.decodeCatalogueChunk(ab([1,2,3,4,5]),{size:5,record:0},()=>{}),/section/);
+assert.throws(()=>api.decodeCatalogueChunk(ab([1]),{size:5},()=>{}),/Truncated/);
+assert.ok(api.catalogueCells(347.8,53.0).includes('2937'));
+assert.ok(api.catalogueCells(0,0).length>=4);assert.ok(api.catalogueCells(359.99999,0).length>=4);
+assert.ok(api.catalogueCells(0,90).includes('3601'));assert.ok(api.catalogueCells(0,-90).includes('0101'));
+const data=Buffer.concat([Buffer.from(header),Buffer.from([255,255,255,104,6,195,6,72,215,57])]);
+let reads=0;
+const file={name:'d80_1501.1476',getFile:async()=>{reads++;return new Blob([data]);}};
+api.attachCatalogue([file]);assert.equal(reads,0);
+assert.throws(()=>api.attachCatalogue([file,file]),/Duplicate/);
+assert.throws(()=>api.attachCatalogue([{name:'installer.exe'}]),/No supported/);
+vm.runInContext('raw=[{name:"Sirius",ra:101.287149,dec:-16.7161401}];',context);element('target').value='Sirius';
+(async()=>{
+ // Correct filename for this synthetic position, selected using actual tiling.
+ const cell=api.catalogueCells(101.287149,-16.7161401)[0];
+ api.attachCatalogue([{...file,name:'d80_'+cell+'.1476'}]);
+ assert.equal(reads,0);await api.lookupLocalCatalogue();assert.equal(reads,1);
+ assert.match(element('catalogueResult').textContent,/Nearby candidates/);assert.match(element('catalogueResult').textContent,/0.00 arcsec/);
+ assert.match(element('simbadLookup').href,/Radius=10/);
+ assert.match(element('candidateLinks').innerHTML,/SIMBAD identifier lookup/);
+ assert.match(element('candidateLinks').innerHTML,/Radius=5/);
+ assert.equal(api.simbadURL(NaN,20),'');
+ assert.match(api.simbadURL(10,-20),/%2D|-/);
+ console.log('PASS: 1476 decoding, signed declination, section/truncation rejection, boundary/pole cells, explicit-only file reads, duplicate/unsupported detection, candidate lookup and SIMBAD link');
+})().catch(e=>{console.error(e);process.exitCode=1;});

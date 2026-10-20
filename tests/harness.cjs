@@ -24,7 +24,7 @@ function createHarness() {
   const context = {
     document:{getElementById:element,documentElement:{dataset:{}}},
     window:{},ResizeObserver:class{observe(){}},
-    console,devicePixelRatio:1,setTimeout,Blob
+    console,devicePixelRatio:1,setTimeout,clearTimeout,setInterval,clearInterval,Blob
   };
   const script = html.match(/<script>([\s\S]*?)<\/script>/);
   if (!script) throw Error('Expected embedded application script');

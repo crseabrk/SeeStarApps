@@ -27,4 +27,12 @@ The cloud compatibility edits were recovered on the Mac. They add system fonts, 
 5. Download PNG, processed CSV, and report. Confirm PNG dimensions 3200 × 1700 and 73 CSV data rows at default settings. Open the HTML report offline, inspect its embedded chart, and test Print / Save as PDF for clipping and pagination.
 6. Verify hub → project → analyzer and return links. Record results here and in `photometry/VALIDATION.md`, with exact revision and unresolved failures. If another platform is inaccessible, tell the owner which device/session to use and preserve its pending checklist.
 
-No private RT And/SS And files were rerun in the Mac follow-up. Use synthetic data unless the owner supplies the original files; never claim private-data validation without those inputs.
+Private reference files were not rerun in that historical Mac compatibility follow-up. Use synthetic data unless the owner supplies the original files; never claim private-data validation without those inputs.
+
+## Session/field/gallery/catalogue/persistence upgrade — 2026-10-20
+
+Nine public synthetic/simulated-DOM suites passed via `node tests/run-all.cjs`. Owner reported normal-Chrome success and supplied gallery/chart/candidate-lookup/SIMBAD screenshots. Exact Chrome version was not supplied. The Codex embedded-browser directory picker returned AbortError on confirmation; use normal Chrome or ordinary file selection. Older platform results above do not cover this upgrade. Private observation-derived results remain in owner-held records.
+
+Tomorrow on this Mac: open the published HTTPS analyzer in normal Chrome, record version and revision, import a target log, scan a completed folder, inspect gallery/tile sizes/scales/sorts, select and plot a track, return to log, check audit/export and catalogue/SIMBAD controls. Attach extracted .1476 database files/folder, check no lookup occurs until clicked, test unsupported files and cancellation. Reload/restart and test remembered session/database folders, permission denial, disconnected drives and Forget. Hosted storage is separate from the local preview.
+
+Native new-workflow Safari/Firefox on Mac, Windows Edge/Chrome/Firefox and iOS/iPadOS checks remain pending. Repeat standard import/gesture/export tests too. Continue those environments when the owner resumes them; Windows stays paused. Do not restart polling. See photometry/SESSION-PREVIEW.md for algorithms, limits and exact fixture scope.
