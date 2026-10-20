@@ -4,6 +4,10 @@ Fork this repository, make changes on a branch, and open a pull request describi
 
 Start with [the changelog](CHANGELOG.md), [the architecture guide](photometry/ARCHITECTURE.md), and [test instructions](tests/README.md). AI assistants should also read [AGENTS.md](AGENTS.md).
 
+## Photometry feature proposals
+
+Read [the product scope](photometry/PRODUCT-SCOPE.md). Explain the intended observer benefit, what the evidence can and cannot establish, source/provenance safeguards, and verification performed. Distinguish planned features from current capability in documentation and releases. The project is an accessible session explorer and preparation tool, not a promise of complete event detection or a replacement for calibrated photometric reduction.
+
 ## Keep the application standalone
 
 Open `photometry/analyzer/index.html` directly to develop. Keep HTML, CSS, and JavaScript self-contained. Do not introduce runtime CDNs, uploads, API keys, servers, databases, analytics, or required build steps. Keep all observation processing in browser memory.

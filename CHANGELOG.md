@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-20 — Photometry audience and scope
+
+- Recorded the accessible session-analysis promise, intended audience, scientific limits and specialist-tool handoff in `photometry/PRODUCT-SCOPE.md`.
+- Distinguished current named-log imports from planned targeted session diagnostics and general field scanning; documented stable star identity, overlap reconciliation and read-only browser processing requirements.
+- Linked the scope from the user guide, architecture, contributor guidance and AI instructions so future changes restate their evidence and limits. Documentation only; no new analyzer capability or scientific validation is claimed. Prepared with OpenAI Codex assistance.
+
 This is a human-readable history of SeeStarApps. Dates are calendar dates in Europe/Berlin. Git commits are the authoritative source history; entries below do not invent version tags or separate commits for development that was published together. Future changes should add a dated entry describing behavior, validation, and any URL/schema changes.
 
 ## 2026-10-20 — Safari/macOS compatibility review

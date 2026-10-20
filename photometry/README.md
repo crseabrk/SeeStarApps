@@ -4,6 +4,14 @@ Maintainers: [Architecture and data model](ARCHITECTURE.md) · [Changelog](../CH
 
 Branded **Seabrooke.Astronomy**.
 
+## Purpose and expectations
+
+> Explore your Seestar measurements, assess their consistency, and identify observations worth investigating further.
+
+For Seestar owners, clubs and educators seeking accessible photometry without paid analysis software. The analyzer explores existing measurements and prepares useful evidence for dedicated measurement tools; it does not confirm eclipses, guarantee discovery, or automatically produce calibrated scientific magnitudes. An explained inconclusive result is valid.
+
+Read [audience, scope and development boundaries](PRODUCT-SCOPE.md). Targeted session diagnostics and a general field scan are planned; the current app imports named-target logs and does not yet associate unnamed field stars or reconcile overlapping target/frame observations.
+
 [Repository](https://github.com/crseabrk/SeeStarApps) · [Project website](https://crseabrk.github.io/SeeStarApps/photometry/) · [Open analyzer](https://crseabrk.github.io/SeeStarApps/photometry/analyzer/) · [Contributing](../CONTRIBUTING.md) · [MIT license](../LICENSE)
 
 The collection lives at `/SeeStarApps/`, this project overview at `/SeeStarApps/photometry/`, and its interactive tool at `/SeeStarApps/photometry/analyzer/`. Fork this repository to adapt the app; retain the MIT copyright and license notice.
