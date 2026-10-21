@@ -62,3 +62,25 @@ assert.equal(element('galleryPanel').open,false);assert.equal(footerFocused,true
 element('galleryPanel').open=true;element('galleryPanel').toggle();assert.equal(element('toggleGallery').textContent,'Close gallery');
 assert.equal(vm.runInContext('all.length',context),unchanged);
 console.log('PASS: compact marker/cache structure, optional auto-close, footer/main toggles, native disclosure synchronization and data preservation');
+
+// Selection stays exclusive, follows gallery redraws, and clears with the target log.
+function selectionTile(id){return {dataset:{track:id},isConnected:true,setAttribute(k,v){this[k]=v;},scrollIntoView(){},focus(){this.focused=true;}};}
+const first=selectionTile('fixture'),second=selectionTile('second');
+context.secondFixture={...dip,id:'second',label:'second'};
+vm.runInContext('fieldTracks.tracks.push(secondFixture)',context);
+element('curveGallery').querySelectorAll=()=>[first,second];
+api.plotFieldTrack('fixture');assert.equal(first['aria-pressed'],'true');
+api.plotFieldTrack('second');assert.equal(first['aria-pressed'],'false');assert.equal(second['aria-pressed'],'true');
+element('trackMin').onchange();
+assert.match(element('curveGallery').innerHTML,/data-track="second"[^>]*aria-pressed="true"/);
+const replacement=selectionTile('second');second.isConnected=false;
+element('curveGallery').querySelectorAll=()=>[first,replacement];
+element('trackMin').onchange();element('backToGallery').onclick();
+assert.equal(replacement['aria-pressed'],'true');assert.equal(replacement.focused,true);
+element('curveGallery').querySelectorAll=()=>[first];
+element('trackMin').onchange();assert.equal(first['aria-pressed'],'false');
+element('curveGallery').querySelectorAll=()=>[first,replacement];
+element('trackMin').onchange();assert.equal(replacement['aria-pressed'],'true');
+vm.runInContext('plottedTrack=null;syncGallerySelection()',context);
+assert.equal(replacement['aria-pressed'],'false');
+console.log('PASS: exclusive selection, redraw retention, current-tile return, filtered selection and log reset');

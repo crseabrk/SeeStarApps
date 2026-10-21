@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-21 — Visible gallery selection
+
+- Highlight the current field curve with an accent outline and Selected label; retain selection after gallery redraws and return to the current tile. Clear the highlight when returning to the target log.
+- Nine regression suites pass, including exclusive selection and redraw/navigation coverage. Native theme and keyboard appearance checks remain pending. OpenAI Codex assisted.
+
 ## 2026-10-21 — Lighter thumbnails and gallery visibility controls
 
 - Group thumbnail markers into one SVG path, retain compact numerical bins and remove duplicate per-track SVG string caches. All curve points, median/ranking values and gap rules are preserved.

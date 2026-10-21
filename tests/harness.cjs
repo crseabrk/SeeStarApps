@@ -14,6 +14,7 @@ function createHarness() {
       checked:['points','median','events','variability'].includes(id),
       style:{},innerHTML:'',textContent:'',
       setAttribute(name,value){this[name]=String(value);},
+      querySelectorAll(){return [];},
       classList:{toggle(){},add(){},remove(){}},
       addEventListener(type,handler) { this[type] = handler; },
       getBoundingClientRect() { return {width:1000,height:480}; },
