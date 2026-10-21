@@ -18,6 +18,10 @@ The collection lives at `/SeeStarApps/`, this project overview at `/SeeStarApps/
 
  Open `analyzer/index.html` directly in a modern browser, then select or drop Seestar CSV files. No installation, server, internet connection, account, API key, library, or build step is required. The only essential application file is `analyzer/index.html`.
 
+## See it in action
+
+[Browse the seven-slide walkthrough](https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/) for real app screenshots using clearly labelled fictional observations: target import, frame reconciliation, gallery, full curve, selected-tile return and export controls. It runs offline from `walkthrough/index.html` with its images folder. Use buttons or arrow keys. Captures use the CSV-selection fallback in the Codex browser; native folder selection, catalogue lookup and export downloads are not demonstrated. See [capture provenance and maintenance](walkthrough/README.md). The local stress experiment is excluded from the release.
+
 ## AI development disclosure
 
 This project was developed with substantial **OpenAI Codex** assistance under the direction of **Chris Seabrooke / Seabrooke.Astronomy**. Codex generated and revised the application code, analysis heuristics, themes, synthetic data generator, tests, and documentation. Chris supplied requirements, real test observations, feedback, and publication direction. See [AI-DISCLOSURE.md](../AI-DISCLOSURE.md) for the scope of AI involvement and verification limits. Automated checks do not constitute independent scientific validation.

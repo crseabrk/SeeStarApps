@@ -49,3 +49,7 @@ For documentation/comment/formatting changes, compare executable script tokens t
 The cloud environment could not download WebKit. The edits were recovered on macOS and all three suites passed. The gesture regression now checks finite viewport coordinates and expected pan distance. Native Safari 27.0.1 testing subsequently succeeded after the owner enabled remote automation; see [the validation record](../photometry/VALIDATION.md) for the precise coverage and limitations. Downloads were verified on disk, and local-file bin results match the deployed morning baseline. Physical input, Finder/iCloud dialogs, printing, and iOS remain manual checks. Safari 15.4 is the API baseline because the application uses `Array.prototype.at`; it is not a claim of tested support for that release.
 
 Session-evidence prototype regression: `node tests/session-audit.cjs`. See [preview limits and real-data result](../photometry/SESSION-PREVIEW.md).
+
+## Optional screenshot walkthrough
+
+`node tests/walkthrough.cjs` verifies the seven synthetic-data screenshot assets against their hashes, required slide DOM IDs, relative links and navigation bounds/keys using a simulated DOM. Included in `run-all.cjs`. This checks static assets and logic, not native layout, assistive technology or browser painting. See `photometry/walkthrough/README.md` for actual capture provenance and `ENVIRONMENT-HANDOFF.md` for native checks.

@@ -1,0 +1,64 @@
+{
+  "capture_date": "2026-10-21",
+  "synthetic": true,
+  "slides": [
+    {
+      "image": "01-start.jpg",
+      "kicker": "START WITH YOUR SESSION",
+      "title": "From measurements to questions worth asking.",
+      "body": "Open a dedicated target log, or go straight to a field scan. The numbered sections guide you through the process.",
+      "note": "Actual hosted analyzer. All observations shown in this walkthrough are fictional, generated for demonstration."
+    },
+    {
+      "image": "02-target-curve.jpg",
+      "kicker": "01 · TARGET LOG",
+      "title": "See the target’s night unfold.",
+      "body": "A named-target CSV produces a light curve with measurements and clock-aligned median bins. Here a deliberately simulated dip fades and recovers.",
+      "note": "Smaller magnitude means brighter. The dip was built into the demo data; this is not a real eclipse detection."
+    },
+    {
+      "image": "03-scan-results.jpg",
+      "kicker": "02 · SCAN THE SESSION",
+      "title": "Check what the frame files add.",
+      "body": "This run reads 180 synthetic frame CSVs and associates 4,320 measurements into 24 provisional tracks. All 180 target-log rows match their frame counterparts.",
+      "note": "Captured using “Select frame CSVs instead.” The native folder picker and FITS/JPEG inventory were not demonstrated. Matching exports are the same observation, not independent confirmation."
+    },
+    {
+      "image": "04-gallery.jpg",
+      "kicker": "03 · BROWSE THE FIELD",
+      "title": "Let your eye explore the curves.",
+      "body": "Actual miniature curves share a timeline and magnitude-change scale. Tile size, scaling and review-priority sorting help you choose what to inspect.",
+      "note": "Review priority is an exploratory heuristic, not an eclipse probability. These fictional stars include dips, waves, trends and nearly flat curves."
+    },
+    {
+      "image": "05-inspect.jpg",
+      "kicker": "04 · INSPECT A CURVE",
+      "title": "One click opens the detail.",
+      "body": "Select a thumbnail to open its full light curve. The gallery can close automatically, leaving the main chart ready for inspection.",
+      "note": "Coordinate-based tracks remain provisional. A good-looking curve does not validate its identity or establish an astrophysical cause."
+    },
+    {
+      "image": "06-selected.jpg",
+      "kicker": "KEEP YOUR PLACE",
+      "title": "Return without losing your star.",
+      "body": "Back to gallery reopens the miniature curves and returns to the current selection. Its outline and Selected label make it easy to find again.",
+      "note": "This screenshot shows the actual selected-tile state after the browser’s return scroll completed."
+    },
+    {
+      "image": "07-export.jpg",
+      "kicker": "TAKE THE NEXT STEP",
+      "title": "Keep a useful record.",
+      "body": "The analyzer offers chart PNG, processed-bin CSV and report exports for closer investigation or sharing. Optional catalogue lookups are available elsewhere in the app.",
+      "note": "This slide shows enabled export controls; export downloads and catalogue lookups were not exercised in this walkthrough. It is an exploration/preparation tool, not calibrated discovery confirmation."
+    }
+  ],
+  "image_sha256": {
+    "01-start.jpg": "c2c50859e2e60263d8363a95846b15014fac7b06bb6c24b44de713ef343c6cb5",
+    "02-target-curve.jpg": "95b9b7e20b44463bdf8ca555ac755ade11e3daaddd2cf3aef71e88b5d3da29ff",
+    "03-scan-results.jpg": "8dd153a636c4aaa3824d5c9b9635d58fc47249d937dfca835cc89d6a8839a75f",
+    "04-gallery.jpg": "620617add370e0cdd48c54df6b9ba7c02e52d620cef9cfb6fe5d421b58d57e22",
+    "05-inspect.jpg": "dfb3948e7e2f1261d3b70dd5961e569639ac25801c5829bf3d4e5857a8d67256",
+    "06-selected.jpg": "64dd808772d4dd89b6a6479582e7fc17d12b08c50971edfa16284f08ea0362d9",
+    "07-export.jpg": "8693d48f4ffc2f781a31b481d33b9ce24f8f65522b5a029dfc640292f3c469a6"
+  }
+}

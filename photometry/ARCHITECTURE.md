@@ -22,6 +22,10 @@ Read [the user guide](README.md), [scientific validation](VALIDATION.md), [sampl
 
 GitHub Pages deploys `main` from the repository root. The tool URL is `https://crseabrk.github.io/SeeStarApps/photometry/analyzer/`. A Blogger iframe should use that URL, not the project hub. Relative navigation supports local files and project hosting. The downloaded tool remains functional without its parent overview.
 
+## Screenshot walkthrough
+
+`walkthrough/index.html` is an optional standalone seven-slide companion with local JPEG assets, manifest and capture/maintenance README. The introduction links to it; it has no analyzer state, data uploads, dependencies or autoplay. All screenshots use fictional data. It is separate from the development-only stress experiment and does not change the analyzer runtime.
+
 ## Data flow
 
 ```text
