@@ -13,6 +13,7 @@ function createHarness() {
       value:{importMode:'replace',bin:'5',threshold:'30',theme:'starlight'}[id] || '',
       checked:['points','median','events','variability'].includes(id),
       style:{},innerHTML:'',textContent:'',
+      setAttribute(name,value){this[name]=String(value);},
       classList:{toggle(){},add(){},remove(){}},
       addEventListener(type,handler) { this[type] = handler; },
       getBoundingClientRect() { return {width:1000,height:480}; },

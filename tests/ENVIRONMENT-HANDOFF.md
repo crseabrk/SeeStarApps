@@ -40,3 +40,7 @@ Native new-workflow Safari/Firefox on Mac, Windows Edge/Chrome/Firefox and iOS/i
 ## Workflow navigation update — 2026-10-21
 
 Owner reports folder memory held; origin/restart conditions and browser version were not recorded. Verify the numbered steps and target selector beside import in native Chrome. Import after a previous scan and confirm the step-2 rescan instruction. Collapse/expand the gallery, select a tile, use Back to gallery and confirm return to the same tile; change filters to remove that tile and verify fallback to the gallery heading. Check corner Back to top, keyboard focus, mobile width and reduced-motion settings. Nine simulated suites pass; native navigation/layout checks and other supported environments remain pending. Scientific algorithms are unchanged.
+
+## Lighter thumbnails and gallery controls — 2026-10-21
+
+Native Chrome: check sparse/singleton thumbnail dots and gaps, curve/gallery agreement, all tile sizes/scales, and memory/responsiveness on a large session. Verify auto-close enabled/disabled, close from gallery bottom, main-chart Open/Close label and aria-expanded after both header/footer toggles, reopening to selected tile and preserved chart zoom/filters. Nine simulated suites and a synthetic old/new markup comparison pass; native SVG pixels, heap and supported-environment checks remain pending. Closing the disclosure hides rather than discards the gallery.

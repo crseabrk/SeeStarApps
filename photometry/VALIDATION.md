@@ -27,3 +27,7 @@ See SESSION-PREVIEW.md for methods, limits and the next handoff. OpenAI Codex as
 ## 2026-10-21 navigation follow-up
 
 Owner reports remembered folders persisted; exact origin/reload conditions and browser version were not supplied. Workflow numbering, import/rescan guidance, native gallery disclosure and return navigation were added. Nine simulated suites pass; gallery tests verify click-to-main, return to original tile, removed-tile fallback, back-to-top and reduced-motion behavior without changing measurements. Native layout/focus checks remain pending.
+
+## 2026-10-21 thumbnail footprint and gallery controls
+
+Nine suites pass with new checks for compact markers/caches, optional close-on-selection, bottom/main controls, native disclosure synchronization and analysis-state preservation. A development comparison using 500 synthetic tracks with 360 samples each retained identical numerical summaries/ranks, curve paths and marker centres. Serialized SVG size fell from 1,339,984 to 679,484 bytes (49.3%); SVG drawing elements fell from 19,500 to 2,000 (89.7%). Duplicate per-track SVG strings were removed; cached per-bin objects now retain only time/median. These are synthetic markup/structure measurements, not native browser heap or whole-app memory savings. Actual image pixels and browser heap remain unmeasured.

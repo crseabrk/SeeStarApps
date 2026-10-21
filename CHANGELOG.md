@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-21 — Lighter thumbnails and gallery visibility controls
+
+- Group thumbnail markers into one SVG path, retain compact numerical bins and remove duplicate per-track SVG string caches. All curve points, median/ranking values and gap rules are preserved.
+- Add collapse at the gallery bottom, optional close-on-selection (initially enabled) and a synchronized Open/Close control above the main chart. Back to gallery still restores the selected tile.
+- Nine suites pass; synthetic before/after comparison confirms identical numerical summaries, curve paths and marker centres with materially less markup. Native heap and pixel verification remain pending. OpenAI Codex assisted.
+
+
 ## 2026-10-21 — Complete project introduction
 
 - Expand the project overview and collection card to cover target/session workflows, provisional field tracks, gallery controls, diagnostics, explicit ASTAP/SIMBAD lookup, exports, remembered folders and return navigation.
