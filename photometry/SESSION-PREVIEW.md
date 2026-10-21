@@ -16,7 +16,7 @@ Missing candidates start new tracks; ambiguities remain unassigned. No retrospec
 
 ## Gallery and ranking
 
-All tracks meeting search/minimum-count filters appear as static SVG curves; the dropdown separately caps its list at 500. Four CSS tile sizes do not recalculate curves. Numerical summaries and the last-used SVG scale are cached per track.
+All tracks meeting search/minimum-count filters appear as static SVG curves; the dropdown separately caps its list at 500. Four CSS tile sizes do not recalculate curves. Compact time/median summaries and ranking scalars are cached per track; SVG markup is generated into the gallery without a second retained string copy.
 
 Thumbnails use unfiltered 5-minute medians, a common session time extent and magnitude offsets from each track's median, increasing downward. Gaps over 15 minutes are disconnected. JD-derived UTC bins provide a shared physical axis where available; recorded-clock fallback applies only without JD. Main-chart recorded-clock bins remain unchanged. Shared scale spans all thumbnail medians; outliers can compress it. Individual auto-scale can exaggerate small changes.
 
