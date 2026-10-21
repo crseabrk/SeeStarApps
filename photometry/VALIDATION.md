@@ -23,3 +23,7 @@ Additional owner-held observation and local-catalogue checks ran locally, includ
 Field associations are provisional and may fragment tracks or misassociate detections. Track counts are not unique physical-star counts. Review priority is an exploratory heuristic, not a calibrated probability, eclipse detector, classification or forecast. Catalogue proximity is a candidate association and does not confirm identity; proper-motion corrections and measurement-coordinate epoch are unverified. Binned magnitudes, exposure metadata and comparison-star behavior require independent assessment before scientific use.
 
 See SESSION-PREVIEW.md for methods, limits and the next handoff. OpenAI Codex assisted development; these checks are not independent scientific validation.
+
+## 2026-10-21 navigation follow-up
+
+Owner reports remembered folders persisted; exact origin/reload conditions and browser version were not supplied. Workflow numbering, import/rescan guidance, native gallery disclosure and return navigation were added. Nine simulated suites pass; gallery tests verify click-to-main, return to original tile, removed-tile fallback, back-to-top and reduced-motion behavior without changing measurements. Native layout/focus checks remain pending.

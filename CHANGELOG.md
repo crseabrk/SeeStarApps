@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-21 — Workflow guidance and gallery navigation
+
+- Number the log, folder scan, gallery and main-curve steps; place target selection with import and explain the rescan required after log changes.
+- Make the gallery collapsible and add Back to gallery plus Back to top controls. Return to the selected tile when possible and respect reduced-motion preferences. No measurement/matching/ranking formulas changed.
+- Nine suites pass, including new navigation/state assertions in the gallery suite; native layout/keyboard checks remain pending. OpenAI Codex assisted.
+
+
 ## 2026-10-20 — Session scans, field gallery and optional catalogue lookup
 
 Owner-authorized integration of the locally reviewed upgrades (previews 1–8). Added read-only sequential session auditing and exact target-log reconciliation; provisional coordinate tracks with scan-local IDs; searchable/filterable on-demand curves and a miniature SVG gallery with tile sizes/scales/review sorting; explicit local ASTAP .1476 candidate lookup and SIMBAD links; remembered directory handles in browser IndexedDB with explicit reopening/forgetting.

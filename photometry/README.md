@@ -24,6 +24,10 @@ This project was developed with substantial **OpenAI Codex** assistance under th
 
 ## Session folders, field stars and lookup
 
+The page marks the working order: **1. Load a target log** (optional), **2. Scan the session folder**, **3. Browse the gallery**, **4. Inspect the selected curve**. For general exploration, start at step 2. Import a target log before scanning; importing/replacing it afterwards invalidates reconciliation and requires step 2 again. Replacing the log clears the previous field scan/gallery. The target selector is beside the import controls.
+
+The gallery heading collapses/expands its native disclosure without clearing curves. A gallery tile opens the main chart; **Back to gallery** reopens the gallery and returns focus/scroll to that tile where still available. **Back to top** is available in the main view and as a fixed corner control. Navigation respects reduced-motion preferences.
+
 1. For targeted analysis, load the dedicated target CSV and select its target. Then use **Read session folder**, or **Select frame CSVs instead** where directory access is unavailable. Scanning without a log gives an inventory and, with tracking enabled, field-star curves.
 2. The audit counts CSV/FITS/JPEG files and field rows, and reconciles exact log identities without adding duplicate light-curve points. Blank names are counted separately from invalid magnitude/time rows. FITS and JPEG contents are not read.
 3. **Build provisional star tracks** associates coordinates within 3 arcseconds only for unambiguous one-to-one matches per exposure. Search a track or filter by observation count, then choose **Plot selected star**. **Return to target log** restores the imported target data. IDs and coordinate labels are fixed within this scan; another scan rebuilds them. Track fragments are not a census of unique stars.
