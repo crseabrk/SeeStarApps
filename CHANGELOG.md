@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-21 — Complete project introduction
+
+- Expand the project overview and collection card to cover target/session workflows, provisional field tracks, gallery controls, diagnostics, explicit ASTAP/SIMBAD lookup, exports, remembered folders and return navigation.
+- Align the four-step introduction with the analyzer and explain scientific/browser/persistence limits. Retain the fictional demo as a separate starting option. Static content only; no analyzer or algorithm changes. OpenAI Codex assisted.
+
+
 ## 2026-10-21 — Workflow guidance and gallery navigation
 
 - Number the log, folder scan, gallery and main-curve steps; place target selection with import and explain the rescan required after log changes.
