@@ -31,3 +31,7 @@ Owner reports remembered folders persisted; exact origin/reload conditions and b
 ## 2026-10-21 thumbnail footprint and gallery controls
 
 Nine suites pass with new checks for compact markers/caches, optional close-on-selection, bottom/main controls, native disclosure synchronization and analysis-state preservation. A development comparison using 500 synthetic tracks with 360 samples each retained identical numerical summaries/ranks, curve paths and marker centres. Serialized SVG size fell from 1,339,984 to 679,484 bytes (49.3%); SVG drawing elements fell from 19,500 to 2,000 (89.7%). Duplicate per-track SVG strings were removed; cached per-bin objects now retain only time/median. These are synthetic markup/structure measurements, not native browser heap or whole-app memory savings. Actual image pixels and browser heap remain unmeasured.
+
+## 2026-10-21 screenshot walkthrough
+
+Seven unmodified screenshots were captured from the hosted analyzer in the Codex in-app browser using fictional target/frame CSVs through the file chooser. Target import, completed scan, gallery, selected full curve, highlighted return and enabled export controls were observed. This is demonstration evidence only; folder-picker permissions, catalogue lookup, downloaded exports and cross-platform compatibility were not established by the captures. A static-asset/hash and simulated slideshow-navigation suite passes. Analyzer runtime and scientific methods are unchanged; local stress-test code is excluded from the walkthrough and release.

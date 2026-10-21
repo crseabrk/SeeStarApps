@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-21 — Synthetic-data screenshot walkthrough
+
+- Add an optional seven-slide walkthrough at `photometry/walkthrough/`, linked from the introduction and READMEs. Real hosted-app captures show fictional target/frame data, gallery selection and export controls; all data remains explicitly synthetic.
+- Include caption/capture provenance, maintenance notes and asset-hash/navigation regression checks. No analyzer runtime, matching or measurement changes. Native folder picker, catalogue lookup, export downloads and cross-browser slideshow appearance are not claimed by this walkthrough. Local stress-test code stays excluded. Substantial OpenAI Codex assistance.
+
 ## 2026-10-21 — Visible gallery selection
 
 - Highlight the current field curve with an accent outline and Selected label; retain selection after gallery redraws and return to the current tile. Clear the highlight when returning to the target log.

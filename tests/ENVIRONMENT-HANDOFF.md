@@ -46,3 +46,7 @@ Owner reports folder memory held; origin/restart conditions and browser version 
 Native Chrome: check sparse/singleton thumbnail dots and gaps, curve/gallery agreement, all tile sizes/scales, and memory/responsiveness on a large session. Verify auto-close enabled/disabled, close from gallery bottom, main-chart Open/Close label and aria-expanded after both header/footer toggles, reopening to selected tile and preserved chart zoom/filters. Nine simulated suites and a synthetic old/new markup comparison pass; native SVG pixels, heap and supported-environment checks remain pending. Closing the disclosure hides rather than discards the gallery.
 
 Selected-tile follow-up: verify the accent outline and Selected label in each theme, keyboard activation, return navigation and gallery sorting/filtering. VM selection-state regressions pass; native visual checks remain pending.
+
+## Screenshot walkthrough — 2026-10-21
+
+Test `photometry/walkthrough/` on native Chrome/Edge, Safari, Firefox and mobile: all seven images load; Previous/Next, numbered dots and arrow/Home/End keys navigate with correct disabled bounds; captions are legible at narrow/wide widths; relative overview/analyzer links work from local files and hosted Pages. Captures came from the actual hosted analyzer in the Codex browser using synthetic CSVs; this does not validate native slideshow layout. Static asset hashes/link targets and simulated navigation checks pass. Analyzer runtime is unchanged.
