@@ -116,6 +116,7 @@ th,td{border-color:var(--border)}
 
 .curve-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--tile-size,260px)),1fr));gap:12px}.curve-tile{background:var(--surface);color:var(--text);border:1px solid var(--border);padding:10px;text-align:left;min-width:0}.curve-tile svg{width:100%;height:auto;display:block;background:var(--chart,#fff)}.curve-tile small{display:block;overflow-wrap:anywhere;margin-top:6px}.curve-tile:focus-visible{outline:3px solid var(--accent)}
 .workflow-nav{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}.workflow-nav a{padding:8px 12px;border:1px solid var(--border);border-radius:8px;color:var(--accent)}.back-top{position:fixed;right:18px;bottom:18px;z-index:20;padding:10px 15px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--accent);box-shadow:0 3px 12px #0005}.gallery-section>summary{margin-bottom:18px}.gallery-section:not([open])>summary{margin-bottom:0}.gallery-section summary h2{display:inline;margin:0}#workflowTop,#mainView,#gallerySummary{scroll-margin-top:16px}
+.curve-tile[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}.curve-tile[aria-pressed="true"]::after{content:"✓ Selected";display:block;margin-top:6px;color:var(--accent);font-size:12px;font-weight:700}
 </style></head><body><main id="workflowTop" tabindex="-1">
 <p style="margin:0 0 18px;font-size:13px"><a href="../" style="color:var(--accent)">← Project overview</a></p><header><div class="brand">✧ &nbsp; SEABROOKE.ASTRONOMY</div><div class="badge">BROWSER-LOCAL · NO UPLOADS</div></header>
 <h1>Seestar Photometry Analyzer</h1><p class="intro">Explore stellar brightness measurements directly in your browser.</p>
@@ -444,7 +445,7 @@ async function importFiles(files) {
   }
 }
 // Session audit owns a bounded snapshot; scanning never changes the light curve.
-let sessionAudit = null, cancelScan = false, fieldTracks = null, plottedTrack = null, galleryReturnTile = null;
+let sessionAudit = null, cancelScan = false, fieldTracks = null, plottedTrack = null, galleryReturnTile = null, selectedGalleryTile = null;
 // Spatial buckets on the unit sphere avoid RA wrap and polar singularities.
 const TRACK_RADIUS=3/206264.806247;
 function skyVector(ra,dec) {
@@ -520,6 +521,7 @@ function curveSVG(c,x0,x1,span){
   return '<svg viewBox="0 0 300 140" role="img" aria-label="Binned light curve, fainter downward"><path d="M10 70H290" stroke="#c5ccd6" fill="none"/><path d="'+path+'" fill="none" stroke="#1868af" stroke-width="2"/><path d="'+markers+'" fill="none" stroke="#1868af" stroke-width="3.2" stroke-linecap="round"/></svg>';
 }
 function renderGallery(list){
+  selectedGalleryTile=null;
   if(!fieldTracks||!list.length){$('curveGallery').innerHTML='';$('galleryStatus').textContent='No tracks meet the current filters.';return;}
   // Cache compact numerical summaries only. SVG markup belongs to the DOM, not a second per-track string cache.
   let x0=Infinity,x1=-Infinity,shared=.05;
@@ -529,13 +531,26 @@ function renderGallery(list){
   const auto=$('galleryScale').value==='auto';
   $('curveGallery').innerHTML=ordered.map(t=>{
     const c=curveSummary(t),span=auto?Math.max(.05,c.span):shared;
-    return '<button type="button" class="curve-tile" data-track="'+esc(t.id)+'" aria-label="Inspect '+esc(t.label)+'">'+curveSVG(c,x0,x1,span)+'<small>'+esc([...t.names].join('/')||t.label)+'</small><small>'+t.rows.length+' observations · '+c.bins.length+' bins · ±'+span.toFixed(2)+' mag</small><small>'+(c.qualified<5?'Sparse: not ranked':'Robust range '+c.range.toFixed(3)+' mag · review score '+c.score.toFixed(1))+'</small></button>';
+    return '<button type="button" class="curve-tile" data-track="'+esc(t.id)+'" aria-pressed="'+String(plottedTrack?.id===t.id)+'" aria-label="Inspect '+esc(t.label)+'">'+curveSVG(c,x0,x1,span)+'<small>'+esc([...t.names].join('/')||t.label)+'</small><small>'+t.rows.length+' observations · '+c.bins.length+' bins · ±'+span.toFixed(2)+' mag</small><small>'+(c.qualified<5?'Sparse: not ranked':'Robust range '+c.range.toFixed(3)+' mag · review score '+c.score.toFixed(1))+'</small></button>';
   }).join('');
+  syncGallerySelection();
   $('galleryStatus').textContent=ordered.length+' miniature curves · '+(auto?'individual scales':'shared scale ±'+shared.toFixed(2)+' mag')+' · provisional associations';
+}
+// The plotted track owns selection; disclosure state and keyboard focus are separate.
+function syncGallerySelection(){
+  selectedGalleryTile?.setAttribute('aria-pressed','false');
+  selectedGalleryTile=null;
+  if(!plottedTrack)return;
+  for(const tile of $('curveGallery').querySelectorAll('button[data-track]')){
+    if(tile.dataset.track===plottedTrack.id){
+      selectedGalleryTile=tile;tile.setAttribute('aria-pressed','true');break;
+    }
+  }
 }
 function plotFieldTrack(id){
   if(busy)return;
   plottedTrack=fieldTracks?.tracks.find(t=>t.id===id);
+  syncGallerySelection();
   if(!plottedTrack)return;
   $('target').innerHTML='<option>'+esc(plottedTrack.label)+'</option>';$('target').value=plottedTrack.label;
   view=null;update();
@@ -556,10 +571,11 @@ function setGalleryOpen(open){
 }
 function returnToGallery(){
   setGalleryOpen(true);
-  focusSection(galleryReturnTile?.isConnected?galleryReturnTile:$('gallerySummary'));
+  const tile=selectedGalleryTile?.isConnected?selectedGalleryTile:galleryReturnTile;
+  focusSection(tile?.isConnected?tile:$('gallerySummary'));
 }
 function restoreLog(){
-  plottedTrack=null;
+  plottedTrack=null;syncGallerySelection();
   const names=[...new Set(raw.map(r=>r.name))].sort();
   $('target').innerHTML=names.map(n=>'<option>'+esc(n)+'</option>').join('');$('target').value=names[0]||'';
   view=null;update();

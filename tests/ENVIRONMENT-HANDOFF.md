@@ -44,3 +44,5 @@ Owner reports folder memory held; origin/restart conditions and browser version 
 ## Lighter thumbnails and gallery controls — 2026-10-21
 
 Native Chrome: check sparse/singleton thumbnail dots and gaps, curve/gallery agreement, all tile sizes/scales, and memory/responsiveness on a large session. Verify auto-close enabled/disabled, close from gallery bottom, main-chart Open/Close label and aria-expanded after both header/footer toggles, reopening to selected tile and preserved chart zoom/filters. Nine simulated suites and a synthetic old/new markup comparison pass; native SVG pixels, heap and supported-environment checks remain pending. Closing the disclosure hides rather than discards the gallery.
+
+Selected-tile follow-up: verify the accent outline and Selected label in each theme, keyboard activation, return navigation and gallery sorting/filtering. VM selection-state regressions pass; native visual checks remain pending.
