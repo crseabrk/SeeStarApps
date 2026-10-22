@@ -31,7 +31,7 @@ Private reference files were not rerun in that historical Mac compatibility foll
 
 ## Session/field/gallery/catalogue/persistence upgrade — 2026-10-20
 
-Nine public synthetic/simulated-DOM suites passed via `node tests/run-all.cjs`. Owner reported normal-Chrome success and supplied gallery/chart/candidate-lookup/SIMBAD screenshots. Exact Chrome version was not supplied. The Codex embedded-browser directory picker returned AbortError on confirmation; use normal Chrome or ordinary file selection. Older platform results above do not cover this upgrade. Private observation-derived results remain in owner-held records.
+Nine public synthetic/simulated-DOM suites passed via `node tests/run-all.cjs`. Successful normal-Chrome workflow checks were reported with gallery/chart/candidate-lookup/SIMBAD screenshots. Exact Chrome version was not supplied. The Codex embedded-browser directory picker returned AbortError on confirmation; use normal Chrome or ordinary file selection. Older platform results above do not cover this upgrade. Private observation-derived results remain in private records.
 
 Tomorrow on this Mac: open the published HTTPS analyzer in normal Chrome, record version and revision, import a target log, scan a completed folder, inspect gallery/tile sizes/scales/sorts, select and plot a track, return to log, check audit/export and catalogue/SIMBAD controls. Attach extracted .1476 database files/folder, check no lookup occurs until clicked, test unsupported files and cancellation. Reload/restart and test remembered session/database folders, permission denial, disconnected drives and Forget. Hosted storage is separate from the local preview.
 
@@ -39,7 +39,7 @@ Native new-workflow Safari/Firefox on Mac, Windows Edge/Chrome/Firefox and iOS/i
 
 ## Workflow navigation update — 2026-10-21
 
-Owner reports folder memory held; origin/restart conditions and browser version were not recorded. Verify the numbered steps and target selector beside import in native Chrome. Import after a previous scan and confirm the step-2 rescan instruction. Collapse/expand the gallery, select a tile, use Back to gallery and confirm return to the same tile; change filters to remove that tile and verify fallback to the gallery heading. Check corner Back to top, keyboard focus, mobile width and reduced-motion settings. Nine simulated suites pass; native navigation/layout checks and other supported environments remain pending. Scientific algorithms are unchanged.
+Folder memory was reported to persist; origin/restart conditions and browser version were not recorded. Verify the numbered steps and target selector beside import in native Chrome. Import after a previous scan and confirm the step-2 rescan instruction. Collapse/expand the gallery, select a tile, use Back to gallery and confirm return to the same tile; change filters to remove that tile and verify fallback to the gallery heading. Check corner Back to top, keyboard focus, mobile width and reduced-motion settings. Nine simulated suites pass; native navigation/layout checks and other supported environments remain pending. Scientific algorithms are unchanged.
 
 ## Lighter thumbnails and gallery controls — 2026-10-21
 
@@ -53,14 +53,14 @@ Test `photometry/walkthrough/` on native Chrome/Edge, Safari, Firefox and mobile
 
 ## Named-track search and immediate plotting — 2026-10-22
 
-Based on public `cacf0efb210f59b8b053c0244dc7bd354c9baf56`. `node tests/run-all.cjs` passes with new synthetic cases for HD aliases/separators, results beyond 500 options, selection-name display, auto-plotting, View plot navigation/zoom preservation and no-match behavior. No native-browser result is claimed. Owner-held session data was not used in integration tests. Mac integration reran all ten suites successfully; simulated DOM checks do not establish native browser behavior.
+Based on public `cacf0efb210f59b8b053c0244dc7bd354c9baf56`. `node tests/run-all.cjs` passes with new synthetic cases for HD aliases/separators, results beyond 500 options, selection-name display, auto-plotting, View plot navigation/zoom preservation and no-match behavior. No native-browser result is claimed. Private session data was not used in integration tests. Mac integration reran all ten suites successfully; simulated DOM checks do not establish native browser behavior.
 
 Windows Codex / normal Chrome or Edge: apply this change to the current repository without discarding newer work. Scan an owner-selected completed session. Search an actually reported HD name with and without a space, select another named track, and confirm the search input, dropdown, chart name and gallery highlight agree. Selection should update the chart without scrolling. View plot must jump/focus to the chart; clicking again must retain zoom. Clear search to browse all tracks; nonexistent names must disable View plot while retaining the last valid chart. Check multiple aliases/shared names still keep distinct scan IDs, minimum-count filtering, keyboard selection, gallery return and all exports. Repeat local/HTTPS, Mac Safari/Chrome/Firefox, Windows Firefox and touch Safari checks when those environments are available. Record actual revisions and browser versions. Reported names remain source aliases, not verified catalogue identifications.
 
 
 ## Collection triage and theme-aware quality controls — 22 October 2026
 
-Owner authorised publication of the reviewed local collection preview. Owner reports local normal-Chrome imports, gallery, filters and current quality histograms worked, and supplied a VStar 2.25.0 macOS screenshot showing imported JD/magnitude/uncertainty. Owner also tested quality-filtered export. Exact Chrome/OS versions for this workflow were not recorded; do not promote this to a complete native matrix pass.
+The reviewed local collection workflow was approved for publication. Local normal-Chrome imports, gallery, filters and quality histograms were tested successfully. Ordinary and quality-filtered exports were tested in VStar 2.25.0 on macOS, with a screenshot showing imported JD/magnitude/uncertainty. Exact Chrome/OS versions for this workflow were not recorded; do not promote this to a complete native matrix pass.
 
 On the published collection-triage revision (record `git rev-parse HEAD`), run all twelve suites, then:
 

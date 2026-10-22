@@ -1,13 +1,17 @@
 # Changelog
 
+## 2026-10-22 — Clearer public validation wording
+
+- Describe tested workflows and VStar export compatibility directly, retaining version/platform limits. Remove internal participant wording from pages, app messages, export comments and guides. No analysis or filtering behavior changed. OpenAI Codex assisted.
+
 ## 2026-10-22 — Collection triage, quality distributions and VStar handoff
 
-- Promote the owner-reviewed local workflow: mixed MyWorks/field/target import, explicit replace/add, object/run selection, positional association, exact duplicate reconciliation and reference-role browsing.
+- Promote the reviewed local workflow: mixed MyWorks/field/target import, explicit replace/add, object/run selection, positional association, exact duplicate reconciliation and reference-role browsing.
 - Keep run offsets and boundaries visible; add shared shortlist marks/notes beside object, gallery and main chart, plus individual-observation VStar and provenance exports.
 - Add SNR/uncertainty sliders, labelled histograms, striped flagged portions and unique-total/reason/overlap counts. Histograms and sliders follow all themes.
 - Consolidate optional ASTAP/VStar/folder configuration in Setup; make major sections collapsible and preserve gallery return/selection.
 - Rewrite the introduction and guide around visual triage and follow-up with VStar or independent FITS photometry. Document absolute-JD requirements, partial limits, provisional identity and persistence/export boundaries.
-- Owner tested local workflow and ordinary/quality-filtered VStar 2.25.0 import on Mac. Twelve synthetic/simulated-DOM suites pass; full native platform checks remain pending. No observation files, local paths or stress-test harness are included. Substantial OpenAI Codex assistance.
+- Local workflow and ordinary/quality-filtered VStar 2.25.0 imports were tested on Mac. Twelve synthetic/simulated-DOM suites pass; full native platform checks remain pending. No observation files, local paths or stress-test harness are included. Substantial OpenAI Codex assistance.
 
 
 ## 2026-10-22 — Named-track search and immediate selection
@@ -15,7 +19,7 @@
 - Match compact/spaced HD names and common catalogue separators while retaining coordinate signs/decimals. Search all tracks before the 500-option display cap.
 - Automatically plot dropdown selections and matching search results; explicit selection shows reported aliases in the search input. Show aliases alongside scan IDs in charts/reports/exports, without changing association or original inputs.
 - Replace Plot selected star with View plot, which scrolls/focuses the chart and preserves existing zoom. No-match searches retain the previous chart and disable View plot.
-- Updated synthetic regressions and guides with OpenAI Codex assistance. `node tests/run-all.cjs` passes. All ten suites pass on the Mac integration checkout. Native Windows/macOS/iOS checks remain pending; owner-held session files were not used for these changes. Imported as an owner-supplied patch against `cacf0efb210f59b8b053c0244dc7bd354c9baf56`.
+- Updated synthetic regressions and guides with OpenAI Codex assistance. `node tests/run-all.cjs` passes. All ten suites pass on the Mac integration checkout. Native Windows/macOS/iOS checks remain pending; private session files were not used for these changes. Imported as an contributed patch against `cacf0efb210f59b8b053c0244dc7bd354c9baf56`.
 
 ## 2026-10-21 — Synthetic-data screenshot walkthrough
 
@@ -49,20 +53,20 @@
 
 ## 2026-10-20 — Session scans, field gallery and optional catalogue lookup
 
-Owner-authorized integration of the locally reviewed upgrades (previews 1–8). Added read-only sequential session auditing and exact target-log reconciliation; provisional coordinate tracks with scan-local IDs; searchable/filterable on-demand curves and a miniature SVG gallery with tile sizes/scales/review sorting; explicit local ASTAP .1476 candidate lookup and SIMBAD links; remembered directory handles in browser IndexedDB with explicit reopening/forgetting.
+Integration of the locally reviewed upgrades (previews 1–8). Added read-only sequential session auditing and exact target-log reconciliation; provisional coordinate tracks with scan-local IDs; searchable/filterable on-demand curves and a miniature SVG gallery with tile sizes/scales/review sorting; explicit local ASTAP .1476 candidate lookup and SIMBAD links; remembered directory handles in browser IndexedDB with explicit reopening/forgetting.
 
-Nine runtime regression suites passed, plus owner-held session and D80 checks. Owner reported normal-Chrome success and supplied chart/gallery/lookup screenshots. Track fragmentation, scientific interpretation and cross-session IDs remain limited; Chrome restart persistence, hosted workflow verification and other native browsers remain pending. See photometry/README.md, VALIDATION.md and tests/ENVIRONMENT-HANDOFF.md. No private inputs are committed. Substantial OpenAI Codex assistance.
+Nine runtime regression suites passed, plus private session and D80 checks. Normal-Chrome workflow checks succeeded, with chart/gallery/lookup screenshots recorded. Track fragmentation, scientific interpretation and cross-session IDs remain limited; Chrome restart persistence, hosted workflow verification and other native browsers remain pending. See photometry/README.md, VALIDATION.md and tests/ENVIRONMENT-HANDOFF.md. No private inputs are committed. Substantial OpenAI Codex assistance.
 
 Earlier entries labelled local/unpublished below preserve development chronology and are superseded by this integration entry.
 
 ## Local preview — session evidence (unpublished)
 
-- Preview 3 adds immediate folder-read status, empty-result diagnostics and cancellable/time-limited filesystem reads after an owner-reported silent failure. Native cause remains under investigation.
+- Preview 3 adds immediate folder-read status, empty-result diagnostics and cancellable/time-limited filesystem reads after a reported silent failure. Native cause remains under investigation.
 
 - Replaced the misleading folder-upload input with feature-detected read-only directory access; unsupported browsers use multiple-CSV selection. Added folder-access regression tests.
 
 - Added sequential, cancellable read-only CSV folder audit and file-selection fallback, exact target-log reconciliation, ambiguity/conflict reporting and provenance JSON. Unnamed rows are distinguished from invalid values; no extra light-curve points are added.
-- Added synthetic regression checks and verified the complete owner-held session locally; see `photometry/SESSION-PREVIEW.md` for counts, limits and outstanding native-browser checks. Substantial OpenAI Codex assistance.
+- Added synthetic regression checks and verified the complete private session locally; see `photometry/SESSION-PREVIEW.md` for counts, limits and outstanding native-browser checks. Substantial OpenAI Codex assistance.
 
 ## 2026-10-20 — Photometry audience and scope
 
@@ -74,7 +78,7 @@ This is a human-readable history of SeeStarApps. Dates are calendar dates in Eur
 
 ## 2026-10-20 — Safari/macOS compatibility review
 
-- Added an owner-required cross-environment test matrix and persistent Codex handoff instructions. Unavailable platform checks must be documented and the owner directed to the appropriate device/session.
+- Added an required cross-environment test matrix and persistent Codex handoff instructions. Unavailable platform checks must be documented and the owner directed to the appropriate device/session.
 
 - Use system font fallbacks in the page, canvas charts, and exported reports so macOS does not depend on Segoe UI.
 - Replace the hidden file input's label with a native keyboard-operable button, opening the picker directly from the user gesture.
@@ -135,7 +139,7 @@ Sources: [README initialization](https://github.com/crseabrk/SeeStarApps/commit/
 
 ### Validation
 
-- Owner-held reference CSV checks passed; input-specific counts and magnitudes are retained privately.
+- Private reference CSV checks passed; input-specific counts and magnitudes are retained privately.
 - Additional development checks used synthetic fixtures and a simulated DOM/canvas. Original real observation files are not redistributed; see [validation record](photometry/VALIDATION.md).
 - Initial `file:` browser automation was blocked. Later HTTPS deployment received the targeted live-browser check recorded above.
 

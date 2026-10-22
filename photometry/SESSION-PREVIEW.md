@@ -4,7 +4,7 @@
 
 The collection workflow supersedes the older single-target/session import sequence described below. Read [COLLECTION-WORKFLOW.md](COLLECTION-WORKFLOW.md) for object/run state, import classification, exact overlap, reference roles, quality histograms, shortlist/VStar exports and limits. The runtime remains a single self-contained HTML file. Historical functions retained for regression/renderer reuse are not all visible user flows.
 
-This document describes the owner-authorized integration of the local prototypes into SeeStarApps. Prepared with substantial OpenAI Codex assistance. Private observation files, catalogue records and data-derived test statistics are not included. The user workflow is in [README.md](README.md).
+This document describes the integration of the local prototypes into SeeStarApps. Prepared with substantial OpenAI Codex assistance. Private observation files, catalogue records and data-derived test statistics are not included. The user workflow is in [README.md](README.md).
 
 ## Session audit
 
@@ -28,7 +28,7 @@ Review priority is the 90th-minus-10th percentile of binned medians divided by m
 
 ## Explicit catalogue queries
 
-The optional reader implements ASTAP Appendix 3: current .1476 cells with a 110-byte header and 5/6-byte records. It was exercised on an owner-held D80 database; other variants require verification. Installers/ZIPs, .290 and .001 are unsupported. No ASTAP executable is required or launched. See https://www.hnsky.org/astap.htm#1476.
+The optional reader implements ASTAP Appendix 3: current .1476 cells with a 110-byte header and 5/6-byte records. It was exercised on an private D80 database; other variants require verification. Installers/ZIPs, .290 and .001 are unsupported. No ASTAP executable is required or launched. See https://www.hnsky.org/astap.htm#1476.
 
 Attachment indexes filenames/handles only. A user click requests a 10-arcsecond cone search around the plotted or selected position. Nearby cells are decoded in bounded chunks; up to 100 nearest candidates are retained. Missing cells, parse errors and cancellation are reported. Compact records have no designations: file/record labels are provenance, not names. Header epoch/band are displayed; proper motion and measurement-coordinate epoch differences are not corrected. A nearby result is not an identification.
 
@@ -42,8 +42,8 @@ Storage failures leave current-session folder selection usable. Forget clears th
 
 ## Verification and tomorrow's handoff
 
-Run `node tests/run-all.cjs` for nine public synthetic/simulated-DOM suites. These cover import/state behavior, matching/crowding/wrap/poles, gap/ranking rules, catalogue decoding, explicit-only lookup and folder-memory logic. Owner-held data checks were also performed locally; their inputs and derived results remain private.
+Run `node tests/run-all.cjs` for nine public synthetic/simulated-DOM suites. These cover import/state behavior, matching/crowding/wrap/poles, gap/ranking rules, catalogue decoding, explicit-only lookup and folder-memory logic. Private data checks were also performed locally; their inputs and derived results remain private.
 
-The owner reported successful normal-Chrome folder workflow and supplied UI/lookup screenshots, without an exact browser version. This is targeted observation, not universal compatibility. Codex embedded folder selection returned AbortError on confirmation; ordinary file selection is the fallback.
+Successful normal-Chrome folder workflow was reported with UI/lookup screenshots, without an exact browser version. This is targeted observation, not universal compatibility. Codex embedded folder selection returned AbortError on confirmation; ordinary file selection is the fallback.
 
 Next: verify hosted HTTPS in normal Chrome; record OS/browser/revision; check gallery/tile scales, plot/return, audit/catalogue exports and explicit links; verify folder persistence across reload/restart, denial, disconnected drives and forgetting. Native new-workflow checks on Safari/Firefox, Windows and iOS/iPadOS remain pending. Improve association fragmentation only with truth-labelled validation. Polling remains off.

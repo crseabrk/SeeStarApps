@@ -10,13 +10,13 @@ Synthetic fixtures cover chronology/missing values/binning, import/reset/append 
 
 Earlier Safari 27.0.1/macOS 27.0.1 testing covered the prior runtime's synthetic import, chart/filter behavior, actual CSV/PNG/HTML downloads and offline report. Local and hosted morning-baseline synthetic bin results agreed. A fresh hosted interaction check of the subsequent compatibility release was unavailable; matching served bytes established source delivery, not a new native test.
 
-The owner subsequently reported successful normal-Chrome folder scanning and supplied screenshots of gallery/chart/local-catalogue lookup and SIMBAD navigation. Exact browser version was not supplied. Codex embedded-browser directory selection returned AbortError on confirmation; ordinary file selection is the fallback.
+Successful normal-Chrome folder scanning was reported, with screenshots of gallery/chart/local-catalogue lookup and SIMBAD navigation. Exact browser version was not supplied. Codex embedded-browser directory selection returned AbortError on confirmation; ordinary file selection is the fallback.
 
 Chrome reload/restart folder persistence, hosted new workflows, full native export/input/print verification, other Mac browsers, Windows and iOS/iPadOS remain pending. Earlier Safari results do not cover these new workflows. Follow tests/ENVIRONMENT-HANDOFF.md before declaring platform support complete.
 
-## Owner-held checks
+## Private checks
 
-Additional owner-held observation and local-catalogue checks ran locally, including an independent binary decoder comparison. Input-specific measurements, coordinates, counts and derived statistics are retained privately. No raw inputs or catalogue records are included in this release. Historical numerical reference results previously documented publicly remain in Git history; this current report keeps private-input details out of the new publication.
+Additional private observation and local-catalogue checks ran locally, including an independent binary decoder comparison. Input-specific measurements, coordinates, counts and derived statistics are retained privately. No raw inputs or catalogue records are included in this release. Historical numerical reference results previously documented publicly remain in Git history; this current report keeps private-input details out of the new publication.
 
 ## Scientific limits
 
@@ -26,7 +26,7 @@ See SESSION-PREVIEW.md for methods, limits and the next handoff. OpenAI Codex as
 
 ## 2026-10-21 navigation follow-up
 
-Owner reports remembered folders persisted; exact origin/reload conditions and browser version were not supplied. Workflow numbering, import/rescan guidance, native gallery disclosure and return navigation were added. Nine simulated suites pass; gallery tests verify click-to-main, return to original tile, removed-tile fallback, back-to-top and reduced-motion behavior without changing measurements. Native layout/focus checks remain pending.
+Remembered folders were reported to persist; exact origin/reload conditions and browser version were not supplied. Workflow numbering, import/rescan guidance, native gallery disclosure and return navigation were added. Nine simulated suites pass; gallery tests verify click-to-main, return to original tile, removed-tile fallback, back-to-top and reduced-motion behavior without changing measurements. Native layout/focus checks remain pending.
 
 ## 2026-10-21 thumbnail footprint and gallery controls
 
@@ -38,9 +38,9 @@ Seven unmodified screenshots were captured from the hosted analyzer in the Codex
 
 ## 2026-10-22 named-track search integration
 
-Integrated the owner-supplied name-selection patch against cacf0ef. All ten automated suites pass on the Mac checkout, including normalized HD aliases, search before the 500-option cap, immediate plotting, reported-alias display, View plot focus/zoom retention and no-match preservation. Reviewed changes leave coordinate association and scientific formulas intact. Native browser, actual owner-held sessions, shared-alias and export rendering checks remain in the environment handoff; no native compatibility result is inferred from the simulated DOM.
+Integrated the contributed name-selection patch against cacf0ef. All ten automated suites pass on the Mac checkout, including normalized HD aliases, search before the 500-option cap, immediate plotting, reported-alias display, View plot focus/zoom retention and no-match preservation. Reviewed changes leave coordinate association and scientific formulas intact. Native browser, actual private sessions, shared-alias and export rendering checks remain in the environment handoff; no native compatibility result is inferred from the simulated DOM.
 
 
 ## 22 October 2026 — Collection triage release
 
-Twelve synthetic/simulated-DOM suites passed against the release runtime via `node tests/run-all.cjs`. New tests cover import/run/identity/duplicate/conflict state, original-JD VStar output, reference provenance, shared shortlist controls, disclosures/setup and histogram quality counts/theme bindings. Owner-tested local workflow and Mac VStar 2.25.0 imports (ordinary and quality-filtered) provide targeted native evidence; the supplied screenshot shows an imported file with JD, magnitudes and error bars. Exact browser versions were not recorded. No scientific calibration, false-positive completeness or all-platform pass is claimed. Current native matrix and follow-up steps are in tests/ENVIRONMENT-HANDOFF.md.
+Twelve synthetic/simulated-DOM suites passed against the release runtime via `node tests/run-all.cjs`. New tests cover import/run/identity/duplicate/conflict state, original-JD VStar output, reference provenance, shared shortlist controls, disclosures/setup and histogram quality counts/theme bindings. Local workflow checks and Mac VStar 2.25.0 imports (ordinary and quality-filtered) provide targeted native evidence; a test screenshot shows an imported file with JD, magnitudes and error bars. Exact browser versions were not recorded. No scientific calibration, false-positive completeness or all-platform pass is claimed. Current native matrix and follow-up steps are in tests/ENVIRONMENT-HANDOFF.md.
