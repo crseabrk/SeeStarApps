@@ -123,7 +123,7 @@ th,td{border-color:var(--border)}
 <nav class="workflow-nav" aria-label="Analysis workflow"><a href="#loadLog">1. Target log</a><a href="#scanSession">2. Session folder</a><a href="#galleryPanel">3. Curve gallery</a><a href="#mainView">4. Main curve</a></nav><p class="status">For a target run: load its CSV first, then scan the folder. For general exploration: skip step 1 and start at step 2. Changing the imported log clears its audit; repeat step 2 to reconcile the new log.</p>
 <!-- Import controls: parsing is staged before any existing session is replaced. -->
 <section class="panel" id="loadLog"><h2>1. Load a target log <small>· optional</small></h2><div id="drop" class="drop"><strong>Start here if you recorded a dedicated target CSV</strong><p>Drop the target CSV here, or select it from your device. Do this before scanning the session folder in step 2. Replacing the log clears the existing scan and gallery; adding log data clears the audit and requires another scan for reconciliation.</p><label style="margin:0 12px 12px 0">Import mode <select id="importMode"><option value="replace" selected>Replace session</option><option value="append">Add to session</option></select></label><button id="chooseFiles" type="button">Select CSV files</button><input id="files" class="hidden" type="file" multiple accept=".csv,text/csv"><button id="clear" class="secondary">Clear session</button><p><label>Target <select id="target" aria-label="Target"><option>No observations loaded</option></select></label></p><p style="margin-top:18px"><button id="sample" class="secondary">Download simulated eclipse CSV</button></p><p>Try a fictional star: six hours of simulated observations, with a 0.65 mag eclipse-shaped dip and recovery.<br>Download the CSV, then select it above. Educational simulation · not real observations.</p></div><p class="privacy">Your observation files remain on your device. All calculations are performed locally in your browser.</p><div id="status" class="status" role="status" aria-live="polite">Ready for Seestar S50 / S50 Pro observations.</div></section>
-<section class="panel" id="scanSession"><h2>2. Scan the session folder</h2><p>After loading a target CSV in step 1, scan or reopen its session folder here. Without a target log, scan directly to explore the field. When finished, continue to the gallery in step 3. If you import or change a log afterwards, scan again to refresh its reconciliation.</p><div class="toolbar"><label><input id="buildTracks" type="checkbox" checked>Build provisional star tracks</label><button id="chooseFolder">Read session folder</button><button id="reopenSession" class="secondary" disabled>Reopen remembered session folder</button><button id="chooseFrames" class="secondary">Select frame CSVs instead</button><input id="frames" class="hidden" type="file" multiple accept=".csv,text/csv"><button id="cancelScan" class="secondary" disabled>Cancel scan</button><button id="exportAudit" class="secondary" disabled>Export audit JSON</button></div><p id="folderHelp" class="status"></p><p class="privacy">Reads one CSV at a time. Originals are never changed or copied. FITS and JPEG files are counted only; image data is not loaded. Copy a completed observing session locally with Finder or Explorer first.</p><p id="scanProgress" class="status" role="status" aria-live="polite">No folder scanned.</p><div id="scanResult" class="status" style="white-space:pre-line"></div><hr><h3>Field stars · provisional associations</h3><p id="trackStatus" class="status">Scan a session folder to build coordinate-based tracks.</p><div class="toolbar"><label>Find ID, name or coordinates <input id="trackSearch" type="search"></label><label>Minimum observations <input id="trackMin" type="number" value="20" min="1" step="1"></label><label>Star <select id="trackSelect"></select></label><button id="plotTrack" disabled>Plot selected star</button><button id="returnLog" class="secondary">Return to target log</button><button id="exportTracks" class="secondary" disabled>Export star catalogue</button></div><p>Positions within 3 arcseconds of a running centre can join a track only when the match is unambiguous in that exposure. Nearby competing detections are left unassigned. IDs stay fixed within this scan; new scans rebuild them. Coordinate labels are not catalogue identifications. A track can still split or contain a mistaken match. No eclipse or physical variability is confirmed.</p></section>
+<section class="panel" id="scanSession"><h2>2. Scan the session folder</h2><p>After loading a target CSV in step 1, scan or reopen its session folder here. Without a target log, scan directly to explore the field. When finished, continue to the gallery in step 3. If you import or change a log afterwards, scan again to refresh its reconciliation.</p><div class="toolbar"><label><input id="buildTracks" type="checkbox" checked>Build provisional star tracks</label><button id="chooseFolder">Read session folder</button><button id="reopenSession" class="secondary" disabled>Reopen remembered session folder</button><button id="chooseFrames" class="secondary">Select frame CSVs instead</button><input id="frames" class="hidden" type="file" multiple accept=".csv,text/csv"><button id="cancelScan" class="secondary" disabled>Cancel scan</button><button id="exportAudit" class="secondary" disabled>Export audit JSON</button></div><p id="folderHelp" class="status"></p><p class="privacy">Reads one CSV at a time. Originals are never changed or copied. FITS and JPEG files are counted only; image data is not loaded. Copy a completed observing session locally with Finder or Explorer first.</p><p id="scanProgress" class="status" role="status" aria-live="polite">No folder scanned.</p><div id="scanResult" class="status" style="white-space:pre-line"></div><hr><h3>Field stars · provisional associations</h3><p id="trackStatus" class="status">Scan a session folder to build coordinate-based tracks.</p><div class="toolbar"><label>Find ID, name or coordinates <input id="trackSearch" type="search"></label><label>Minimum observations <input id="trackMin" type="number" value="20" min="1" step="1"></label><label>Star <select id="trackSelect"></select></label><button id="plotTrack" disabled>View plot</button><button id="returnLog" class="secondary">Return to target log</button><button id="exportTracks" class="secondary" disabled>Export star catalogue</button></div><p>Positions within 3 arcseconds of a running centre can join a track only when the match is unambiguous in that exposure. Nearby competing detections are left unassigned. IDs stay fixed within this scan; new scans rebuild them. Coordinate labels are not catalogue identifications. A track can still split or contain a mistaken match. No eclipse or physical variability is confirmed.</p></section>
 <details class="panel gallery-section" id="galleryPanel" open><summary id="gallerySummary"><h2>3. Browse the light-curve gallery</h2></summary><p class="status">Open or close the gallery from this heading, its bottom button, or above the main chart. Selecting a tile opens its full curve in step 4; the switch below can also close the gallery. Back to gallery returns to the tile you selected.</p><div class="toolbar"><label><input id="autoCloseGallery" type="checkbox" checked>Close gallery when selecting a curve</label><label>Tile size <select id="tileSize"><option value="180">Small</option><option value="260" selected>Medium</option><option value="380">Large</option><option value="520">Extra large</option></select></label><label>Scale <select id="galleryScale"><option value="shared">Shared magnitude-change scale</option><option value="auto">Auto-scale each curve</option></select></label><label>Sort <select id="gallerySort"><option value="priority">Review priority</option><option value="coverage">Observation count</option><option value="range">Binned brightness range</option></select></label></div><p class="status">Uses the star search and minimum-observation filters above. Each thumbnail shows unfiltered 5-minute medians, centred on the star's median, over the same session timeline. Fainter is lower. Gaps over 15 minutes are disconnected. Click a curve to inspect it.</p><p class="status">Review priority is robust binned range relative to scatter, reduced for sparse coverage. It is not an eclipse probability or a matching-quality score. Track fragments and instrumental effects can rank highly. Auto-scale can exaggerate small changes.</p><p id="galleryStatus" class="status" role="status"></p><div id="curveGallery" class="curve-gallery"></div><div class="toolbar" style="margin-top:18px"><button id="collapseGalleryBottom" class="secondary" aria-controls="galleryPanel">Collapse gallery ↑</button><a href="#workflowTop">↑ Back to top</a></div></details>
 <section class="panel"><h2>Optional: identify the plotted star</h2><div class="toolbar"><button id="chooseCatalogue">Select ASTAP database folder</button><button id="reopenCatalogue" class="secondary" disabled>Reopen remembered database folder</button><button id="chooseCatalogueFiles" class="secondary">Select database files instead</button><input id="catalogueFiles" class="hidden" type="file" multiple accept=".1476"><label>Database <select id="catalogueSet"></select></label><button id="localLookup" disabled>Look up plotted star locally</button><a id="simbadLookup" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="hidden">SIMBAD: find identifier ↗</a></div><p class="status">First plot a field star, or load and select a target log. Local lookup reads only nearby ASTAP .1476 cells, within 10 arcseconds. No ASTAP application is needed. These compact catalogues provide positions and magnitudes, without star names. SIMBAD opens an external service only when you click its link, sharing the position and search radius.</p><p id="catalogueStatus" class="status" role="status">No local database selected.</p><pre id="catalogueResult" class="status" style="white-space:pre-wrap"></pre><div id="candidateLinks" class="status"></div></section>
 <section class="panel"><div class="toolbar"><strong>Remember folders on this browser</strong><button id="forgetFolders" class="secondary">Forget remembered folders</button></div><p id="folderMemoryStatus" class="status" role="status">Checking saved folder selections…</p><p class="privacy">Stores folder access handles in this browser, not observation contents. Nothing is read automatically on reopening the app. Use a Reopen button to start; the browser may request read permission again. Remembered folders may be unavailable in private browsing, after clearing browser data, or if the drive is disconnected.</p></section>
@@ -356,7 +356,7 @@ let raw = [], loaded = new Set, all = [], kept = [], binned = [], motion = {
  * Return raw records for exactly the selected trimmed target name (case-sensitive). Never combine different targets for analysis.
  */
 function selected() {
-  if(plottedTrack)return plottedTrack.rows.map(r=>({...r,name:plottedTrack.label}));
+  if(plottedTrack)return plottedTrack.rows.map(r=>({...r,name:trackTitle(plottedTrack)}));
   return raw.filter(r => r.name===$('target').value)
 }
 /**
@@ -488,12 +488,17 @@ function trackFrame(state,records,source){
     const {original,...r}=p.r;t.rows.push({...r,source});if(r.name)t.names.add(r.name);state.assigned++;
   }
 }
-function renderTracks(){
-  const q=$('trackSearch').value.toLowerCase(),min=Math.max(1,Number($('trackMin').value)||20);
-  const list=(fieldTracks?.tracks||[]).filter(t=>t.rows.length>=min&&(t.label+' '+[...t.names].join(' ')).toLowerCase().includes(q)).sort((a,b)=>b.rows.length-a.rows.length);
+// Normalize search only; preserve original reported names and scan IDs.
+function trackSearchKey(value){return String(value).normalize('NFKC').toLowerCase().replace(/\b(hd|hip|hr|sao)[\s-]*(\d+)/g,'$1$2').replace(/\s+/g,'');}
+function trackTitle(track){return [...track.names].join(' / ')+(track.names.size?' · ':'')+track.label;}
+function renderTracks(autoPlot=false){
+  const previous=$('trackSelect').value;
+  const q=trackSearchKey($('trackSearch').value),min=Math.max(1,Number($('trackMin').value)||20);
+  const list=(fieldTracks?.tracks||[]).filter(t=>t.rows.length>=min&&trackSearchKey(t.label+' '+[...t.names].join(' ')).includes(q)).sort((a,b)=>b.rows.length-a.rows.length);
   $('trackSelect').innerHTML=list.slice(0,500).map(t=>'<option value="'+esc(t.id)+'">'+esc(t.label+' · '+[...t.names].join('/')+' · '+t.rows.length+' observations')+'</option>').join('');
-  $('trackSelect').value=list[0]?.id||'';
+  $('trackSelect').value=(list.slice(0,500).find(t=>t.id===previous)||list[0])?.id||'';
   $('plotTrack').disabled=!list.length;$('exportTracks').disabled=!fieldTracks;
+  if(autoPlot&&list.length)plotFieldTrack($('trackSelect').value);
   renderGallery(list);
   $('trackStatus').textContent=fieldTracks?fieldTracks.tracks.length+' provisional tracks; '+fieldTracks.assigned.toLocaleString()+' assigned measurements; '+fieldTracks.ambiguous+' ambiguous rows unassigned; '+fieldTracks.invalid+' invalid coordinates; '+fieldTracks.skipped+' non-frame/duplicate-exposure files skipped. '+list.length+' meet this filter (first 500 shown).'+(fieldTracks.limited?' PARTIAL: 1.5 million measurement limit reached.':''):'No field tracks loaded.';
 }
@@ -547,12 +552,15 @@ function syncGallerySelection(){
     }
   }
 }
-function plotFieldTrack(id){
+function plotFieldTrack(id,showName=false){
   if(busy)return;
   plottedTrack=fieldTracks?.tracks.find(t=>t.id===id);
   syncGallerySelection();
   if(!plottedTrack)return;
-  $('target').innerHTML='<option>'+esc(plottedTrack.label)+'</option>';$('target').value=plottedTrack.label;
+  $('trackSelect').value=plottedTrack.id;
+  if(showName)$('trackSearch').value=[...plottedTrack.names].join(' / ')||plottedTrack.id;
+  const title=trackTitle(plottedTrack);
+  $('target').innerHTML='<option>'+esc(title)+'</option>';$('target').value=title;
   view=null;update();
 }
 // Return navigation changes only disclosure/scroll/focus state, never measurements.
@@ -1368,10 +1376,15 @@ $('catalogueFiles').onchange=e=>{
 };
 $('localLookup').onclick=lookupLocalCatalogue;
 $('catalogueSet').onchange=refreshLookup;
-$('trackSearch').oninput=renderTracks;$('trackMin').onchange=renderTracks;
-$('plotTrack').onclick=()=>plotFieldTrack($('trackSelect').value);
+$('trackSearch').oninput=()=>renderTracks(true);$('trackMin').onchange=()=>renderTracks(true);
+$('trackSelect').onchange=()=>plotFieldTrack($('trackSelect').value,true);
+$('plotTrack').onclick=()=>{
+  if(busy||!$('trackSelect').value)return;
+  if(plottedTrack?.id!==$('trackSelect').value)plotFieldTrack($('trackSelect').value,true);
+  focusSection($('mainView'));
+};
 $('tileSize').onchange=()=>{$('curveGallery').style.setProperty('--tile-size',$('tileSize').value+'px');};
-$('galleryScale').onchange=renderTracks;$('gallerySort').onchange=renderTracks;
+$('galleryScale').onchange=()=>renderTracks();$('gallerySort').onchange=()=>renderTracks();
 $('backToGallery').onclick=returnToGallery;
 $('galleryPanel').addEventListener('toggle',syncGalleryControls);
 $('collapseGalleryBottom').onclick=()=>{setGalleryOpen(false);focusSection($('gallerySummary'));};
@@ -1384,7 +1397,7 @@ $('curveGallery').onclick=e=>{
   const tile=e.target.closest('button[data-track]');if(!tile)return;
   if(busy)return;
   galleryReturnTile=tile;
-  plotFieldTrack(tile.dataset.track);
+  plotFieldTrack(tile.dataset.track,true);
   if($('autoCloseGallery').checked)setGalleryOpen(false);
   focusSection($('mainView'));
 };

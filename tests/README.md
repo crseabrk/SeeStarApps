@@ -53,3 +53,5 @@ Session-evidence prototype regression: `node tests/session-audit.cjs`. See [prev
 ## Optional screenshot walkthrough
 
 `node tests/walkthrough.cjs` verifies the seven synthetic-data screenshot assets against their hashes, required slide DOM IDs, relative links and navigation bounds/keys using a simulated DOM. Included in `run-all.cjs`. This checks static assets and logic, not native layout, assistive technology or browser painting. See `photometry/walkthrough/README.md` for actual capture provenance and `ENVIRONMENT-HANDOFF.md` for native checks.
+
+The star-track suite also checks normalized reported-name search beyond the dropdown limit, automatic selection plotting, selected-name input display, View plot focus/zoom preservation and no-match state. Native checks for the 2026-10-22 change are in ENVIRONMENT-HANDOFF.md.

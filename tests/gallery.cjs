@@ -65,6 +65,8 @@ console.log('PASS: compact marker/cache structure, optional auto-close, footer/m
 
 // Selection stays exclusive, follows gallery redraws, and clears with the target log.
 function selectionTile(id){return {dataset:{track:id},isConnected:true,setAttribute(k,v){this[k]=v;},scrollIntoView(){},focus(){this.focused=true;}};}
+// Clear the search populated by the earlier explicit gallery selection.
+element('trackSearch').value='';
 const first=selectionTile('fixture'),second=selectionTile('second');
 context.secondFixture={...dip,id:'second',label:'second'};
 vm.runInContext('fieldTracks.tracks.push(secondFixture)',context);

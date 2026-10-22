@@ -35,3 +35,7 @@ Nine suites pass with new checks for compact markers/caches, optional close-on-s
 ## 2026-10-21 screenshot walkthrough
 
 Seven unmodified screenshots were captured from the hosted analyzer in the Codex in-app browser using fictional target/frame CSVs through the file chooser. Target import, completed scan, gallery, selected full curve, highlighted return and enabled export controls were observed. This is demonstration evidence only; folder-picker permissions, catalogue lookup, downloaded exports and cross-platform compatibility were not established by the captures. A static-asset/hash and simulated slideshow-navigation suite passes. Analyzer runtime and scientific methods are unchanged; local stress-test code is excluded from the walkthrough and release.
+
+## 2026-10-22 named-track search integration
+
+Integrated the owner-supplied name-selection patch against cacf0ef. All ten automated suites pass on the Mac checkout, including normalized HD aliases, search before the 500-option cap, immediate plotting, reported-alias display, View plot focus/zoom retention and no-match preservation. Reviewed changes leave coordinate association and scientific formulas intact. Native browser, actual owner-held sessions, shared-alias and export rendering checks remain in the environment handoff; no native compatibility result is inferred from the simulated DOM.

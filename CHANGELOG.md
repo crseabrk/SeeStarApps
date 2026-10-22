@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-22 — Named-track search and immediate selection
+
+- Match compact/spaced HD names and common catalogue separators while retaining coordinate signs/decimals. Search all tracks before the 500-option display cap.
+- Automatically plot dropdown selections and matching search results; explicit selection shows reported aliases in the search input. Show aliases alongside scan IDs in charts/reports/exports, without changing association or original inputs.
+- Replace Plot selected star with View plot, which scrolls/focuses the chart and preserves existing zoom. No-match searches retain the previous chart and disable View plot.
+- Updated synthetic regressions and guides with OpenAI Codex assistance. `node tests/run-all.cjs` passes. All ten suites pass on the Mac integration checkout. Native Windows/macOS/iOS checks remain pending; owner-held session files were not used for these changes. Imported as an owner-supplied patch against `cacf0efb210f59b8b053c0244dc7bd354c9baf56`.
+
 ## 2026-10-21 — Synthetic-data screenshot walkthrough
 
 - Add an optional seven-slide walkthrough at `photometry/walkthrough/`, linked from the introduction and READMEs. Real hosted-app captures show fictional target/frame data, gallery selection and export controls; all data remains explicitly synthetic.
