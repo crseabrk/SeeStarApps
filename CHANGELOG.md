@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-22 — Current triage walkthrough
+
+- Replace historical screenshots with eight fresh captures of import/source runs, gallery, detailed curve, quality sliders, shortlist, filtered VStar export and optional setup.
+- Align all captions with visual triage and specialist time-series/FITS follow-up; add full-size screenshot links and responsive presentation. Repair the walkthrough document header, update capture provenance and manifest/hash/navigation checks.
+- Exercise actual synthetic import and a122-row quality-filtered VStar download. No private observations or stress harness included; analyzer runtime unchanged. OpenAI Codex assisted.
+
 ## 2026-10-22 — Clearer public validation wording
 
 - Describe tested workflows and VStar export compatibility directly, retaining version/platform limits. Remove internal participant wording from pages, app messages, export comments and guides. No analysis or filtering behavior changed. OpenAI Codex assisted.

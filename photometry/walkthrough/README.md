@@ -1,22 +1,25 @@
 # Analyzer walkthrough
 
-Open index.html in a browser. Seven slides with real unmodified JPEG screenshots of the hosted analyzer, captions, buttons, keyboard arrows and numbered dot navigation. No runtime dependencies or network calls are required; the optional About link navigates externally only on click. No autoplay.
+Eight slides show the current collection workflow: import, object/source runs, miniature gallery, full curve, SNR/uncertainty sliders, shortlist notes, quality-filtered VStar export and optional tools / next steps. Captions follow the project introduction’s focus on visual triage and traceable specialist follow-up.
 
-Captured 2026-10-21 in Codex in-app browser at its default narrow viewport. These are real app captures, not generated mockups. Synthetic target and field CSVs were selected through actual file chooser controls. Folder permission/listing and FITS/JPEG reads were not exercised. No private observations, catalogue database or stress-test data used. No automatic catalogue lookup or SIMBAD contact occurred. Export controls were enabled; downloads were not tested as part of this walkthrough.
+Open `index.html` directly or visit https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/. No runtime dependencies or automatic requests are required. Previous/Next, numbered dots and arrow/Home/End keys navigate; there is no autoplay. Click a screenshot to open its full-size original. Overview/analyzer links navigate only when clicked.
 
-Synthetic fixture: 180 exposures at a two-minute cadence across 358 minutes, 24 widely separated fixed positions, 4,320 measurements, a target log for SIM Demo 01, deliberately generated dips/waves/trends/flat profiles with seeded noise and a sensor-coordinate step. All 180 target rows reconciled exactly; 24 tracks and 4,320 assigned measurements; no ambiguous/invalid rows. This easy fixture is demonstrative, not a benchmark of real crowded-field completeness. Shapes are invented, not astrophysical models or detection evidence.
+## Capture provenance
 
-An actual full curve, gallery, auto-close, highlighted return and export-control state were inspected. Browser console returned no error logs at the end of capture. Existing screenshot limitations (narrow layout, clipped long chart titles and table overflow) are retained rather than retouched. A local slideshow source/asset check and navigation-state check accompany the build. Native Chrome/Windows/Safari slideshow rendering remains unverified.
+Captured 22 October 2026 from the hosted analyzer at revision `76c81073b29e31f29d352a78401ebb36bba86392`, in the Codex browser at its normal viewport. All eight images are unmodified browser JPEG captures. No private observations, catalogue records or stress repetitions appear. The source application and screenshot layout are real; January 2026 observations and their shapes are fictional.
 
-Published at https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/ and linked from the project introduction and guides. Screenshots and captions only are shipped; the local stress tool, raw observation files and synthetic fixture ZIP are excluded. Substantial OpenAI Codex assistance under Chris Seabrooke’s direction.
+Synthetic input: 180 field CSVs, each with 24 widely separated positions, plus a matching 180-row target CSV. The collection contains two source runs and 24 provisional objects. The selected target shows 180 unique observations and excludes 180 exact duplicate exports. Artificial SNR variation and uncertainty values demonstrate the filters; these are not a physical instrument noise model or a validation of crowded-field association.
+
+The file-picker fallback was exercised through actual browser controls, first target import then explicit Add of field CSVs. Directory permission prompts, device access and FITS/JPEG inventory were not exercised. Catalogue services were not queried.
+
+For the quality capture, minimum SNR20 and maximum uncertainty0.06 flag58 and55 observations, with55 in both groups. The unique total is58 and the filtered curve retains122 of180. Solid/striped histogram portions and labelled axes explain the distribution. A mark and shared review note were added through the main chart.
+
+The VStar export checkbox was enabled and the actual download completed. The file contains122 numeric rows with JD,magnitude,uncertainty and source comments. This walkthrough did not reopen that file in native VStar; ordinary and quality-filtered VStar2.25.0/macOS import was already tested separately. No passband calibration, AAVSO submission or complete eclipse detection is claimed. The final slide describes independent FITS follow-up; it does not depict FITS processing in this app.
+
+No browser errors were logged at the end of capture. The slideshow asset/manifest/navigation regressions pass. Native Windows/macOS browser and mobile layout/accessibility checks remain in `../../tests/ENVIRONMENT-HANDOFF.md`. Browser captures do not establish scientific significance or full platform compatibility.
 
 ## Maintenance
 
-Keep captions aligned with the actual captured UI. Regenerate screenshots through supported browser controls using fictional data only; never retouch results or fabricate intermediate states. Preserve synthetic labels and the limits on detection, associations and validation. Update manifest image hashes when replacing captures. The underlying analyzer snapshot is a09a270ca8ae31c3bb2738364550b013dec50074. Run `node tests/walkthrough.cjs` to check asset hashes, link targets and navigation state. No build step is needed to serve the walkthrough.
+The eight current images replace the earlier seven-slide historical sequence. Keep captions aligned with captured UI and the focused introduction. Regenerate through supported browser controls using clearly fictional data; do not retouch outcomes. Update `manifest.json` hashes, capture revision and evidence. `node tests/walkthrough.cjs` checks valid document structure, required DOM IDs, caption/manifest agreement, all image hashes and navigation boundaries. No build step is needed for hosting.
 
-## Capture age
-
-These screenshots predate the 2026-10-22 name-selection update. The current app uses View plot in place of Plot selected star, automatically updates the curve on dropdown/matching-search selection and includes reported aliases in track titles. The screenshots remain a labelled historical UI snapshot; their underlying measurement workflow is unchanged.
-
-
-The 22 October collection-triage release changes import/object/run selection, quality histograms and shortlist/Setup. These screenshots predate that layout. They remain an illustration of the gallery/curve/export idea; use the current introduction and guide for exact steps. Recapture with synthetic data on a future documentation pass.
+Substantial OpenAI Codex assistance under Chris Seabrooke’s direction. Analyzer runtime is unchanged by this walkthrough update.

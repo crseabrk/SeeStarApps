@@ -1,64 +1,88 @@
 {
-  "capture_date": "2026-10-21",
+  "capture_date": "2026-10-22",
+  "analyzer_revision": "76c81073b29e31f29d352a78401ebb36bba86392",
   "synthetic": true,
   "slides": [
     {
-      "image": "01-start.jpg",
-      "kicker": "START WITH YOUR SESSION",
-      "title": "From measurements to questions worth asking.",
-      "body": "Open a dedicated target log, or go straight to a field scan. The numbered sections guide you through the process.",
-      "note": "Actual hosted analyzer. All observations shown in this walkthrough are fictional, generated for demonstration."
+      "image": "01-import.jpg",
+      "kicker": "START WITH A QUESTION",
+      "title": "A first look at your Seestar measurements.",
+      "body": "Import target CSVs, a field folder or a completed MyWorks collection. Add observations in either order, then explore what deserves a closer look.",
+      "note": "Free, browser-local and read-only. Every measurement in these screenshots is fictional; no private observing data is shown."
     },
     {
-      "image": "02-target-curve.jpg",
-      "kicker": "01 · TARGET LOG",
-      "title": "See the target’s night unfold.",
-      "body": "A named-target CSV produces a light curve with measurements and clock-aligned median bins. Here a deliberately simulated dip fades and recovers.",
-      "note": "Smaller magnitude means brighter. The dip was built into the demo data; this is not a real eclipse detection."
+      "image": "02-object-runs.jpg",
+      "kicker": "KEEP THE EVIDENCE TOGETHER",
+      "title": "One object. Its source runs.",
+      "body": "Choose an object and the runs to include. Inspect target/field overlap before combining observations: this example keeps 180 measurements and excludes 180 duplicate exports.",
+      "note": "Two exports of the same observation are not independent confirmation. Coordinate associations are provisional; different-night brightness offsets are not automatically corrected."
     },
     {
-      "image": "03-scan-results.jpg",
-      "kicker": "02 · SCAN THE SESSION",
-      "title": "Check what the frame files add.",
-      "body": "This run reads 180 synthetic frame CSVs and associates 4,320 measurements into 24 provisional tracks. All 180 target-log rows match their frame counterparts.",
-      "note": "Captured using “Select frame CSVs instead.” The native folder picker and FITS/JPEG inventory were not demonstrated. Matching exports are the same observation, not independent confirmation."
+      "image": "03-gallery.jpg",
+      "kicker": "COMPARE THE FIELD",
+      "title": "View all your miniature curves.",
+      "body": "Browse every curve matching the gallery filters. Choose tile size and scale, then sort by review priority, coverage or range to decide what to inspect.",
+      "note": "These 24 fictional objects contain invented dips, waves and trends. Review priority is a browsing aid, not an eclipse probability or a complete search for events."
     },
     {
-      "image": "04-gallery.jpg",
-      "kicker": "03 · BROWSE THE FIELD",
-      "title": "Let your eye explore the curves.",
-      "body": "Actual miniature curves share a timeline and magnitude-change scale. Tile size, scaling and review-priority sorting help you choose what to inspect.",
-      "note": "Review priority is an exploratory heuristic, not an eclipse probability. These fictional stars include dips, waves, trends and nearly flat curves."
+      "image": "04-inspect.jpg",
+      "kicker": "LOOK MORE CLOSELY",
+      "title": "Open the curve behind a thumbnail.",
+      "body": "Select a miniature to inspect its measurements and binned trend. The gallery can close automatically; Back to gallery returns to the highlighted tile.",
+      "note": "Check gaps, uncertainty and tracking before interpreting a shape. An interesting curve can reflect a real change, noise or the measurement process."
     },
     {
-      "image": "05-inspect.jpg",
-      "kicker": "04 · INSPECT A CURVE",
-      "title": "One click opens the detail.",
-      "body": "Select a thumbnail to open its full light curve. The gallery can close automatically, leaving the main chart ready for inspection.",
-      "note": "Coordinate-based tracks remain provisional. A good-looking curve does not validate its identity or establish an astrophysical cause."
+      "image": "05-quality-sliders.jpg",
+      "kicker": "UNDERSTAND THE QUALITY",
+      "title": "See what a cutoff will remove.",
+      "body": "Bar height counts measurements. SNR and uncertainty sliders span the loaded range; striped portions show which values fail each cutoff. Enable Hide flagged measurements to see the filtered curve.",
+      "note": "Here SNR flags 58 and uncertainty flags 55, with 55 in both groups: 58 unique flags, leaving 122 of 180 measurements. Uncertainty is measurement error, not brightness. Gallery thumbnails remain unfiltered."
     },
     {
-      "image": "06-selected.jpg",
-      "kicker": "KEEP YOUR PLACE",
-      "title": "Return without losing your star.",
-      "body": "Back to gallery reopens the miniature curves and returns to the current selection. Its outline and Selected label make it easy to find again.",
-      "note": "This screenshot shows the actual selected-tile state after the browser’s return scroll completed."
+      "image": "06-shortlist.jpg",
+      "kicker": "MAKE A SHORTLIST",
+      "title": "Mark a question worth following up.",
+      "body": "Mark an object beside its main chart, selector or gallery tile. Add a review note; the controls share the same shortlist so you can move between views.",
+      "note": "Marks mean “investigate further”, not “confirmed variable”. Download notes and provenance before refreshing; they do not restore a complete workspace."
     },
     {
-      "image": "07-export.jpg",
-      "kicker": "TAKE THE NEXT STEP",
-      "title": "Keep a useful record.",
-      "body": "The analyzer offers chart PNG, processed-bin CSV and report exports for closer investigation or sharing. Optional catalogue lookups are available elsewhere in the app.",
-      "note": "This slide shows enabled export controls; export downloads and catalogue lookups were not exercised in this walkthrough. It is an exploration/preparation tool, not calibrated discovery confirmation."
+      "image": "07-vstar-export.jpg",
+      "kicker": "HAND OFF THE MEASUREMENTS",
+      "title": "Take selected observations into VStar.",
+      "body": "Export the current object and included runs. The optional quality switch applies your cutoffs to individual measurements. Open the downloaded text file in VStar using its simple-format reader.",
+      "note": "This capture produced a 122-row download with original start JD, magnitude and uncertainty. Ordinary and filtered exports are tested in VStar 2.25.0 on macOS. No passband calibration or AAVSO submission is implied."
+    },
+    {
+      "image": "08-next-step.jpg",
+      "kicker": "CHOOSE THE NEXT STEP",
+      "title": "Triage here. Analyse further when needed.",
+      "body": "Setup groups optional ASTAP catalogue access, VStar guidance and remembered folders. Use VStar for deeper time-series work, or take the original FITS exposures to a dedicated tool for independent photometry.",
+      "note": "FITS remeasurement needs image pixels, calibration and comparison-star choices. This analyzer explores exported measurements; it does not perform FITS photometry or automatically confirm discoveries."
     }
   ],
   "image_sha256": {
-    "01-start.jpg": "c2c50859e2e60263d8363a95846b15014fac7b06bb6c24b44de713ef343c6cb5",
-    "02-target-curve.jpg": "95b9b7e20b44463bdf8ca555ac755ade11e3daaddd2cf3aef71e88b5d3da29ff",
-    "03-scan-results.jpg": "8dd153a636c4aaa3824d5c9b9635d58fc47249d937dfca835cc89d6a8839a75f",
-    "04-gallery.jpg": "620617add370e0cdd48c54df6b9ba7c02e52d620cef9cfb6fe5d421b58d57e22",
-    "05-inspect.jpg": "dfb3948e7e2f1261d3b70dd5961e569639ac25801c5829bf3d4e5857a8d67256",
-    "06-selected.jpg": "64dd808772d4dd89b6a6479582e7fc17d12b08c50971edfa16284f08ea0362d9",
-    "07-export.jpg": "8693d48f4ffc2f781a31b481d33b9ce24f8f65522b5a029dfc640292f3c469a6"
+    "01-import.jpg": "52d22f43d48ec2f3193905d1a9ed07953072e4435a5181224b29becfd65a09af",
+    "02-object-runs.jpg": "d362ae302099d16560073bedf4e53d65fb4ec6d164d650c56f17d0b6b62d5789",
+    "03-gallery.jpg": "4445d42346baa082b9d29b27793dc0f921629d26fdd2bf3db71bfd89e4d43d52",
+    "04-inspect.jpg": "b417583e448190fbdc8b200d402a7eb633a6e64111b5c2fae448bb99580e5622",
+    "05-quality-sliders.jpg": "441f8e154ba1fa7b54976ac087f470fdd91006ab042d5c3b61d3867ef9fed9cb",
+    "06-shortlist.jpg": "23864f533c41761b9b12e4ae9e9c0798ee56e089997022ad055d1cbaadedffd5",
+    "07-vstar-export.jpg": "4fa5ea111960cfc22e1aac586a81557e9a5dd2f1cc0813b0fea97f7f3b949827",
+    "08-next-step.jpg": "e27f1f89c9f464a41f541454b5cac7891865211b5867bb98588859113efc33d2"
+  },
+  "capture_evidence": {
+    "input_csvs": 181,
+    "source_runs": 2,
+    "provisional_objects": 24,
+    "target_unique_rows": 180,
+    "target_duplicate_exports": 180,
+    "snr_minimum": 20,
+    "uncertainty_maximum": 0.06,
+    "snr_flagged": 58,
+    "uncertainty_flagged": 55,
+    "both_flagged": 55,
+    "total_flagged": 58,
+    "retained": 122,
+    "vstar_download_rows": 122
   }
 }
