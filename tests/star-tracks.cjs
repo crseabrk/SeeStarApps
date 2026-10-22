@@ -19,3 +19,31 @@ element('trackMin').value='1';element('trackMin').onchange();element('plotTrack'
 assert.equal(vm.runInContext('all.length',context),1);assert.match(element('warning').textContent,/Provisional/);
 element('returnLog').onclick();assert.equal(vm.runInContext('all.length',context),0);
 console.log('PASS: select track, plot through existing analysis, association warning, return to original log');
+
+// Reported names are searchable aliases; scan IDs remain distinct identities.
+context.namedTracks=Array.from({length:502},(_,i)=>({
+  v:api.skyVector(89.061,7.48725),id:'SCAN-test-'+i,label:'SCAN-test-'+i+' · 89.06100 +7.48725',
+  names:new Set(i===501?['HD 39951']:i===500?['HD 249516']:[]),
+  rows:[{ra:89.061,dec:7.48725,jd:2461333,mag:9+i/1000,local:NaN,name:i===501?'HD 39951':'',source:'synthetic.csv',row:2}]
+}));
+vm.runInContext('fieldTracks={tracks:namedTracks,assigned:502,ambiguous:0,invalid:0,skipped:0};',context);
+for(const query of ['HD39951','hd 39951','  HD-39951  ']){
+  element('trackSearch').value=query;element('trackSearch').oninput();
+  assert.equal(element('trackSelect').value,'SCAN-test-501');
+  assert.equal(vm.runInContext('plottedTrack.id',context),'SCAN-test-501');
+  assert.match(element('target').value,/HD 39951/);
+  assert.equal(element('trackSearch').value,query); // typing is not overwritten
+}
+element('trackSearch').value='';element('trackSearch').oninput();
+element('trackSelect').value='SCAN-test-500';element('trackSelect').onchange();
+assert.equal(element('trackSearch').value,'HD 249516');
+assert.equal(vm.runInContext('plottedTrack.id',context),'SCAN-test-500');
+let navigated=0;element('mainView').scrollIntoView=()=>navigated++;
+element('plotTrack').onclick();assert.equal(navigated,1);
+const sameView=vm.runInContext('view={x0:1,x1:2,y0:3,y1:4};JSON.stringify(view)',context);
+element('plotTrack').onclick();assert.equal(vm.runInContext('JSON.stringify(view)',context),sameView);
+element('trackSearch').value='no such star';element('trackSearch').oninput();
+assert.equal(element('plotTrack').disabled,true);
+assert.equal(vm.runInContext('plottedTrack.id',context),'SCAN-test-500');
+assert.notEqual(vm.runInContext("trackSearchKey('-7.4')",context),vm.runInContext("trackSearchKey('+7.4')",context));
+console.log('PASS: compact/spaced catalogue names, full-list search beyond 500, automatic plotting, selected-name display, view navigation/zoom preservation and no-match state');

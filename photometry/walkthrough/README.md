@@ -13,3 +13,7 @@ Published at https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/ and 
 ## Maintenance
 
 Keep captions aligned with the actual captured UI. Regenerate screenshots through supported browser controls using fictional data only; never retouch results or fabricate intermediate states. Preserve synthetic labels and the limits on detection, associations and validation. Update manifest image hashes when replacing captures. The underlying analyzer snapshot is a09a270ca8ae31c3bb2738364550b013dec50074. Run `node tests/walkthrough.cjs` to check asset hashes, link targets and navigation state. No build step is needed to serve the walkthrough.
+
+## Capture age
+
+These screenshots predate the 2026-10-22 name-selection update. The current app uses View plot in place of Plot selected star, automatically updates the curve on dropdown/matching-search selection and includes reported aliases in track titles. The screenshots remain a labelled historical UI snapshot; their underlying measurement workflow is unchanged.

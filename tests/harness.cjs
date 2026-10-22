@@ -12,6 +12,7 @@ function createHarness() {
     if (!elements.has(id)) elements.set(id, {
       value:{importMode:'replace',bin:'5',threshold:'30',theme:'starlight'}[id] || '',
       checked:['points','median','events','variability'].includes(id),
+      scrollIntoView(){},focus(){},
       style:{},innerHTML:'',textContent:'',
       setAttribute(name,value){this[name]=String(value);},
       querySelectorAll(){return [];},
