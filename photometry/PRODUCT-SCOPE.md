@@ -28,7 +28,7 @@ The analyzer helps users understand existing Seestar measurements and prepare ob
 
 The app imports target logs and field folders into provisional objects with selectable source runs, exact observation-overlap handling, a miniature-curve gallery, reference-role browsing, quality distributions and a shortlist. It offers explicit local ASTAP .1476 lookup, click-only SIMBAD links, individual-measurement VStar export and review/provenance JSON. See the user guide for shipped limits.
 
-Cross-run positional associations are provisional, not verified persistent catalogue identities. Track counts are not unique-star counts. Review priority is a heuristic, not eclipse likelihood. Robust identity/completeness, deeper comparison diagnostics, FITS metadata/pixel processing and calibration remain separate future work. VStar simple export is available; owner-tested loading is not scientific validation.
+Cross-run positional associations are provisional, not verified persistent catalogue identities. Track counts are not unique-star counts. Review priority is a heuristic, not eclipse likelihood. Robust identity/completeness, deeper comparison diagnostics, FITS metadata/pixel processing and calibration remain separate future work. VStar simple export is available; tested file loading is not scientific validation.
 Targeted analysis remains the validation anchor. General scanning must not expand the scientific promise beyond inspection of provisional associations and existing Seestar measurements.
 
 ## Browser and source-file safety

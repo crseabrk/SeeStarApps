@@ -8,7 +8,7 @@ Synthetic fixture: 180 exposures at a two-minute cadence across 358 minutes, 24 
 
 An actual full curve, gallery, auto-close, highlighted return and export-control state were inspected. Browser console returned no error logs at the end of capture. Existing screenshot limitations (narrow layout, clipped long chart titles and table overflow) are retained rather than retouched. A local slideshow source/asset check and navigation-state check accompany the build. Native Chrome/Windows/Safari slideshow rendering remains unverified.
 
-Published at https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/ and linked from the project introduction and guides. Screenshots and captions only are shipped; the local stress tool, raw observation files and synthetic fixture ZIP are excluded. Substantial OpenAI Codex assistance under owner direction.
+Published at https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/ and linked from the project introduction and guides. Screenshots and captions only are shipped; the local stress tool, raw observation files and synthetic fixture ZIP are excluded. Substantial OpenAI Codex assistance under Chris Seabrooke’s direction.
 
 ## Maintenance
 
