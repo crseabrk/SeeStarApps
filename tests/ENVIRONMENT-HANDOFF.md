@@ -71,3 +71,8 @@ On the published collection-triage revision (record `git rev-parse HEAD`), run a
 5. Test keyboard focus, narrow layouts, range controls, chart gestures, downloads and print. The screenshot walkthrough shows an older workflow; its captions now flag that limitation.
 
 Required remaining environments: current macOS Chrome/Firefox/Safari (local HTML and hosted), Windows Edge/Chrome plus Firefox (local and hosted), and iOS/iPadOS Safari hosted with actual touch controls. Older Safari results do not cover collection/quality changes. Windows remains paused until Chris explicitly resumes that session. Polling remains off; no role/identity/cursor changes are requested.
+
+
+## Refreshed triage walkthrough — 22 October 2026
+
+Eight new hosted-app captures replace the earlier sequence: collection/source runs, gallery, detailed curve, data-range quality sliders and histogram flags, shared shortlist, filtered VStar download and optional tools. Synthetic download verified122 rows at demonstrated cutoffs; no native VStar reimport in this capture. Test the refreshed slideshow in macOS Safari/Chrome/Firefox, Windows Edge/Chrome/Firefox and mobile Safari: all eight images load, full-size links target the displayed screenshot, Previous/Next/dots/arrows/Home/End stay in bounds, captions remain readable at narrow widths, and overview/analyzer links resolve locally and hosted. No native matrix pass is inferred from Codex browser capture or VM navigation tests. Polling remains off.

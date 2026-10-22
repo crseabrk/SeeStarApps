@@ -20,7 +20,7 @@ The collection lives at `/SeeStarApps/`, this project overview at `/SeeStarApps/
 
 ## See it in action
 
-[Browse the seven-slide walkthrough](https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/) for real app screenshots using clearly labelled fictional observations: target import, frame reconciliation, gallery, full curve, selected-tile return and export controls. It runs offline from `walkthrough/index.html` with its images folder. Use buttons or arrow keys. Captures use the CSV-selection fallback in the Codex browser; native folder selection, catalogue lookup and export downloads are not demonstrated. Screenshots show the earlier workflow; the current collection and quality controls are described below. See [capture provenance and maintenance](walkthrough/README.md). The local stress experiment is excluded from the release.
+[Browse the eight-slide walkthrough](https://crseabrk.github.io/SeeStarApps/photometry/walkthrough/) for current app screenshots using fictional observations: collection import, object/run overlap, miniature gallery, full curve, quality sliders and histograms, shortlist notes, filtered VStar export and specialist follow-up. Buttons, numbered dots and arrow keys navigate; screenshots open at full size when clicked. A synthetic VStar download was exercised. Folder permissions and FITS processing are not demonstrated. See [capture provenance and maintenance](walkthrough/README.md). The stress experiment remains excluded.
 
 ## AI development disclosure
 

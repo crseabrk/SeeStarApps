@@ -28,7 +28,7 @@ GitHub Pages deploys `main` from the repository root. The tool URL is `https://c
 
 ## Screenshot walkthrough
 
-`walkthrough/index.html` is an optional standalone seven-slide companion with local JPEG assets, manifest and capture/maintenance README. The introduction links to it; it has no analyzer state, data uploads, dependencies or autoplay. All screenshots use fictional data. It is separate from the development-only stress experiment and does not change the analyzer runtime.
+`walkthrough/index.html` is an optional standalone eight-slide companion with local JPEG assets, manifest and capture/maintenance README. The introduction links to it; it has no analyzer state, data uploads, dependencies or autoplay. All screenshots use fictional data. It is separate from the development-only stress experiment and does not change the analyzer runtime.
 
 ## Data flow
 
