@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-22 — Project origin and interpreting observations
+
+- Add Chris Seabrooke’s account of moving from portable automatic imaging to learning photometry, near the start of the introduction and guide. The Seestar3.4 reference describes that personal experience.
+- Explain stellar versus transit/eclipsing causes, observational artifacts, and independently observing an already-known event. Link primary educational references and keep measurement precision, timing and attribution limits explicit. Static documentation only; analyzer runtime unchanged. OpenAI Codex assisted.
+
 ## 2026-10-22 — Current triage walkthrough
 
 - Replace historical screenshots with eight fresh captures of import/source runs, gallery, detailed curve, quality sliders, shortlist, filtered VStar export and optional setup.

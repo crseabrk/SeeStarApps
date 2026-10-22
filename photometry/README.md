@@ -4,6 +4,14 @@ Maintainers: [Architecture and data model](ARCHITECTURE.md) · [Changelog](../CH
 
 Branded **Seabrooke.Astronomy**.
 
+## Why this project exists
+
+I bought my Seestar as an easy, portable, automatic telescope for creating images. I wasn’t thinking about scientific observing. When I encountered photometry in the Seestar 3.4 release, I wanted to understand what it was and what I could learn from the data.
+
+This project is that learning journey: an accessible way to inspect measurements, ask better questions and decide what deserves further investigation. Measuring an already-known event can be rewarding and useful; an original discovery is not the requirement.
+
+— Chris Seabrooke
+
 ## Purpose and expectations
 
 > Explore your Seestar measurements, assess their consistency, and identify observations worth investigating further.
@@ -25,6 +33,16 @@ The collection lives at `/SeeStarApps/`, this project overview at `/SeeStarApps/
 ## AI development disclosure
 
 This project was developed with substantial **OpenAI Codex** assistance under the direction of **Chris Seabrooke / Seabrooke.Astronomy**. Codex generated and revised the application code, analysis heuristics, themes, synthetic data generator, tests, and documentation. Chris supplied requirements, real test observations, feedback, and publication direction. See [AI-DISCLOSURE.md](../AI-DISCLOSURE.md) for the scope of AI involvement and verification limits. Automated checks do not constitute independent scientific validation.
+
+## Observing a change versus identifying its cause
+
+Brightness variations can arise from stellar pulsation/activity, a companion eclipsing the star or a planet transiting it. Recorded changes can also arise from atmosphere, blending, tracking or reduction. A real variation does not by itself identify which mechanism caused it. A known planet host can show unrelated stellar activity, and not every planet transits from our line of sight.
+
+You can independently observe a known transit or a known variable’s brightness change without discovering it. For a transit, verify target identity, expected transit window/duration/depth, baseline before and after where possible, sufficient precision and comparison-star/instrumental checks. Match timing conventions carefully: the analyzer exports exposure-start JD, not midpoint BJD/HJD. Repeated observations or independent FITS photometry can strengthen the result; neither is a substitute for checking the data you have. No fixed SNR slider value establishes a transit detection.
+
+Describe a preliminary result as “a dip consistent with the predicted transit”. A well-supported result can be described as “I observed the transit of the known planet”. The app does not make that determination automatically. Planetary transits generally demand finer precision than many variable-star observations; demonstrate achievable scatter and systematics for the target, rather than assuming the telescope can detect every transit.
+
+References: [NASA transit explanation](https://science.nasa.gov/exoplanets/whats-a-transit/), [NASA confirmation/alternative-explanation overview](https://science.nasa.gov/universe/exoplanets/10-steps-to-confirm-a-planet-around-another-star/), [AAVSO exoplanet observing guidance](https://aavso.org/exoplanet-photometry/), and [AAVSO variable-star classification](https://www.aavso.org/sites/default/files/Variable%20Star%20Classification%20and%20Light%20Curves%20Manual%202.1.pdf).
 
 ## Collection workflow
 
