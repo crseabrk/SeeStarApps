@@ -26,17 +26,16 @@ The analyzer helps users understand existing Seestar measurements and prepare ob
 
 ## Current capability versus planned work
 
-The app supports named-target logs, exact same-exposure target/frame reconciliation, and an experimental field scan: provisional coordinate associations, scan-local IDs, selected curves and a miniature-curve gallery. It also offers explicit local ASTAP .1476 candidate lookup and click-only SIMBAD links. These are current capabilities with the limitations documented in [the user guide](README.md).
+The app imports target logs and field folders into provisional objects with selectable source runs, exact observation-overlap handling, a miniature-curve gallery, reference-role browsing, quality distributions and a shortlist. It offers explicit local ASTAP .1476 lookup, click-only SIMBAD links, individual-measurement VStar export and review/provenance JSON. See the user guide for shipped limits.
 
-The field matcher is conservative and can produce fragmented tracks and many unassigned measurements. Track counts are not unique-star counts. Review priority is a heuristic, not eclipse likelihood. IDs persist within a scan; exported catalogues are snapshots, not resumable sessions. Robust cross-session identity, better association completeness, comparison-star diagnostics, FITS-header integration and specialist handoff formats remain planned.
-
+Cross-run positional associations are provisional, not verified persistent catalogue identities. Track counts are not unique-star counts. Review priority is a heuristic, not eclipse likelihood. Robust identity/completeness, deeper comparison diagnostics, FITS metadata/pixel processing and calibration remain separate future work. VStar simple export is available; owner-tested loading is not scientific validation.
 Targeted analysis remains the validation anchor. General scanning must not expand the scientific promise beyond inspection of provisional associations and existing Seestar measurements.
 
 ## Browser and source-file safety
 
 All user workflows remain browser-local and usable without a required backend, runtime service or installation. No observation uploads or telemetry. User-selected local catalogue files and browser-stored directory handles are optional. External catalogue services are contacted only through an explicit user-clicked link. Source folders are read-only: never move, rename, overwrite or delete observations.
 
-Recommend copying a completed session with Finder/Explorer before analysis. Do not describe temporary browser reads as a durable local copy. Browser-managed copying and live acquisition monitoring are outside the initial scope.
+Permit reading a completed session directly from an accessible device folder; copying locally with Finder/Explorer is optional. Do not describe temporary browser reads as a durable local copy. Browser-managed copying and live acquisition monitoring are outside the initial scope.
 
 Scan progressively with bounded memory, visible progress and cancellation. A failed or cancelled scan must leave originals untouched and label partial results explicitly. Retain the last valid session until a replacement is accepted. The current scanner reads CSVs and counts FITS/JPEG files. Future metadata work should read FITS headers first; load previews or image pixels only on demand. Do not decode an entire large image collection into memory.
 

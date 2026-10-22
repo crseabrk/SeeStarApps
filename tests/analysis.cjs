@@ -52,32 +52,4 @@ const movement = api.movements(api.timeline(positions),30);
 assert.equal(movement.events.length,1);
 assert(movement.events[0].artifact);
 
-// Exercise import ownership and quality state with the actual UI functions.
-vm.runInContext('globalThis.testImport=importFiles;globalThis.snapshot=()=>({raw,kept,all,view})', context);
-const file = (filename, target, mag)=>({name:filename,text:async()=>`Name,Mag(obs),EXP start,SNR,Mag(err)\n${target},${mag},2026.10.19 23:59:00,50,.02`});
-(async()=>{
-  await context.testImport([file('a.csv','A',10)]);
-  element('snr').value='1000'; element('hide').checked=true;
-  vm.runInContext('update()',context);
-  assert.equal(context.snapshot().kept.length,0);
-  assert.equal(context.snapshot().raw.length,1);
-  await context.testImport([file('b.csv','B',11)]);
-  assert.equal(element('target').value,'B');
-  assert.equal(element('snr').value,'');
-  assert.equal(element('hide').checked,false);
-  assert.equal(context.snapshot().raw.length,1);
-  element('importMode').value='append';
-  await context.testImport([file('a.csv','A',10)]);
-  assert.equal(context.snapshot().raw.length,2);
-  assert.equal(context.snapshot().all.length,1); // still selected B, not mixed
-  await context.testImport([file('a.csv','A',10)]);
-  assert.equal(context.snapshot().raw.length,2);
-  const saved = plain(context.snapshot().raw);
-  element('importMode').value='replace';
-  await context.testImport([{name:'bad.csv',text:async()=>'invalid'}]);
-  assert.deepEqual(plain(context.snapshot().raw),saved);
-  await context.testImport([file('c.csv','C',12),file('d.csv','D',13)]);
-  assert.equal(context.snapshot().raw.length,2);
-  assert.equal(element('target').value,'C');
-  console.log('PASS: CSV edge cases, missing values, clocks/MJD, bins/SD, screening fixtures, tracking, import/reset/append/dedup/target/filter state');
-})().catch(error=>{console.error(error);process.exitCode=1;});
+console.log('PASS: CSV edge cases, missing values, clocks/MJD, bins/SD, screening fixtures and tracking overlap; current collection import/state is tested in collection.cjs');

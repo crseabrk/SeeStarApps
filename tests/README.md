@@ -55,3 +55,8 @@ Session-evidence prototype regression: `node tests/session-audit.cjs`. See [prev
 `node tests/walkthrough.cjs` verifies the seven synthetic-data screenshot assets against their hashes, required slide DOM IDs, relative links and navigation bounds/keys using a simulated DOM. Included in `run-all.cjs`. This checks static assets and logic, not native layout, assistive technology or browser painting. See `photometry/walkthrough/README.md` for actual capture provenance and `ENVIRONMENT-HANDOFF.md` for native checks.
 
 The star-track suite also checks normalized reported-name search beyond the dropdown limit, automatic selection plotting, selected-name input display, View plot focus/zoom preservation and no-match state. Native checks for the 2026-10-22 change are in ENVIRONMENT-HANDOFF.md.
+
+
+## Collection and quality release — 22 October 2026
+
+`run-all.cjs` now includes twelve suites. New `collection.cjs` and `collection-layout.cjs` exercise the authoritative runtime with synthetic fixtures: mixed imports, source runs, positional grouping rather than name-only merging, exact duplicates/conflicts, cancellation/add/replacement, reference roles, VStar start-JD export, marks/notes, disclosures, setup, histogram bins and quality overlap counts. Theme checks assert CSS variable binding for all five themes, not pixel contrast. Historical name-based import ownership checks in analysis.cjs were replaced by collection-state checks; clock-only parser tests remain. Folder/navigation/cache expectations reflect current collection semantics. Native checks remain in ENVIRONMENT-HANDOFF.md.

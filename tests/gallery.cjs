@@ -43,7 +43,7 @@ assert.equal((svg.match(/<path /g)||[]).length,3);
 assert.equal((svg.match(/<circle /g)||[]).length,0);
 const markerPath=[...svg.matchAll(/<path d="([^"]*)"/g)][2][1];
 assert.equal((markerPath.match(/h0 /g)||[]).length,c.bins.length);
-assert.ok(c.bins.every(b=>Object.keys(b).sort().join(',')==='median,t'));
+assert.ok(c.bins.every(b=>Object.keys(b).sort().join(',')==='median,runId,t'));
 assert.equal(dip.curveCache.svg,undefined);
 let footerFocused=false;
 element('gallerySummary').focus=()=>{footerFocused=true;};
