@@ -12,7 +12,7 @@ These repository-wide instructions supplement the human user's request. Read `RE
 ## Scientific invariants
 
 - Preserve original imported observations; filtering derives new views. Do not reject rows using `Is Variable`.
-- Keep target names separate. Same-name files combine within a single multi-file batch; combining with previously imported data requires explicit Add to session mode.
+- Collection objects use conservative positional association, never name-only identity. Keep source runs/provenance separate, deduplicate exact observation keys and flag conflicts. Adding to accepted observations requires explicit Add to collection. See photometry/COLLECTION-WORKFLOW.md.
 - JD/MJD establish chronology when available. Recorded clock timestamps determine clock-aligned bins. Do not apply browser-local timezone conversions or assume exposure equals cadence.
 - Magnitudes are inverted. Sample SD uses N−1 and is undefined for one row. Missing numerical values remain missing, not zero.
 - Never interpolate missing data silently. Preserve gap rules, legends, warnings, and measurement counts.

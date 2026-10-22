@@ -39,3 +39,8 @@ Seven unmodified screenshots were captured from the hosted analyzer in the Codex
 ## 2026-10-22 named-track search integration
 
 Integrated the owner-supplied name-selection patch against cacf0ef. All ten automated suites pass on the Mac checkout, including normalized HD aliases, search before the 500-option cap, immediate plotting, reported-alias display, View plot focus/zoom retention and no-match preservation. Reviewed changes leave coordinate association and scientific formulas intact. Native browser, actual owner-held sessions, shared-alias and export rendering checks remain in the environment handoff; no native compatibility result is inferred from the simulated DOM.
+
+
+## 22 October 2026 — Collection triage release
+
+Twelve synthetic/simulated-DOM suites passed against the release runtime via `node tests/run-all.cjs`. New tests cover import/run/identity/duplicate/conflict state, original-JD VStar output, reference provenance, shared shortlist controls, disclosures/setup and histogram quality counts/theme bindings. Owner-tested local workflow and Mac VStar 2.25.0 imports (ordinary and quality-filtered) provide targeted native evidence; the supplied screenshot shows an imported file with JD, magnitudes and error bars. Exact browser versions were not recorded. No scientific calibration, false-positive completeness or all-platform pass is claimed. Current native matrix and follow-up steps are in tests/ENVIRONMENT-HANDOFF.md.

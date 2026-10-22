@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-22 — Collection triage, quality distributions and VStar handoff
+
+- Promote the owner-reviewed local workflow: mixed MyWorks/field/target import, explicit replace/add, object/run selection, positional association, exact duplicate reconciliation and reference-role browsing.
+- Keep run offsets and boundaries visible; add shared shortlist marks/notes beside object, gallery and main chart, plus individual-observation VStar and provenance exports.
+- Add SNR/uncertainty sliders, labelled histograms, striped flagged portions and unique-total/reason/overlap counts. Histograms and sliders follow all themes.
+- Consolidate optional ASTAP/VStar/folder configuration in Setup; make major sections collapsible and preserve gallery return/selection.
+- Rewrite the introduction and guide around visual triage and follow-up with VStar or independent FITS photometry. Document absolute-JD requirements, partial limits, provisional identity and persistence/export boundaries.
+- Owner tested local workflow and ordinary/quality-filtered VStar 2.25.0 import on Mac. Twelve synthetic/simulated-DOM suites pass; full native platform checks remain pending. No observation files, local paths or stress-test harness are included. Substantial OpenAI Codex assistance.
+
+
 ## 2026-10-22 — Named-track search and immediate selection
 
 - Match compact/spaced HD names and common catalogue separators while retaining coordinate signs/decimals. Search all tracks before the 500-option display cap.

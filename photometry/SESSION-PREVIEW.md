@@ -1,5 +1,9 @@
 # Session and field analysis: implementation notes
 
+## Current collection workflow (22 October 2026)
+
+The collection workflow supersedes the older single-target/session import sequence described below. Read [COLLECTION-WORKFLOW.md](COLLECTION-WORKFLOW.md) for object/run state, import classification, exact overlap, reference roles, quality histograms, shortlist/VStar exports and limits. The runtime remains a single self-contained HTML file. Historical functions retained for regression/renderer reuse are not all visible user flows.
+
 This document describes the owner-authorized integration of the local prototypes into SeeStarApps. Prepared with substantial OpenAI Codex assistance. Private observation files, catalogue records and data-derived test statistics are not included. The user workflow is in [README.md](README.md).
 
 ## Session audit

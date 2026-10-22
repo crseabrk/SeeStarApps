@@ -4,12 +4,12 @@ const {context,element}=createHarness();
 assert.equal(element('chooseFolder').disabled,true);
 assert.ok(!fs.readFileSync('photometry/analyzer/index.html','utf8').includes('webkitdirectory'));
 let reads=0;
-const csv={name:'frame.csv',kind:'file',getFile:async()=>{reads++;return {size:120,text:async()=> 'Name,Mag(obs),EXP start(JD)\n,8,2461333.4'};}};
+const csv={name:'Magnitude_2s_20260101-010000.csv',kind:'file',getFile:async()=>{reads++;return {size:120,text:async()=> 'Name,RA,DEC,Mag(obs),EXP start(JD)\n,10,20,8,2461333.4'};}};
 const image={name:'image.fits',kind:'file',getFile:()=>{throw Error('must not read image');}};
 context.window.showDirectoryPicker=async options=>{assert.equal(options.mode,'read');return {name:'session',async *values(){yield image;yield {kind:'directory',name:'sub',async *values(){yield csv;}};}};};
 (async()=>{
  await element('chooseFolder').onclick();
- assert.equal(reads,1);assert.match(element('scanResult').textContent,/1 FITS/);assert.match(element('scanResult').textContent,/1 unnamed/);
+ assert.equal(reads,1);assert.match(element('collectionProgress').textContent,/Collection ready/);assert.equal(require('node:vm').runInContext('collection.objects.length',context),1);
  const prior=element('scanResult').textContent;
  context.window.showDirectoryPicker=async()=>{throw Object.assign(Error('cancel'),{name:'AbortError'});};
  await element('chooseFolder').onclick();assert.equal(element('scanResult').textContent,prior);

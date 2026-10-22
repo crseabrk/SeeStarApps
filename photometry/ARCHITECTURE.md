@@ -1,5 +1,9 @@
 # Photometry implementation guide
 
+## Current collection workflow (22 October 2026)
+
+The collection workflow supersedes the older single-target/session import sequence described below. Read [COLLECTION-WORKFLOW.md](COLLECTION-WORKFLOW.md) for object/run state, import classification, exact overlap, reference roles, quality histograms, shortlist/VStar exports and limits. The runtime remains a single self-contained HTML file. Historical functions retained for regression/renderer reuse are not all visible user flows.
+
 Read [product scope and expectations](PRODUCT-SCOPE.md) before designing changes. The original named-log pipeline and the added session/field workflows are documented below; detailed algorithms and limitations for the added features are in SESSION-PREVIEW.md.
 
 ## Start here

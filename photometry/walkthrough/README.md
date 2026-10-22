@@ -17,3 +17,6 @@ Keep captions aligned with the actual captured UI. Regenerate screenshots throug
 ## Capture age
 
 These screenshots predate the 2026-10-22 name-selection update. The current app uses View plot in place of Plot selected star, automatically updates the curve on dropdown/matching-search selection and includes reported aliases in track titles. The screenshots remain a labelled historical UI snapshot; their underlying measurement workflow is unchanged.
+
+
+The 22 October collection-triage release changes import/object/run selection, quality histograms and shortlist/Setup. These screenshots predate that layout. They remain an illustration of the gallery/curve/export idea; use the current introduction and guide for exact steps. Recapture with synthetic data on a future documentation pass.

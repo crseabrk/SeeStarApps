@@ -17,8 +17,8 @@ console.log('PASS: separate tracks, drift, fixed IDs, duplicate exposure rejecti
 vm.runInContext("fieldTracks=newTracks();trackFrame(fieldTracks,[{ra:10,dec:20,jd:2461333,mag:9,local:NaN,name:'',source:'frame.csv',row:2}], 'frame.csv');",context);
 element('trackMin').value='1';element('trackMin').onchange();element('plotTrack').onclick();
 assert.equal(vm.runInContext('all.length',context),1);assert.match(element('warning').textContent,/Provisional/);
-element('returnLog').onclick();assert.equal(vm.runInContext('all.length',context),0);
-console.log('PASS: select track, plot through existing analysis, association warning, return to original log');
+element('returnLog').onclick();assert.equal(vm.runInContext('all.length',context),1); // navigation preserves current object
+console.log('PASS: select track, plot through existing analysis, association warning, return to object controls without clearing the curve');
 
 // Reported names are searchable aliases; scan IDs remain distinct identities.
 context.namedTracks=Array.from({length:502},(_,i)=>({
